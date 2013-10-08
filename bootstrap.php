@@ -17,10 +17,15 @@ if( version_compare(PHP_VERSION, '5.3.0') >= 0 ){
         // Version of this directory
         $version = '0.1';
         
-        // Register global object.
-        // Hope this will be the only global object...
+        
+		
+		/**
+		 * @var array Global object for setting. Hope this will be the only global object...
+		 */
         global $wpametu;
-        if( !is_array($wpametu) || !array_key_exists('initialized', $wpametu)){
+		
+		// Register global object.
+        if( !isset($wpametu) || !is_array($wpametu) || !array_key_exists('initialized', $wpametu)){
             $wpametu = array(
                 'initialized' => false,
                 'version' => 0,
@@ -38,7 +43,7 @@ if( version_compare(PHP_VERSION, '5.3.0') >= 0 ){
                     $wpametu['base'] = dirname($wpametu['file']);
                     require $wpametu['file'];
                     // Register autoloader
-                    spl_autoload_register('wpametu_autoload');
+                    spl_autoload_register('\Wpametu\autoload');
                 }elseif( WP_DEBUG ){
                     trigger_error(sprintf('Unable to load wpametu Framework\'s bootstrap file(%s).', $wpametu['file']), E_USER_WARNING);
                 }
