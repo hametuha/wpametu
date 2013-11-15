@@ -1,13 +1,22 @@
 <?php
 /** 
+ * Load this file from you theme or plugin
  * 
+ * <code>
+ * // from theme
+ * get_template_part('wpametu/bootstrap');
  * 
+ * // from plugin
+ * require plugin_dir_path(__FILE__).'wpametu/bootstrap.php';
+ * </coce>
  * 
- * 
+ * @package WordPress
+ * @since 0.1
  */
 
 // Do not load this file directly.
 defined('ABSPATH') or die();
+
 
 
 // If PHP >= 5.3
