@@ -8,6 +8,22 @@
 
 namespace WPametu;
 
+
+
+/**
+ * Base directory of WPametu
+ */
+const BASE_DIR = __DIR__;
+
+
+
+/**
+ * WPametu Version
+ */
+const VERSION = '0.2';
+
+
+
 /**
  * Register global object and initialized
  * 
@@ -16,6 +32,7 @@ namespace WPametu;
 function config($config){
     global $wpametu;
 }
+
 
 
 /**
@@ -43,52 +60,7 @@ function autoload($class_name){
     }
 }
 
-
-/**
- * Returns lib directory url
- *
- * @param string $path
- * @return string
- */
-function lib_url($path = ''){
-	static $url = '';
-	if(empty($url)){
-		// Avoid repetition
-		if(in_plugin()){
-			$url = plugin_dir_url(__FILE__).'libs/';
-		}else{
-			// Detect if this framework is template or stylesheet
-			$current_theme = wp_get_theme();
-			$base_dir = __DIR__.'/libs/';
-			foreach(search_theme_directories() as $dir){
-				$theme_path = explode(DIRECTORY_SEPARATOR, trim($dir['theme_file'], DIRECTORY_SEPARATOR));
-				$root_path = explode(DIRECTORY_SEPARATOR, $dir['theme_root']);
-				$root_path[] = $theme_path[0];
-				if(false !== strpos($base_dir, implode(DIRECTORY_SEPARATOR, $root_path))){
-					// Get theme name
-					if(false !== strpos($base_dir, $current_theme->get_stylesheet_directory())){
-						// This is main theme
-						$url = str_replace($current_theme->get_stylesheet_directory(), $current_theme->get_stylesheet_directory_uri(), $base_dir);
-					}else{
-						// this is parent theme
-						$url = str_replace($current_theme->get_template_directory(), $current_theme->get_template_directory_uri(), $base_dir);
-					}
-					break;
-				}
-			}
-		}
-	}
-	$path = ltrim($path, '/');
-	return $url.$path;
-}
-
-/**
- * Detect if framework is in plugin
- *
- * @return bool
- */
-function in_plugin(){
-	return false !== strpos(__FILE__, WP_PLUGIN_DIR);
-}
+// Load i18n files
+load_plugin_textdomain( 'wpametu', false, BASE_DIR.'/i18n/' );
 
 

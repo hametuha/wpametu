@@ -9,9 +9,8 @@ namespace WPametu\HTTP;
  * @since 0.1
  * 
  */
-final class Input {
-	
-	
+final class Input
+{
 	
 	/**
 	 * This object's store
@@ -20,11 +19,8 @@ final class Input {
 	 */
 	private static $instance = null;
 	
-	
-	
-	/**
-	 * constructor
-	 */
+
+
 	private function __construct() {}
 	
 	
@@ -34,9 +30,9 @@ final class Input {
 	 * 
 	 * @return \WPametu\Input get instance with singleton
 	 */
-	public static function getInstance(){
+	public static function get_instance(){
 		if(is_null(self::$instance) ){
-			self::$instance = new Input();
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
