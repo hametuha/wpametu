@@ -3,7 +3,11 @@
  *
  * @package WPametu
  * @author Takahashi Fumiki
+ *
  */
+
+/*global WPametuEnhancedTags: true*/
+
 jQuery(document).ready(function($){
     var
         /**
@@ -23,8 +27,8 @@ jQuery(document).ready(function($){
          * @returns {String}
          */
         buildURL = function(taxonomy){
-            return WPametuEnhancedTags.endpoint + '?action=' + WPametuEnhancedTags.action + '&taxonomy=' + taxonomy
-                + "&" + WPametuEnhancedTags.nonceKey + '=' + WPametuEnhancedTags.nonceValue;
+            return WPametuEnhancedTags.endpoint + '?action=' + WPametuEnhancedTags.action + '&taxonomy=' + taxonomy +
+                   "&" + WPametuEnhancedTags.nonceKey + '=' + WPametuEnhancedTags.nonceValue;
         },
 
         /**
@@ -51,8 +55,8 @@ jQuery(document).ready(function($){
          * @param {Number} id
          */
         addTagToList = function(target, tag, id){
-            var list = $(target).tokenInput('get');
-            flg = true;
+            var list = $(target).tokenInput('get'),
+                flg = true;
             $.each(list, function(index, elt){
                if(elt.name === tag){
                    flg = false;
@@ -75,7 +79,6 @@ jQuery(document).ready(function($){
             taxonomy =  getTaxonomy(elt),
             inputId = '#token-input-newtag-' + taxonomy,
             currentChar = '',
-            currentQuery = '',
             newTagCounter = 0,
             config = {
                 theme: 'facebook',
@@ -92,7 +95,7 @@ jQuery(document).ready(function($){
                     return '<li>' + str + '</li>';
                 },
                 onReady: function(){
-                    $(inputId).keyup(function(e){
+                    $(inputId).keyup(function(){
                         currentChar = this.value;
                     });
                 },
@@ -106,10 +109,12 @@ jQuery(document).ready(function($){
                     updateTagValue(elt, input);
                 },
                 onDelete: function(){
-                    // UPdate textarea value
+                    // Update textarea value
                     updateTagValue(elt, input);
                 }
             };
+
+
         // Do Ajax and retrieve tag ids
         $.ajax({
             type: 'GET',
@@ -128,6 +133,8 @@ jQuery(document).ready(function($){
                 input.tokenInput(buildURL(taxonomy), config);
             }
         });
+
+
         // Bind tag cloud's click event
         var tagCloudId  = '#tagcloud-' + taxonomy,
             timer = setInterval(function(){

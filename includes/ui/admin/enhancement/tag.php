@@ -104,6 +104,7 @@ EOS;
 				'searchType' => 'search',
 			));
 			wp_enqueue_style('wpametu-enhanced-tag-edit', $this->lib_url('css/tag-enhancer.css'), array('jquery-token-input-facebook'), \WPametu\VERSION);
+			wp_enqueue_style('font-awesome');
 		}
 	}
 } 
