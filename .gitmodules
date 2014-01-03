@@ -1,0 +1,3 @@
+[submodule "vendor/spyc"]
+	path = vendor/spyc
+	url = https://github.com/mustangostang/spyc.git
