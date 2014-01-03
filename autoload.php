@@ -2,13 +2,14 @@
 /** 
  * This file is used for setting up WPametu 
  * 
- * @package WordPress
+ * @package WPametu
  * @since 0.1
  */
 
 namespace WPametu;
 
-
+// Prepend direct loading.
+defined('ABSPATH') or die();
 
 /**
  * Base directory of WPametu
@@ -21,18 +22,6 @@ const BASE_DIR = __DIR__;
  * WPametu Version
  */
 const VERSION = '0.2';
-
-
-
-/**
- * Register global object and initialized
- * 
- * @global array $wpametu
- */
-function config($config){
-    global $wpametu;
-}
-
 
 
 /**
@@ -54,7 +43,7 @@ function autoload($class_name){
         $file_name = str_replace('\\', DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR;
         $file_name = str_replace('wpametu/', $base_dir.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR, $file_name);
     }
-    $path = $file_name.str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
+    $path = $file_name.str_replace('_', '-', $class_name).'.php';
     if ( file_exists($path) ){
         require $path;
     }
@@ -63,4 +52,12 @@ function autoload($class_name){
 // Load i18n files
 load_plugin_textdomain( 'wpametu', false, BASE_DIR.'/i18n/' );
 
+// Register Main autoloader
+spl_autoload_register('\WPametu\autoload');
+
+// Load SPYC
+require BASE_DIR.'/vendor/spyc/Spyc.php';
+
+// Configure
+Config::get_instance();
 
