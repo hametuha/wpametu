@@ -22,3 +22,6 @@
 [submodule "vendor/google-api"]
 	path = vendor/google-api
 	url = git@github.com:hametuha/google-api-php-client.git
+[submodule "vendor/yconnect"]
+	path = vendor/yconnect
+	url = git@github.com:hametuha/yconnect-php-sdk.git
