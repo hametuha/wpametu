@@ -1,23 +1,29 @@
 <?php
+
+namespace WPametu\HTTP;
+
+use WPametu\Pattern;
+
 /**
- * Created by PhpStorm.
- * User: guy
- * Date: 2013/11/17
- * Time: 16:43
+ * URL utility class
+ * @package WPametu\HTTP
  */
-
-namespace WPametu\Traits;
-
-use WPametu;
-
-trait URL
+class Url extends Pattern\Singleton
 {
+
 	/**
-	 * Base URL
-	 *
-	 * @var string
+	 * @var string Base url
 	 */
 	private static $url = '';
+
+	/**
+	 * Constructor
+	 *
+	 * Constructor should not be public.
+	 *
+	 * @param array $argument
+	 */
+	protected function __construct(array $argument){}
 
 
 
@@ -27,7 +33,7 @@ trait URL
 	 * @param string $path
 	 * @return string
 	 */
-	protected function get_lib_js($path){
+	public function get_lib_js($path){
 		return $this->get_minified_js($this->lib_url('js/'.ltrim($path, '/')));
 	}
 
@@ -39,7 +45,7 @@ trait URL
 	 * @param string $js_path
 	 * @return string
 	 */
-	protected function get_minified_js($js_path){
+	public function get_minified_js($js_path){
 		$orig = str_replace(home_url('/'), trailingslashit(ABSPATH), $js_path);
 		$orig_file = basename($orig);
 		$min_file = explode('.', $orig_file);
@@ -62,7 +68,7 @@ trait URL
 	 *
 	 * @return string
 	 */
-	protected function lib_dir(){
+	public function lib_dir(){
 		return trailingslashit(\WPametu\BASE_DIR).'libs/';
 	}
 
@@ -74,7 +80,7 @@ trait URL
 	 * @param string $path
 	 * @return string
 	 */
-	protected function lib_url($path = ''){
+	public function lib_url($path = ''){
 		if(empty(self::$url)){
 			// Avoid repetition
 			if($this->in_plugin()){
@@ -113,7 +119,7 @@ trait URL
 	 * @return bool
 	 */
 	protected function in_plugin(){
-		return false !== strpos(__FILE__, WP_PLUGIN_DIR);
+		return false !== strpos(\WPametu\BASE_DIR, WP_PLUGIN_DIR);
 	}
 
-} 
+}

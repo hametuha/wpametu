@@ -3,7 +3,7 @@
 namespace WPametu\Parser;
 
 
-class CSV
+class Csv
 {
 
 }

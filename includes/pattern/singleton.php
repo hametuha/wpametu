@@ -6,6 +6,7 @@ namespace WPametu\Pattern;
 /**
  * Singleton Class
  *
+ * @package WPametu\Pattern
  * @author Takahashi Fumiki
  * @since 0.1
  */
@@ -19,12 +20,12 @@ abstract class  Singleton
 	 *
 	 * @var array
 	 */
-	private static $instances = array();
+	private static $instances = [];
 
 	/**
 	 * @var array
 	 */
-	protected static $default_arguments = array();
+	protected static $default_arguments = [];
 
 	/**
 	 * Constructor
@@ -38,11 +39,12 @@ abstract class  Singleton
 	/**
 	 * Get instance
 	 *
+	 * @param array $argument
 	 * @return \WPametu\Pattern\Singleton
 	 */
-	public static function get_instance( array $argument = array() ){
+	public static function getInstance( array $argument = [] ){
 		$class_name = get_called_class();
-		if(!self::has_instance($class_name)){
+		if(!self::hasInstance($class_name)){
 			self::init($argument);
 		}
 		return self::$instances[$class_name];
@@ -51,9 +53,9 @@ abstract class  Singleton
 	/**
 	 * Initialize method.
 	 */
-	protected static function init( array $argument = array() ){
+	protected static function init( array $argument = [] ){
 		$class_name = get_called_class();
-		if(!self::has_instance($class_name)){
+		if(!self::hasInstance($class_name)){
 			// Merge arguments to default array
 			$merged = array_merge(self::$default_arguments, $argument);
 			self::$instances[$class_name] = new $class_name($merged);
@@ -66,7 +68,7 @@ abstract class  Singleton
 	 * @param $class_name
 	 * @return boolean
 	 */
-	private static function has_instance($class_name){
+	private static function hasInstance($class_name){
 		return isset(self::$instances[$class_name]) && !is_null(self::$instances[$class_name]);
 	}
 }

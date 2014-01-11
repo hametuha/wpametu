@@ -1,13 +1,19 @@
 <?php
 
-namespace Wpametu\UI\Admin\Enhancement;
+namespace WPametu\UI\Admin\Enhancement;
 
 use WPametu;
 
+/**
+ * Tag enhancement class
+ *
+ * This class enhances tag input interface on admin screen.
+ * Original interface mis-respond to IME's character selection.
+ *
+ * @package WPametu\UI\Admin\Enhancement
+ */
 class Tag extends WPametu\Request\Ajax
 {
-
-	use WPametu\Traits\i18n;
 
 	/**
 	 * Action name used for Ajax and nonce
@@ -26,12 +32,11 @@ class Tag extends WPametu\Request\Ajax
 	protected $nonce = '_tageditnonce';
 
 
-
-	protected function initialized(){
-
+    /**
+     * Executed in the last line of constructor
+     */
+    protected function initialized(){
 	}
-
-
 
 	/**
 	 * Handle Ajax
@@ -92,19 +97,18 @@ EOS;
 	public function admin_enqueue_scripts(){
 		$screen = get_current_screen();
 		if('post' == $screen->base){
-			wp_enqueue_script('wpametu-enhanced-tag-edit', $this->get_minified_js($this->lib_url('js/wpametu.tagenhancer.js')), array('jquery-token-input'), \WPametu\VERSION, true);
+			wp_enqueue_script('wpametu-enhanced-tag-edit', $this->url->get_minified_js($this->url->lib_url('js/wpametu.tagenhancer.js')), array('jquery-token-input'), \WPametu\VERSION, true);
 			wp_localize_script('wpametu-enhanced-tag-edit', 'WPametuEnhancedTags', array(
 				'endpoint' => admin_url('admin-ajax.php'),
 				'action' => $this->action,
 				'nonceKey' => $this->nonce,
-				'nonceValue' => $this->create_nonce(),
+				'nonceValue' => $this->createNonce(),
 				'hintText' => $this->__('入力して検索してください'),
 				'noResultsText' => $this->__('見つかりませんでした'),
 				'searchingText' => $this->__('検索中...'),
 				'searchType' => 'search',
 			));
-			wp_enqueue_style('wpametu-enhanced-tag-edit', $this->lib_url('css/tag-enhancer.css'), array('jquery-token-input-facebook'), \WPametu\VERSION);
-			wp_enqueue_style('font-awesome');
+			wp_enqueue_style('wpametu-enhanced-tag-edit', $this->url->lib_url('css/tag-enhancer.css'), array('jquery-token-input-facebook'), \WPametu\VERSION);
 		}
 	}
-} 
+}

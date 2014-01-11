@@ -1,5 +1,27 @@
 @charset 'UTF-8';
 
+@import 'compass';
+
+// Container color
+$container-border: #ddd;
+$container-bg: #fff;
+// Token color
+$token-text: #333;
+$token-bg: #ccd5e4;
+$token-border: #ccd5e4;
+$token-close-color: #a6b3cf;
+$token-color-active: #fff;
+$token-bg-active: #0074a2;
+$token-border-active: $token-bg-active;
+$token-color-active: #fff;
+$token-close-color-active: #fff;
+// Dropdown color
+$dropdown-border: $container-border;
+$dropdown-bg: #f9f9f9;
+$dropdown-color: #777;
+$dropdown-bg-active: $token-bg-active;
+$dropdown-color-active: #fff;
+
 /**
  * Customized CSS
  *
@@ -11,22 +33,23 @@ ul.token-input-list-facebook {
     height: auto !important;
     height: 1%;
     width: 100%;
-    border: 1px solid #8496ba;
+    border: 1px solid $container-border;
     cursor: text;
     font-size: 12px;
     font-family: Verdana;
     min-height: 1px;
     z-index: 999;
-    margin: 0;
+    margin: 18px 0 0;
     padding: 0;
-    background-color: #fff;
+    background-color: $container-bg;
     list-style-type: none;
     clear: left;
+    @include box-shadow(inset 0 1px 2px rgba(0,0,0,.07));
     li input {
         border: 0;
         width: 90%;
         padding: 3px 8px;
-        background-color: white;
+        background-color: $container-bg;
         margin: 2px 0;
         -webkit-appearance: caret;
     }
@@ -39,10 +62,10 @@ li.token-input-token-facebook {
     height: 15px;
     margin: 3px;
     padding: 1px 3px;
-    background-color: #eff2f7;
-    color: #000;
+    background-color: $token-bg;
+    color: $token-text;
     cursor: default;
-    border: 1px solid #ccd5e4;
+    border: 1px solid $token-border;
     font-size: 11px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -55,7 +78,7 @@ li.token-input-token-facebook {
         margin: 0;
     }
     span {
-        color: #a6b3cf;
+        color: $token-close-color;
         margin-left: 5px;
         font-weight: bold;
         cursor: pointer;
@@ -64,9 +87,12 @@ li.token-input-token-facebook {
 
 
 li.token-input-selected-token-facebook {
-    background-color: #5670a6;
-    border: 1px solid #3b5998;
-    color: #fff;
+    background-color: $token-bg-active;
+    border: 1px solid $token-border-active;
+    color: $token-color-active;
+    span{
+        color: $token-close-color-active;
+    }
 }
 
 li.token-input-input-token-facebook {
@@ -79,11 +105,11 @@ li.token-input-input-token-facebook {
 div.token-input-dropdown-facebook {
     position: absolute;
     width: 100%;
-    background-color: #fff;
+    background-color: $dropdown-bg;
     overflow: hidden;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
+    border-left: 1px solid $dropdown-border;
+    border-right: 1px solid $dropdown-border;
+    border-bottom: 1px solid $dropdown-border;
     cursor: default;
     font-size: 11px;
     font-family: Verdana;
@@ -92,13 +118,13 @@ div.token-input-dropdown-facebook {
         margin: 0;
         padding: 5px;
         font-weight: bold;
-        color: #777;
+        color: $dropdown-color;
     }
     ul {
          margin: 0;
          padding: 0;
         li {
-            background-color: #fff;
+            background-color: $dropdown-bg;
             padding: 3px;
             margin: 0;
             list-style-type: none;
@@ -107,11 +133,11 @@ div.token-input-dropdown-facebook {
 }
 
 div.token-input-dropdown-facebook ul li.token-input-dropdown-item-facebook {
-    background-color: #fff;
+    background-color: $dropdown-bg;
 }
 
 div.token-input-dropdown-facebook ul li.token-input-dropdown-item2-facebook {
-    background-color: #fff;
+    background-color: $dropdown-bg;
 }
 
 div.token-input-dropdown-facebook ul li em {
@@ -120,6 +146,8 @@ div.token-input-dropdown-facebook ul li em {
 }
 
 div.token-input-dropdown-facebook ul li.token-input-selected-dropdown-item-facebook {
-    background-color: #3b5998;
-    color: #fff;
+    background-color: $dropdown-bg-active;
+    color: $dropdown-color-active;
+    border: 1px solid $dropdown-bg-active;
+    border-top: none;
 }

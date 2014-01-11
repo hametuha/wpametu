@@ -11,22 +11,6 @@ namespace WPametu;
  */
 abstract class Base {
 	
-	
-	/**
-	 * Magic method getter
-	 * 
-	 * @param string $property
-	 * @return mixed
-	 */
-	public function __get($property){
-		switch($property){
-			case 'input':
-				return Input::getInstance();
-				break;
-			default:
-				return null;
-				break;
-		}
-	}
+	use Traits\Util;
 	
 }

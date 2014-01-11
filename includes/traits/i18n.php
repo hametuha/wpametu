@@ -3,27 +3,21 @@
 namespace WPametu\Traits;
 
 
+/**
+ * Internationalization utility
+ *
+ * To override this trait, just change property $i18n to your
+ * translation domain.
+ * You have to register translation domain by yourself.
+ *
+ * <code>
+ * load_plugin_textdomain( 'your_domain', false, '/path/to/your/mo/dir/' );
+ * </code>
+ *
+ * @package WPametu\Traits
+ */
 trait i18n
 {
-
-	/**
-	 * Short hand for printf()
-	 *
-	 * @param $string
-	 */
-	protected function pf($string){
-		call_user_func_array('printf', func_get_args());
-	}
-
-	/**
-	 * Short hand for sprintf()
-	 *
-	 * @param $string
-	 * @return mixed
-	 */
-	protected function spf($string){
-		return call_user_func_array('sprintf', func_get_args());
-	}
 
 	/**
 	 * Domain name
@@ -32,15 +26,13 @@ trait i18n
 	 */
 	protected $i18n_domain = 'wpametu';
 
-
-
 	/**
 	 * Shorthand for __()
 	 *
 	 * @param string $string
 	 * @return string|void
 	 */
-	protected function __($string){
+	public function __($string){
 		return __($string, $this->i18n_domain);
 	}
 
@@ -52,7 +44,7 @@ trait i18n
 	 * @param string $string
 	 * @return void
 	 */
-	protected function _e($string){
+	public function _e($string){
 		_e($string, $this->i18n_domain);
 	}
 
@@ -65,7 +57,7 @@ trait i18n
 	 * @param $context
 	 * @return string|void
 	 */
-	protected function _x($string, $context){
+	public function _x($string, $context){
 		return _x($string, $context, $this->i18n_domain);
 	}
 
@@ -78,7 +70,7 @@ trait i18n
 	 * @param $context
 	 * @return void
 	 */
-	protected function _ex($string, $context){
+	public function _ex($string, $context){
 		_ex($string, $context, $this->i18n_domain);
 	}
 } 

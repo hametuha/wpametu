@@ -6,7 +6,7 @@
  * Time: 3:37
  */
 
-namespace Wpametu\UI\Theme;
+namespace WPametu\UI\Theme;
 
 
 abstract class Table {
@@ -23,7 +23,7 @@ abstract class Table {
 	 *
 	 * @var string
 	 */
-	protected $class_name = 'list-table';
+	protected $class_name = array('list-table');
 
 	/**
 	 * Column table

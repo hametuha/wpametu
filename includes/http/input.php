@@ -2,42 +2,21 @@
 
 namespace WPametu\HTTP;
 
+use WPametu\Pattern;
+
 /**
  * Utility class for handle input object
  *
+ * @package WPametu\HTTP
  * @author Takahashi Fumiki
  * @since 0.1
  * 
  */
-final class Input
+final class Input extends Pattern\Singleton
 {
-	
-	/**
-	 * This object's store
-	 * 
-	 * @var Input
-	 */
-	private static $instance = null;
-	
 
+	protected function __construct( array $argument ) {}
 
-	private function __construct() {}
-	
-	
-	
-	/**
-	 * Returns input class
-	 * 
-	 * @return \WPametu\Input get instance with singleton
-	 */
-	public static function get_instance(){
-		if(is_null(self::$instance) ){
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-	
-	
 	
 	/**
 	 * Returns $_GET

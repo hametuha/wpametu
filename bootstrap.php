@@ -10,67 +10,21 @@
  * require plugin_dir_path(__FILE__).'wpametu/bootstrap.php';
  * </coce>
  * 
- * @package WordPress
+ * @package WPametu
  * @since 0.1
  */
 
-// Load WPametu
-use \WPametu;
 
 // Do not load this file directly.
 defined('ABSPATH') or die();
 
-// If PHP >= 5.4
-if( version_compare(PHP_VERSION, '5.4.0') >= 0 ){
-    call_user_func(function(){
-
-        // Version of this directory
-        $version = '0.2';
-
-		/**
-		 * @var array Global object for setting. Hope this will be the only global object...
-		 */
-        global $wpametu;
-		
-		// Register global object.
-        if( !isset($wpametu) || !is_array($wpametu) || !array_key_exists('initialized', $wpametu)){
-            $wpametu = array(
-                'initialized' => false,
-                'version' => 0,
-                'file' => '',
-                'configs' => array(),
-                'base' => '',
-            );
-        }
-        
-        // Register initial hook.
-        if( !$wpametu['initialized'] ){
-            // Add action to init
-            add_action('init', function() use ( &$wpametu ){
-				if( file_exists($wpametu['file']) ){
-                    $wpametu['base'] = dirname($wpametu['file']);
-                    require $wpametu['file'];
-                    // Register autoloader
-                    spl_autoload_register('\Wpametu\autoload');
-					// Do action
-					Wpametu\Config::get_instance(array());
-                }elseif( WP_DEBUG ){
-                    trigger_error(sprintf('Unable to load wpametu Framework\'s bootstrap file(%s).', $wpametu['file']), E_USER_WARNING);
-                }
-            }, 1);
-            // Initiation regsitered.
-            $wpametu['initialized'] = true;
-        }
-
-        // Compare version and assign if greater
-        if( version_compare($wpametu['version'], $version) < 0 ){
-            // assign version to it
-            $wpametu = array_merge($wpametu, array(
-                'version' => $version,
-                'file' => dirname(__FILE__).'/autoload.php',
-            ));
-        }
-    });
-}elseif(WP_DEBUG){
-    trigger_error( sprintf('PHP version should not be less than 5.4.0. Your version is %s.', PHP_VERSION), E_USER_ERROR);
+// If PHP < 5.4
+if( version_compare(PHP_VERSION, '5.4.0') < 0 ){
+	trigger_error( sprintf('PHP version should not be less than 5.4.0. Your version is %s.', PHP_VERSION), E_USER_WARNING);
+	return;
 }
+
+
+// Call setup script and call rambda function
+$function = require dirname(__FILE__).'/setup.php';
+call_user_func($function);

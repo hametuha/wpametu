@@ -7,12 +7,15 @@ use WPametu\Pattern, WPametu\Traits;
 
 /**
  * Class Ajax
- * @package WPametu
+ *
+ * To make Ajax endpoint, override this class.
+ *
+ * @package WPametu\Request
  */
 abstract class Ajax extends Pattern\Singleton
 {
 
-	use Traits\Input, Traits\URL;
+	use Traits\Util, Traits\i18n;
 
 
 
@@ -89,18 +92,24 @@ abstract class Ajax extends Pattern\Singleton
 		if(method_exists($this, 'admin_enqueue_scripts')){
 			add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 		}
-		add_action('wp_ajax_'.$this->action, array($this, 'handle_ajax'));
-		if(!$this->logged_in_user_only){
-			add_action('wp_ajax_nopriv_'.$this->action, array($this, 'handle_ajax'));
+		if(method_exists($this, 'wp_enqueue_scripts')){
+			add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
 		}
+		add_action('wp_ajax_'.$this->action, array($this, 'handleAjax'));
+		if(!$this->logged_in_user_only){
+			add_action('wp_ajax_nopriv_'.$this->action, array($this, 'handleAjax'));
+		}
+        if(method_exists($this, 'initialized')){
+            $this->initialized();
+        }
 	}
 
 
 	/**
 	 * Handle Ajax
 	 */
-	final public function handle_ajax(){
-		if(wp_verify_nonce($this->input->request($this->nonce), $this->get_nonce_key())){
+	final public function handleAjax(){
+		if(wp_verify_nonce($this->input->request($this->nonce), $this->getNonceKey())){
 			switch(strtotime($this->type)){
 				case 'json':
 					$content_type = 'application/json';
@@ -116,7 +125,7 @@ abstract class Ajax extends Pattern\Singleton
 			$this->ajax();
 			exit;
 		}else{
-			wp_die('You seemed to be accessing in wrong way.', get_status_header_desc(403), array(
+			wp_die($this->__('アクセス許可がありません'), get_status_header_desc(403), array(
 				'response' => 403
 			));
 		}
@@ -129,7 +138,7 @@ abstract class Ajax extends Pattern\Singleton
 	 *
 	 * @return string
 	 */
-	protected function get_nonce_key(){
+	protected function getNonceKey(){
 		return $this->nonce.( $this->logged_in_user_only ? '_'.get_current_user_id() : '' );
 	}
 
@@ -140,16 +149,16 @@ abstract class Ajax extends Pattern\Singleton
 	 *
 	 * @return string
 	 */
-	protected function create_nonce(){
-		return wp_create_nonce($this->get_nonce_key());
-	}
+    protected function createNonce(){
+        return wp_create_nonce($this->getNonceKey());
+    }
 
 
 	/**
 	 * Output input field
 	 */
-	protected function nonce_field($referrer = false){
-		wp_nonce_field($this->get_nonce_key(), $this->nonce, $referrer);
+	protected function nonceField($referrer = false){
+		wp_nonce_field($this->getNonceKey(), $this->nonce, $referrer);
 	}
 
 
@@ -160,8 +169,8 @@ abstract class Ajax extends Pattern\Singleton
 	 * @param string $url
 	 * @return string
 	 */
-	protected function nonce_url($url){
-		return wp_nonce_url($url, $this->get_nonce_key(), $this->nonce);
+	protected function nonceUrl($url){
+		return wp_nonce_url($url, $this->getNonceKey(), $this->nonce);
 	}
 
 
