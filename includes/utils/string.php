@@ -76,7 +76,18 @@ final class String extends \WPametu\Pattern\Singleton
      * @return bool
      */
     public function isAlnumHyphen($string, $allow_capital = true, $allow_under_score = false){
-        return (bool) preg_match_all('/^[0-9a-z'.($allow_capital ? 'A-Z' : '').'\-'.($allow_under_score ? '_' : '').']+$/u', $string);
+        return (bool) preg_match('/^[0-9a-z'.($allow_capital ? 'A-Z' : '').'\-'.($allow_under_score ? '_' : '').']+$/u', $string);
+    }
+
+    /**
+     * Detect if string is suitable for url segments
+     *
+     * @param string $string
+     * @param bool $allow_slush
+     * @return bool
+     */
+    public function isUrlSegments($string, $allow_slush = false){
+        return (bool) preg_match('/^[a-z0-9.~'.($allow_slush ? '' : '\/').']+$/u', $string);
     }
 
     /**

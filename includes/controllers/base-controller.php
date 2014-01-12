@@ -9,17 +9,46 @@ use WPametu\Pattern, WPametu\Traits;
  *
  * @package WPametu
  * @author Takahashi Fumiki
+ * @property-read \WPametu\HTTP\RewriteRuler $rewrite_ruler
  */
 abstract class BaseController extends Pattern\Singleton
 {
-    use Traits\Util, Traits\i18n;
+    use Traits\i18n, Traits\Util{
+        __get as traitGet;
+    };
 
     /**
-     * Constructor
+     * Executed at constructor
      *
-     * @param array $arguments
+     * You can override this method
+     * for some stuff.
+     *
+     * <code>
+     * // For example, assign member
+     * // in generic way
+     * $this->regexp = 'index.php?some='.$this->some_func();
+     * </code>
      */
-    protected function __construct( array $arguments = [] ){
+    protected function initialized(){
 
+    }
+
+
+
+    /**
+     * Getter
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name){
+        switch($name){
+            case 'rewrite_ruler':
+                return \WPametu\HTTP\RewriteRuler::getInstance();
+                break;
+            default:
+                return $this->traitGet($name);
+                break;
+        }
     }
 } 

@@ -93,9 +93,7 @@ abstract class AjaxController extends BaseController
 		if(!$this->logged_in_user_only){
 			add_action('wp_ajax_nopriv_'.$this->action, array($this, 'handleAjax'));
 		}
-        if(method_exists($this, 'initialized')){
-            $this->initialized();
-        }
+        $this->initialized();
 	}
 
 
@@ -166,13 +164,6 @@ abstract class AjaxController extends BaseController
 	protected function nonceUrl($url){
 		return wp_nonce_url($url, $this->getNonceKey(), $this->nonce);
 	}
-
-
-
-	/**
-	 * Called in constructor
-	 */
-	abstract protected function initialized();
 
 
 

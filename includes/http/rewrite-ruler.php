@@ -10,7 +10,7 @@ use WPametu\Traits, WPametu\Pattern;
  * @package WPametu\HTTP
  * @author Takahashi Fumiki
  */
-class Rewrite extends Pattern\Singleton
+class RewriteRuler extends Pattern\Singleton
 {
     use Traits\Util, Traits\i18n;
 
@@ -25,7 +25,7 @@ class Rewrite extends Pattern\Singleton
      * Additional query vars
      * @var array
      */
-    private $query_vars = ['rewrite_class'];
+    private $query_vars = ['rewrite_class', 'class_method'];
 
     /**
      * Constructor
@@ -109,11 +109,13 @@ class Rewrite extends Pattern\Singleton
     /**
      * Add query vars to parse
      *
-     * @param string $var
+     * @param array $vars
      */
-    public function addQueryVars($var){
-        if(false === array_search($var, $this->query_vars)){
-            $this->query_vars[] = $var;
+    public function addQueryVars( array $vars){
+        foreach($vars as $var){
+            if(false === array_search($var, $this->query_vars)){
+                $this->query_vars[] = $var;
+            }
         }
     }
 }
