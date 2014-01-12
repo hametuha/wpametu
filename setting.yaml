@@ -1,4 +1,4 @@
 autoloads:
-  - WPametu\UI\Admin\Enhancement\Tag
-  - WPametu\Data\Igniter
+  - WPametu\Script
+  - WPametu\Css
   - WPametu\UI\PostRedirectGet

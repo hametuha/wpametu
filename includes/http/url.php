@@ -6,7 +6,9 @@ use WPametu\Pattern;
 
 /**
  * URL utility class
+ *
  * @package WPametu\HTTP
+ * @author Takahashi Fumiki
  */
 class Url extends Pattern\Singleton
 {
@@ -33,8 +35,8 @@ class Url extends Pattern\Singleton
 	 * @param string $path
 	 * @return string
 	 */
-	public function get_lib_js($path){
-		return $this->get_minified_js($this->lib_url('js/'.ltrim($path, '/')));
+	public function getLibJs($path){
+		return $this->getMinifiedFile($this->libUrl('js/'.ltrim($path, '/')));
 	}
 
 
@@ -43,14 +45,15 @@ class Url extends Pattern\Singleton
 	 * Returns minified JS if exists
 	 *
 	 * @param string $js_path
+     * @param string $suffix Default 'min'
 	 * @return string
 	 */
-	public function get_minified_js($js_path){
+	public function getMinifiedFile($js_path, $suffix = 'min'){
 		$orig = str_replace(home_url('/'), trailingslashit(ABSPATH), $js_path);
 		$orig_file = basename($orig);
 		$min_file = explode('.', $orig_file);
 		$ext = array_pop($min_file);
-		array_push($min_file, 'min');
+		array_push($min_file, $suffix);
 		array_push($min_file, $ext);
 		$min_file = implode('.', $min_file);
 		$min = str_replace($orig_file, $min_file, $orig);
@@ -80,10 +83,10 @@ class Url extends Pattern\Singleton
 	 * @param string $path
 	 * @return string
 	 */
-	public function lib_url($path = ''){
+	public function libUrl($path = ''){
 		if(empty(self::$url)){
 			// Avoid repetition
-			if($this->in_plugin()){
+			if($this->inPlugin()){
 				self::$url = plugin_dir_url($this->lib_dir()).'libs/';
 			}else{
 				// Detect if this framework is template or stylesheet
@@ -118,7 +121,7 @@ class Url extends Pattern\Singleton
 	 *
 	 * @return bool
 	 */
-	protected function in_plugin(){
+	protected function inPlugin(){
 		return false !== strpos(\WPametu\BASE_DIR, WP_PLUGIN_DIR);
 	}
 

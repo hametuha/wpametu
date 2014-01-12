@@ -9,6 +9,7 @@ namespace WPametu\Traits;
  * @property-read \WPametu\HTTP\Input $input
  * @property-read \WPametu\HTTP\Url $url
  * @property-read \WPametu\Utils\String $str
+ * @author Takahashi Fumiki
  */
 trait Util
 {
