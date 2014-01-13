@@ -25,7 +25,7 @@ abstract class RestController extends RewriteController
      *
      * @var string
      */
-    protected $extension = 'json';
+    protected $extension = '';
 
     /**
      * Create rewrite rule
@@ -33,11 +33,26 @@ abstract class RestController extends RewriteController
      * @throws \Exception
      */
     protected function initialized(){
-        if(empty($this->prefix) || !$this->str->isUrlSegments($this->prefix, false, false)){
+        if( empty($this->prefix) || !$this->str->isUrlSegments($this->prefix, false, false) ){
             throw new \Exception($this->__('変数\$prefixは半角英数（小文字のみ）およびスラッシュ、ハイフンのみ使用できます。'));
         }
-        $this->rewrites = [
-            "{$this->prefix}/(.+)\.{$this->extension}$" => 'index.php?class_method=$matches[1]',
+        $rewrites = $this->generateRewriteRules();
+        $this->rewrites = array_merge($this->rewrites, $rewrites);
+    }
+
+    /**
+     * Generate rewrite rules
+     *
+     * Overriding this function, rewrite rules can be customize
+     *
+     * @return array
+     */
+    protected function generateRewriteRules(){
+        $ext = (!empty($this->extension) && $this->str->isAlphaNumeric($this->extension))
+            ? '\.'.$this->extension
+            : '';
+        return [
+            "{$this->prefix}/(.+)".$ext.'$' => 'index.php?class_method=$matches[1]',
         ];
     }
 
@@ -51,10 +66,7 @@ abstract class RestController extends RewriteController
         $segments = explode('/', $wp_query->get('class_method'));
         $method = $this->str->hyphenToCamel($this->getRequestMethod().'-'.array_shift($segments));
         $this->contentType();
-        if( method_exists($this, $method)
-            && ($reflexion = new \ReflectionMethod(get_called_class(), $method))
-            && $reflexion->isPublic()
-        ){
+        if( $this->isInvokable($method) ){
             if(empty($segments)){
                 $var = call_user_func([$this, $method]);
             }else{
@@ -62,7 +74,7 @@ abstract class RestController extends RewriteController
             }
             $this->output($var);
         }else{
-            $this->notFound();
+            $this->error(404, $this->__('指定されたメソッドは存在しません'));
         }
         exit;
     }
@@ -79,11 +91,13 @@ abstract class RestController extends RewriteController
     abstract protected function contentType();
 
     /**
-     * Executed if method not found
+     * Executed if error occurs
      *
+     * @param int $code
+     * @param string $message
      * @return void
      */
-    abstract protected function notFound();
+    abstract protected function error($code, $message = '');
 
     /**
      * Return output

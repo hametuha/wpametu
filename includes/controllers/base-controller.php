@@ -13,9 +13,9 @@ use WPametu\Pattern, WPametu\Traits;
  */
 abstract class BaseController extends Pattern\Singleton
 {
-    use Traits\i18n, Traits\Util{
-        __get as traitGet;
-    };
+    use Traits\i18n, Traits\Util {
+        Traits\Util::__get as traitGet;
+    }
 
     /**
      * Executed at constructor

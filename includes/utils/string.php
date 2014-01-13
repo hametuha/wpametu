@@ -61,10 +61,11 @@ final class String extends \WPametu\Pattern\Singleton
      * Detect if string is alphanumeric
      *
      * @param string $string
+     * @param bool $allow_capital Specify capital letters allowance. Default true
      * @return bool
      */
-    public function isAlphaNumeric($string){
-        return (bool) preg_match('/^[a-zA-Z0-9]+$/u', $string);
+    public function isAlphaNumeric($string, $allow_capital = true){
+        return (bool) preg_match('/^[a-z'.( $allow_capital ? 'A-Z' : '' ).'0-9]+$/u', $string);
     }
 
     /**

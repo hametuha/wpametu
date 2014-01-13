@@ -48,6 +48,20 @@ abstract class RewriteController extends BaseController
     }
 
     /**
+     * Detect if method is invokable as framework
+     *
+     * @param string $method
+     * @return bool
+     */
+    protected function isInvokable($method){
+        if( !method_exists($this, $method) ){
+            return false;
+        }
+        $reflection = new \ReflectionMethod(get_called_class(), $method);
+        return $reflection->isPublic();
+    }
+
+    /**
      * Parse request and call method
      *
      * @param \WP_Query $wp_query

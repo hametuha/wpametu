@@ -102,7 +102,7 @@ abstract class AjaxController extends BaseController
 	 */
 	final public function handleAjax(){
 		if(wp_verify_nonce($this->input->request($this->nonce), $this->getNonceKey())){
-			switch(strtotime($this->type)){
+			switch(strval($this->content_type)){
 				case 'json':
 					$content_type = 'application/json';
 					break;
