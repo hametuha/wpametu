@@ -98,6 +98,12 @@ class PostRedirectGet extends Pattern\Singleton
         if( session_id() ){
             foreach( [ $this->error_key => 'error', $this->message_key => 'updated' ] as $key => $class_name ){
                 if( isset($_SESSION[$key]) && !empty($_SESSION[$key]) ){
+                    if( !is_admin() ){
+                        /**
+                         * Post redirect get message's class
+                         */
+                        $class_name = apply_filters('wpametu_prg_message_class', $class_name);
+                    }
                     printf('<div class="%s"><p>%s</p></div>', $class_name, implode('<br />', $_SESSION[$key]));
                     $_SESSION[$key] = [];
                 }

@@ -52,7 +52,7 @@ class RewriteRuler extends Pattern\Singleton
         $registered_rewrite = get_option('rewrite_rules');
         if( is_array($registered_rewrite) && !empty($rewrites) ){
             foreach($rewrites as $rewrite => $regexp){
-                if( !isset($registered_rewrite[$rewrite]) ){
+                if( !isset($registered_rewrite[$rewrite]) || $regexp != $registered_rewrite[$rewrite] ){
                     flush_rewrite_rules();
                     break;
                 }
@@ -93,8 +93,8 @@ class RewriteRuler extends Pattern\Singleton
             /** @var string $regexp */
             /** @var string $class_name */
             extract($data);
-            if( false === strpos($regexp, $class_name) ){
-                $regexp .= '&rewrite_class='.$this->urlize($class_name);
+            if( !empty($class_name) && false === strpos($regexp, ($url_class_name = $this->urlize($class_name))) ){
+                $regexp .= '&rewrite_class='.$url_class_name;
             }
             $rewrite_rules[$rewrite] = $regexp;
         }

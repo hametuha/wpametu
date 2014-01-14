@@ -17,6 +17,7 @@ abstract class BaseController extends Pattern\Singleton
         Traits\Util::__get as traitGet;
     }
 
+
     /**
      * Executed at constructor
      *
@@ -34,6 +35,28 @@ abstract class BaseController extends Pattern\Singleton
     }
 
 
+    /**
+     * Return current request method
+     *
+     * @return string
+     */
+    protected function requestMethod(){
+        if(isset($_SERVER['REQUEST_METHOD'])){
+            switch(strtolower($_SERVER['REQUEST_METHOD'])){
+                case 'get':
+                case 'put':
+                case 'post':
+                case 'delete':
+                case 'head':
+                    return strtolower($_SERVER['REQUEST_METHOD']);
+                    break;
+                default:
+                    // Do nothing
+                    break;
+            }
+        }
+        return 'get';
+    }
 
     /**
      * Getter
