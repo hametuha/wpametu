@@ -220,10 +220,21 @@ abstract class TemplateController extends RewriteController
                  * @since 1.5.0
                  */
                 do_action( 'template_redirect' );
-                if( 'head' === $this->requestMethod() ){
-                    exit;
+                switch( $this->requestMethod() ){
+                    case 'head':
+                        // Finish output
+                        exit;
+                        break;
+                    case 'get':
+                        // Do nothing
+                        break;
+                    default:
+                        // Prevent caching
+                        nocache_headers();
+                        break;
                 }
                 if( !empty($this->title) ){
+                    // Assign wp_title hook
                     $this_title = $this->title;
                     add_action('wp_title', function ($title, $sep, $seplocation) use ($this_title){
                         if( 'right' == $seplocation){

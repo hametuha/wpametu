@@ -46,6 +46,7 @@ final class Igniter extends Pattern\Singleton
         'controllers' => '\\WPametu\\Controllers\\BaseController',
         'schemata' => '\\WPametu\\DB\\SchemaBase',
         'models' => '\\WPametu\\Models\\ModelBase',
+        'metabox' => '\\WPametu\\UI\\Admin\\Metabox\\Base',
     ];
 
 	/**

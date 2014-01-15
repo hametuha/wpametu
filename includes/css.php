@@ -29,12 +29,18 @@ class Css extends Pattern\Singleton
     const FONT_AWESOME = 'font-awesome';
 
     /**
+     * Metabox
+     */
+    const METABOX = 'wpametu-metabox';
+
+    /**
      * Constructor
      *
      * @param array $arguments
      */
     protected function __construct(array $arguments){
         add_action('init', [$this, 'registerStyles']);
+        add_action('admin_enqueue_scripts', [$this, 'removeWPMP'], 100);
     }
 
     /**
@@ -45,8 +51,18 @@ class Css extends Pattern\Singleton
         wp_register_style(self::JQUERY_TOKEN_INTPUT, $this->url->libUrl('css/token-input.css'), [], '1.6.1');
         wp_register_style(self::JQUERY_TOKEN_INTPUT_ADMIN, $this->url->libUrl('css/token-input-admin.css'), [], '1.6.1');
         // Font Awesome
-        wp_register_style(self::FONT_AWESOME, $this->url->getMinifiedFile($this->url->libUrl('vendor/font-awesome/css/font-awesome/font-awesome.css')), [], '4.0.3');
-
+        wp_register_style(self::FONT_AWESOME, $this->url->getMinifiedFile($this->url->libUrl('vendor/font-awesome/css/font-awesome.css')), [], '4.0.3');
+        // Metabox
+        wp_register_style(self::METABOX, $this->url->libUrl('css/metabox.css'), [self::FONT_AWESOME], VERSION);
     }
 
+    /**
+     * Remove WP Mutitbyte Patch CSS
+     *
+     * WPMP set all font family to 'normal' and kill
+     * Font-Awesome.
+     */
+    public function removeWPMP(){
+        wp_dequeue_style('wpmp-admin-custom');
+    }
 } 

@@ -19,7 +19,7 @@ const VERSION = '0.2';
  * @return string
  */
 function deCamelize($class_name){
-    return strtolower(preg_replace_callback('/(?<!^)([A-Z])/u', function($match){
+    return strtolower(preg_replace_callback('/(?<!^)([A-Z]+)/u', function($match){
         return '-'.strtolower($match[1]);
     }, (string)$class_name));
 }

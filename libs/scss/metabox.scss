@@ -1,0 +1,25 @@
+@import 'mp6';
+
+.wpametu-metabox-table{
+  width: 100%;
+  border-collapse: collapse;
+  tr{
+    th, td{
+      border-bottom: 1px solid $grey-border;
+    }
+    &:nth-child(even){
+      th, td{
+        background: $tint-grey;
+      }
+    }
+    th{
+      padding-left: 0.5em;
+      small{
+        display: block;
+      }
+    }
+  }
+  .satified{
+    color: $success;
+  }
+}

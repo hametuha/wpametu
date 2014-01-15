@@ -44,6 +44,11 @@ class Script extends Pattern\Singleton
     const GOOGLE_MAP = 'google-map';
 
     /**
+     * Media selector
+     */
+    const MEDIA_SELECTOR = 'wp-media-selector';
+
+    /**
      * Constructor
      *
      * @param array $arguments

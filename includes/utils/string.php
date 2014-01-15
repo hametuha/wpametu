@@ -2,12 +2,14 @@
 
 namespace WPametu\Utils;
 
+use WPametu\Pattern;
+
 /**
  * String Utility
  *
  * @package WPametu\Utils
  */
-final class String extends \WPametu\Pattern\Singleton
+final class String extends Pattern\Singleton
 {
 
 	/**
@@ -31,7 +33,7 @@ final class String extends \WPametu\Pattern\Singleton
     }
 
     /**
-     *
+     * Make camel-cased string to hungarian
      *
      * @param $string
      * @return string
@@ -69,6 +71,26 @@ final class String extends \WPametu\Pattern\Singleton
     }
 
     /**
+     * Convert full class name to hyphenated string
+     *
+     * @param string $string
+     * @return string
+     */
+    public function classNameToHyphen($string){
+        return implode('-', array_map([$this, 'camelToHyphen'], explode('\\', trim($string, '\\'))));
+    }
+
+    /**
+     * Convert full class name to hungarian string
+     *
+     * @param string $string
+     * @return string
+     */
+    public function classNameToHungarian($string){
+        return str_replace('-', '_', $this->classNameToHyphen($string));
+    }
+
+    /**
      * Detect if string is alph-numeric and hyphen
      *
      * @param string $string
@@ -98,6 +120,26 @@ final class String extends \WPametu\Pattern\Singleton
      * @return bool
      */
     public function isDatetime($string){
-        return (bool) preg_match_all('/[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/u', $string);
+        return (bool) preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$/u', $string);
+    }
+
+    /**
+     * Detect if string is MySQL Date
+     *
+     * @param string $string
+     * @return bool
+     */
+    public function isDate($string){
+        return (bool) preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/u', $string);
+    }
+
+    /**
+     * Detect if string is URL like
+     *
+     * @param string $string
+     * @return bool
+     */
+    public function isUrl($string){
+        return (bool) preg_match('/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/', $string);
     }
 }
