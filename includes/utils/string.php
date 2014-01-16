@@ -142,4 +142,18 @@ final class String extends Pattern\Singleton
     public function isUrl($string){
         return (bool) preg_match('/^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/', $string);
     }
+
+    /**
+     * Get translated month name
+     *
+     * @param int $month 1~12
+     * @param string $format 'F' or 'M'
+     * @return string
+     */
+    public function monthName($month, $format = 'F'){
+        $month = (int) $month;
+        $format = $format == 'F' ? 'F' : 'M';
+        $month = sprintf('2013-%02d-01 00:00:00', $month);
+        return mysql2date($format, $month);
+    }
 }

@@ -3,6 +3,15 @@
 namespace WPametu\UI\Admin\Metabox;
 
 
+/**
+ * Metabox Controller
+ *
+ * You can add meta boxes on admin screen
+ * extending this class.
+ *
+ * @package WPametu\UI\Admin\Metabox
+ * @author Takahashi Fumiki
+ */
 abstract class Multiple extends Base
 {
 
@@ -20,6 +29,7 @@ abstract class Multiple extends Base
         'type' => 'text',
         'sub_type' => 'text',
         'rows' => 3,
+        'placeholder' => '',
         'min_length' => 0,
         'max_length' => 0,
         'max' => 0,
@@ -77,9 +87,11 @@ abstract class Multiple extends Base
      */
     protected function save( \WP_Post $post ){
         foreach($this->fields as $field){
-            $class_name = $this->getClass($field);
+            $class_name = $this->getFactoryClass($field);
             if( $class_name ){
-                call_user_func_array([$class_name, 'save'], array($post, $field));
+                /** @var \WPametu\UI\Admin\Metabox\Factory\FieldAbstract $factory */
+                $factory = new $class_name($field);
+                $factory->save($post);
             }
         }
     }
@@ -153,9 +165,11 @@ abstract class Multiple extends Base
         }else{
             echo '<table class="form-table wpametu-metabox-table"><tbody>';
             foreach($this->fields as $field){
-                $class_name = $this->getClass($field);
+                $class_name = $this->getFactoryClass($field);
                 if( $class_name ){
-                    call_user_func_array([$class_name, 'renderRow'], [$post, $field]);
+                    /** @var \WPametu\UI\Admin\Metabox\Factory\FieldAbstract $factory */
+                    $factory = new $class_name( $field );
+                    $factory->renderRow($post);
                 }else{
                     trigger_error(sprintf($this->__('データ型%sは許可されていません。'), $field['type']), E_USER_NOTICE);
                 }
@@ -190,15 +204,13 @@ abstract class Multiple extends Base
      * Get class name from type
      *
      * @param array $field
-     * @return bool|string
+     * @return string|false
      */
-    public function getClass( array $field){
+    protected function getFactoryClass( array $field){
+        $factory_base = '\\WPametu\\UI\\Admin\\Metabox\\Factory\\';
         $type = 'field-'.$field['type'];
-        $class_name = '\\WPametu\\UI\\Admin\\Metabox\\Factory\\'.$this->str->hyphenToCamel($type, true);
-        if( class_exists($class_name) ){
-            return $class_name;
-        }else{
-            return false;
-        }
+        $class_name = $factory_base.$this->str->hyphenToCamel($type, true);
+        $required_class = $factory_base.'FieldAbstract';
+        return $this->reflection->satisfies($class_name, $required_class) ? $class_name : false;
     }
 }

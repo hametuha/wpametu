@@ -91,6 +91,13 @@ abstract class Base extends Pattern\Singleton
      */
     public static function registerStyle(){
         wp_enqueue_style(\WPametu\Css::METABOX);
+        wp_enqueue_script(\WPametu\Script::METABOX_HELPER);
+        $class_name = get_called_class();
+        /** @var \WPametu\UI\Admin\Metabox\Multiple $instance */
+        $instance = $class_name::getInstance();
+        wp_localize_script(\WPametu\Script::METABOX_HELPER, 'MetaboxHelper', array(
+            'required' => $instance->__('必須項目です'),
+        ));
     }
 
     /**

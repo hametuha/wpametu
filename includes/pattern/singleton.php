@@ -57,7 +57,7 @@ abstract class  Singleton
 		$class_name = get_called_class();
 		if(!self::hasInstance($class_name)){
 			// Merge arguments to default array
-			$merged = array_merge(self::$default_arguments, $argument);
+			$merged = array_merge($class_name::$default_arguments, $argument);
 			self::$instances[$class_name] = new $class_name($merged);
 		}
 	}

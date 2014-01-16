@@ -13,28 +13,60 @@ use WPametu\Utils, WPametu\UI, WPametu\Traits, WPametu\HTTP;
 abstract class FieldAbstract
 {
 
+    use Traits\i18n, Traits\Util;
+
+    /**
+     * Data attribute to assign
+     *
+     * Must be same as $fields' property name
+     *
+     * @var array
+     */
+    protected $attributes = [];
+
+    /**
+     * CSS class name to assign
+     *
+     * @var array
+     */
+    protected $class_attr = [];
+
+    /**
+     * Field setting
+     *
+     * @var array
+     */
+    protected $field = [];
+
+    /**
+     * Constructor
+     *
+     * @param array $field
+     */
+    final public function __construct( array $field ){
+        $this->field = $field;
+    }
+
     /**
      * Returns field data
      *
      * @param \WP_Post $post
-     * @param array $field
      * @return mixed
      */
-    public static function getData( \WP_Post $post, array $field ){
-        return get_post_meta($post->ID, $field['name'], true);
+    public function getData( \WP_Post $post ){
+        return get_post_meta($post->ID, $this->field['name'], true);
     }
 
     /**
      * Render row
      *
      * @param \WP_Post $post
-     * @param array $field
      */
-    public static function renderRow( \WP_Post $post, array $field ){
-        $data = self::getData($post, $field);
+    public function renderRow( \WP_Post $post ){
+        $data = $this->getData($post);
         echo '<tr>';
         $required = '';
-        if($field['required']){
+        if($this->field['required']){
             if( empty($data) && 0 !== $data && '0' !== $data ){
                 $icon_class = 'exclamation-circle';
                 $span_class = 'required';
@@ -45,18 +77,19 @@ abstract class FieldAbstract
             $required = sprintf('<small class="%s">%s %s</small>', $span_class, UI\Parts::icon($icon_class), __('必須', 'wpametu'));
         }
         $icon = '';
-        if( !empty($field['icon_class']) ){
-            $icon = UI\Parts::icon($field['icon_class']).' ';
+        if( !empty($this->field['icon_class']) ){
+            $icon = UI\Parts::icon($this->field['icon_class']).' ';
         }
-        $label = esc_html($field['label']);
+        $label = esc_html($this->field['label']);
         echo <<<EOS
-        <th><label for="{$field['name']}">{$icon}{$label}</label>{$required}</th>
+        <th><label for="{$this->field['name']}">{$icon}{$label}</label>{$required}</th>
 EOS;
         echo '<td>';
-        call_user_func_array([get_called_class(), 'echoField'], array($data, $post, $field));
-        if( !empty($field['description']) ){
-            printf('<p class="description">%s</p>', $field['description']);
+        $this->echoField($data, $post);
+        if( !empty($this->field['description']) ){
+            printf('<p class="description">%s</p>', $this->field['description']);
         }
+        echo '<p class="validator"></p>';
         echo '</td>';
         echo '</tr>';
     }
@@ -66,10 +99,9 @@ EOS;
      *
      * @param mixed $data
      * @param \WP_Post $post
-     * @param array $field
      * @return mixed
      */
-    public static function echoField( $data, \WP_Post $post, array $field){
+    public function echoField( $data, \WP_Post $post){
 
     }
 
@@ -77,37 +109,41 @@ EOS;
      * Save data
      *
      * @param \WP_Post $post
-     * @param array $field
      */
-    public static function save( \WP_Post $post, array $field ){
-        /** @var \WPametu\HTTP\Input $input */
-        $input = HTTP\Input::getInstance();
-        $data = $input->post($field['name']);
-        $result = self::validate($data, $field);
+    public function save( \WP_Post $post ){
+        $data = $this->captureData();
+        $result = $this->validate($data);
         if( is_wp_error($result) ){
             // Show message and do nothing.
-            /** @var \WPametu\UI\PostRedirectGet $prg */
-            $prg = UI\PostRedirectGet::getInstance();
-            $prg->addErrorMessage($result->get_error_message());
+            $this->addErrorMessage($result->get_error_message());
         }elseif(!$result){
             // Empty, so delete.
-            delete_post_meta($post->ID, $field['name']);
+            delete_post_meta($post->ID, $this->field['name']);
         }else{
             // Save data
-            self::saveData($post, $field['name'], $data);
+            $this->saveData($post, $this->field['name'], $data);
         }
+    }
+
+    /**
+     * Capture field data
+     *
+     * @return mixed
+     */
+    protected function captureData(){
+        return $this->input->post($this->field['name']);
     }
 
     /**
      * Save data
      *
-     * Default, data will be stored at post meta.
+     * Default, data will be stored as post meta.
      *
      * @param \WP_Post $post
      * @param string $name
      * @param mixed $data
      */
-    protected static function saveData( \WP_Post $post, $name, $data ){
+    protected function saveData( \WP_Post $post, $name, $data ){
         update_post_meta($post->ID, $name, $data);
     }
 
@@ -117,19 +153,18 @@ EOS;
      * @param array $field
      * @return array
      */
-    protected  static function convert( array $field ){
+    protected  function convert( array $field ){
         return $field;
     }
 
     /**
-     * Validata data
+     * Validate data
      *
      * @param mixed $data
-     * @param array $field
      * @return bool|\WP_Error
      */
-    protected  static function validate( $data, array $field){
-        $config = self::convert($field);
+    protected  function validate( $data){
+        $config = $this->convert($this->field);
         return Utils\Validator::validate($data, $config);
     }
 
@@ -138,11 +173,46 @@ EOS;
      *
      * @return string
      */
-    protected static function type(){
+    protected function type(){
         $seg = explode('\\', get_called_class());
         $class_name = $seg[count($seg) - 1];
-        /** @var \WPametu\Utils\String $str */
-        $str = Utils\String::getInstance();
-        return $str->camelToHyphen($class_name);
+        return $this->str->camelToHyphen($class_name);
+    }
+
+    /**
+     * Crete attributes
+     *
+     * @return string
+     */
+    protected function buildAttribute(){
+        $atts = ' ';
+        foreach($this->field as $param => $var){
+            if( false !== array_search($param, $this->attributes) ){
+                switch($param){
+                    case 'placeholder':
+                    case 'rows':
+                        $attr = $param;
+                        break;
+                    default:
+                        $attr = 'data-'.str_replace('_', '-', $param);
+                        break;
+                }
+                $atts .= sprintf('%s="%s" ', $attr,  esc_attr($var));
+            }
+        }
+        return $atts;
+    }
+
+    /**
+     * Class name to assign
+     *
+     * @return string
+     */
+    protected function buildClass(){
+        $classes = [];
+        if( $this->field['required'] ){
+            $classes[] = 'required';
+        }
+        return implode(' ', array_merge($classes, $this->class_attr));
     }
 } 

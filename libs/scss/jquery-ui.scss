@@ -15,6 +15,10 @@
   display: none;
 }
 
+%ui-float{
+  @include box-shadow(0 0 10px 5px rgba(0, 0, 0, 0.2));
+}
+
 .ui-helper-hidden-accessible {
   border: 0;
   clip: rect(0 0 0 0);
@@ -81,6 +85,8 @@
 .ui-icon {
   display: block;
   overflow: hidden;
+  text-indent: 0 !important;
+  background-image: none !important;
 }
 
 /* Misc visuals
@@ -335,9 +341,11 @@ input.ui-button::-moz-focus-inner, button.ui-button::-moz-focus-inner {
   width: 17em;
   padding: .2em .2em 0;
   display: none;
+  @extend %ui-float;
   .ui-datepicker-header {
     position: relative;
     padding: .2em 0;
+    @extend %simple-header;
   }
   .ui-datepicker-prev, .ui-datepicker-next {
     position: absolute;
@@ -515,10 +523,7 @@ input.ui-button::-moz-focus-inner, button.ui-button::-moz-focus-inner {
   .ui-dialog-titlebar {
     padding: .4em 1em;
     position: relative;
-    border: none;
-    border-bottom: 1px solid $container-border;
-    @include border-radius(none);
-    background: $container-body;
+    @extend %simple-header;
   }
   .ui-dialog-title {
     float: left;
@@ -941,6 +946,15 @@ body .ui-tooltip {
     color: #ffffff;
     text-decoration: none;
   }
+}
+
+// Override header
+%simple-header{
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  background: $container-body;
+  @include border-radius(none);
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {

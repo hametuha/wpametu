@@ -1,4 +1,6 @@
 @import 'mp6';
+@import 'compass';
+@import '../vendor/font-awesome/scss/variables';
 
 .wpametu-metabox-table{
   width: 100%;
@@ -9,7 +11,7 @@
     }
     &:nth-child(even){
       th, td{
-        background: $tint-grey;
+//        background: $tint-grey;
       }
     }
     th{
@@ -18,8 +20,30 @@
         display: block;
       }
     }
+    td{
+      position: relative;
+      p.validator{
+        position: absolute;
+        padding: 0.5em;
+        background: $notification-color;
+        color: $highlight-text-color;
+        display: none;
+        right: 0.5em;
+        bottom: 0.5em;
+        font-size: 0.85em;
+        @include box-shadow(0 0 3px 0 rgba(0, 0, 0, 0.6));
+        &:before{
+          font-family: 'FontAwesome';
+          content: $fa-var-exclamation-triangle;
+          margin-right: 0.5em;
+        }
+      }
+    }
   }
   .satified{
     color: $success;
+  }
+  .datetime-text{
+    width: 12em;
   }
 }

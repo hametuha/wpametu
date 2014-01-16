@@ -9,6 +9,7 @@ namespace WPametu\Traits;
  * @property-read \WPametu\HTTP\Input $input
  * @property-read \WPametu\HTTP\Url $url
  * @property-read \WPametu\Utils\String $str
+ * @property-read \WPametu\Utils\Reflection $reflection
  * @author Takahashi Fumiki
  */
 trait Util
@@ -33,6 +34,8 @@ trait Util
 			case 'input':
 				return \WPametu\HTTP\Input::getInstance();
 				break;
+            case 'reflection':
+                return \WPametu\Utils\Reflection::getInstance();
 		}
 	}
 } 

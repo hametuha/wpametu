@@ -54,7 +54,7 @@ final class Igniter extends Pattern\Singleton
 	 *
 	 * @param array $arguments
 	 */
-	protected function __construct( array $arguments = array()){
+	protected function __construct( array $arguments = [] ){
         // Register scripts and css.
         Script::getInstance();
         Css::getInstance();
@@ -131,7 +131,7 @@ final class Igniter extends Pattern\Singleton
                                 $this->str->hyphenToCamel($folder, true),
                                 $this->str->hyphenToCamel(str_replace('.php', '', $file_name), true)
                             ]);
-                            if( class_exists($class_name) && $this->satisfies($class_name, $class_required)){
+                            if( $this->reflection->satisfies($class_name, $class_required)){
                                 $class_name::getInstance();
                             }
                         }
@@ -156,7 +156,7 @@ final class Igniter extends Pattern\Singleton
                 $base_class = $this->str->hyphenToCamel(str_replace('.php', '', basename($file)), true);
                 $class_name = $namespace.'\\'.$this->str->hyphenToCamel($key, true).'\\'.$base_class;
                 // Detect if class inherits Table class
-                if( $this->satisfies($class_name, $this->class_map[$key]) ){
+                if( $this->reflection->satisfies($class_name, $this->class_map[$key]) ){
                     $class_name::getInstance();
                 }
             }
@@ -194,23 +194,6 @@ final class Igniter extends Pattern\Singleton
             $dir = $this->framework_users[$group];
             if(is_dir($dir)){
                 return $dir;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Detect if specified class inherits parent classs
-     *
-     * @param string $class_name
-     * @param string $required_class
-     * @return bool
-     */
-    private function satisfies($class_name, $required_class){
-        if( class_exists($class_name) && class_exists($required_class)){
-            $reflection = new \ReflectionClass($class_name);
-            if(!$reflection->isAbstract() && $reflection->isSubclassOf($required_class)){
-                return true;
             }
         }
         return false;
