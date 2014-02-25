@@ -25,3 +25,6 @@
 [submodule "vendor/yconnect"]
 	path = vendor/yconnect
 	url = git@github.com:hametuha/yconnect-php-sdk.git
+[submodule "libs/vendor/jquery-ui-mp6"]
+	path = libs/vendor/jquery-ui-mp6
+	url = https://github.com/hametuha/jquery-ui-mp6.git

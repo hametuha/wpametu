@@ -16,17 +16,17 @@ class Css extends Pattern\Singleton
     /**
      * Token input
      */
-    const JQUERY_TOKEN_INTPUT = 'jquery-token-input';
+    const JQUERY_TOKEN_INTPUT = 'jquery-tokeninput';
 
     /**
      * Token input for admin panel
      */
-    const JQUERY_TOKEN_INTPUT_ADMIN = 'jquery-token-input-facebook';
+    const JQUERY_TOKEN_INTPUT_ADMIN = 'jquery-tokeninput-admin';
 
     /**
      * jQuery UI Theme for admin
      */
-    const JQUERY_UI = 'jquery-ui-admin';
+    const JQUERY_UI = 'jquery-ui-mp6';
 
     /**
      * Font Awesome
@@ -53,7 +53,7 @@ class Css extends Pattern\Singleton
      */
     public function registerStyles(){
         // jQuery UI
-        wp_register_style(self::JQUERY_UI, $this->url->libUrl('css/jquery-ui.css'), [self::FONT_AWESOME], '1.10.3');
+        wp_register_style(self::JQUERY_UI, $this->url->libUrl('vendor/jquery-ui-mp6/src/css/jquery-ui.css'), [self::JQUERY_UI], '1.0');
         // jQuery token input
         wp_register_style(self::JQUERY_TOKEN_INTPUT, $this->url->libUrl('css/token-input.css'), [], '1.6.1');
         wp_register_style(self::JQUERY_TOKEN_INTPUT_ADMIN, $this->url->libUrl('css/token-input-admin.css'), [], '1.6.1');
@@ -61,6 +61,7 @@ class Css extends Pattern\Singleton
         wp_register_style(self::FONT_AWESOME, $this->url->getMinifiedFile($this->url->libUrl('vendor/font-awesome/css/font-awesome.css')), [], '4.0.3');
         // Metabox
         wp_register_style(self::METABOX, $this->url->libUrl('css/metabox.css'), [self::JQUERY_UI], VERSION);
+
     }
 
     /**
