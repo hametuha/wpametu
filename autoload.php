@@ -19,7 +19,7 @@ require __DIR__.'/config.php';
 require __DIR__.'/globals.php';
 
 // Load i18n files
-load_plugin_textdomain( 'wpametu', false, BASE_DIR.'/i18n/' );
+load_theme_textdomain( 'wpametu', __DIR__.'/i18n' );
 
 // Register Main autoloader
 spl_autoload_register('\WPametu\autoload');
