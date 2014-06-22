@@ -1,30 +1,6 @@
 [submodule "vendor/spyc"]
 	path = vendor/spyc
 	url = https://github.com/mustangostang/spyc.git
-[submodule "vendor/facebook"]
-	path = vendor/facebook
-	url = https://github.com/facebook/facebook-php-sdk.git
-[submodule "libs/vendor/font-awesome"]
-	path = libs/vendor/font-awesome
-	url = https://github.com/FortAwesome/Font-Awesome.git
-[submodule "libs/vendor/tinycolor"]
-	path = libs/vendor/tinycolor
-	url = https://github.com/bgrins/TinyColor.git
-[submodule "libs/vendor/chartjs"]
-	path = libs/vendor/chartjs
-	url = https://github.com/nnnick/Chart.js.git
-[submodule "vendor/twitteroauth"]
-	path = vendor/twitteroauth
-	url = git@github.com:hametuha/twitteroauth.git
-[submodule "vendor/jwt"]
-	path = vendor/jwt
-	url = https://github.com/luciferous/jwt.git
-[submodule "vendor/google-api"]
-	path = vendor/google-api
-	url = git@github.com:hametuha/google-api-php-client.git
-[submodule "vendor/yconnect"]
-	path = vendor/yconnect
-	url = git@github.com:hametuha/yconnect-php-sdk.git
 [submodule "libs/vendor/jquery-ui-mp6"]
 	path = libs/vendor/jquery-ui-mp6
 	url = https://github.com/hametuha/jquery-ui-mp6.git
