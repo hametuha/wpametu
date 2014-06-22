@@ -1,39 +1,38 @@
 <?php
 /** 
- * 
- * 
- * 
- * 
+ * Load WPametu Framework
+ *
+ * @since 1.0
  */
 
 // Do not load this file directly.
 defined('ABSPATH') or die();
 
+// This bootstrap can be load only once.
+!defined('WPAMETU_INIT') or die('Do not load twitce!');
 
-// If PHP >= 5.3
-if( version_compare(PHP_VERSION, '5.3.0') >= 0 ){
+// Mark as initialized.
+define('WPAMETU_INIT', true);
+
+// If PHP >= 5.4
+if( version_compare(PHP_VERSION, '5.4.0') >= 0 ){
+
+
     call_user_func(function(){
-        // Register global object
-        global $hametuha_framework;
-        // Version of this directory
-        $version = '0.1';
-        
-        // Load functions.
-        if( !function_exists('hametuha_bootstrap') ){
-            require dirname(__FILE__).'/hametuha/functions.php';
-            // Add action to init
-            add_action('init', 'hametuha_bootstrap', 1);
-        }
 
-        // Compare version and assign if greater
-        if( !isset($hametuha_framework['version']) || version_compare($hametuha_framework['version'], $version) > 0 ){
-            // assign version to it
-            $hametuha_framework = array(
-                'version' => $version,
-                'file' => dirname(__FILE__).'/autoload.php',
-            );
-        }
+        // Register autoload
+        spl_autoload_register(function( $class_name ){
+            $class_name = ltrim($class_name, '\\');
+            if( 0 === strpos($class_name, 'WPametu\\') ){
+                $path = __DIR__.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.
+                    str_replace('\\', '/', str_replace('WPametu\\', '', $class_name)).'.php';
+                if( file_exists($path) ){
+                    require $path;
+                }
+            }
+        });
+
     });
 }elseif(WP_DEBUG){
-    trigger_error( sprintf('PHP version should not be less than 5.3.0. Your version is %s.', PHP_VERSION), E_USER_WARNING);
+    trigger_error( sprintf('PHP version should not be less than 5.4.0. Your version is %s.', PHP_VERSION), E_USER_WARNING);
 }
