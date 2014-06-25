@@ -1,13 +1,13 @@
 <?php
 
-namespace WPametu\String;
+namespace WPametu\Http;
 use WPametu\Pattern\Singleton;
 
 
 /**
  * Input utility class
  *
- * @package WPametu\String
+ * @package WPametu\Http
  */
 class Input extends Singleton
 {
