@@ -1,0 +1,6 @@
+[submodule "vendor/Chart.js"]
+	path = vendor/Chart.js
+	url = https://github.com/nnnick/Chart.js.git
+[submodule "vendor/spyc"]
+	path = vendor/spyc
+	url = https://github.com/mustangostang/spyc.git

@@ -42,7 +42,8 @@ if( version_compare(PHP_VERSION, WPAMETU_PHP_VERSION) >= 0 ){
         require __DIR__.'/functions.php';
 
         // Register autoload
-        spl_autoload_register(function( $class_name ){
+        $vendor_dir = __DIR__.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
+        spl_autoload_register(function( $class_name ) use ($vendor_dir){
             $class_name = ltrim($class_name, '\\');
             if( 0 === strpos($class_name, 'WPametu\\') ){
                 $path = __DIR__.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.
@@ -50,8 +51,13 @@ if( version_compare(PHP_VERSION, WPAMETU_PHP_VERSION) >= 0 ){
                 if( file_exists($path) ){
                     require $path;
                 }
+            }elseif( ltrim($class_name, '\\') == 'Spyc' ){
+                require $vendor_dir.'spyc'.DIRECTORY_SEPARATOR.'Spyc.php';
             }
         });
+
+        // Fire Autoloader
+        \WPametu\Autoloader::get_instance(['config' => __DIR__.DIRECTORY_SEPARATOR.'autoloads.yaml']);
 
     });
 }elseif( WP_DEBUG ){
