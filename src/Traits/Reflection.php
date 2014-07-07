@@ -28,4 +28,14 @@ trait Reflection
         }
         return false;
     }
+
+    /**
+     * Returns all defined constants
+     *
+     * @return array
+     */
+    public static function get_all_constants(){
+        $refl = new \ReflectionClass(get_called_class());
+        return $refl->getConstants();
+    }
 }
