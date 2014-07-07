@@ -39,9 +39,9 @@ class Autoloader extends Singleton
          */
         $config_path = apply_filters('wpametu_config_path', $setting['config']);
         // Load config file.
-        $config = \Spyc::YAMLLoad($config_path);
+        require $setting['config'];
         // Make instance of every Singleton class
-        if( !empty($config) ){
+        if( isset($config) && !empty($config) ){
             foreach($config as $class_name){
                 if( $this->is_singleton($class_name) ){
                     $class_name::get_instance();
