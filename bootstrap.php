@@ -57,7 +57,15 @@ if( version_compare(PHP_VERSION, WPAMETU_PHP_VERSION) >= 0 ){
         });
 
         // Fire AutoLoader
-        \WPametu\Autoloader::get_instance(['config' => __DIR__.DIRECTORY_SEPARATOR.'autoloads.php']);
+        try{
+            \WPametu\Autoloader::get_instance([
+                'config' => __DIR__.DIRECTORY_SEPARATOR.'autoloads.php'
+            ]);
+        }catch ( \Exception $e ) {
+            wp_die($e->getMessage(), get_status_header_desc($e->getCode()), [
+                'response' => $e->getCode()
+            ]);
+        }
 
 
     });

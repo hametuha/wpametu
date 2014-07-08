@@ -4,6 +4,7 @@ namespace WPametu;
 
 
 use WPametu\Exception\FileLoadException;
+use WPametu\File\Path;
 use WPametu\Pattern\Singleton;
 use WPametu\Traits\Reflection;
 
@@ -15,13 +16,14 @@ use WPametu\Traits\Reflection;
  */
 class Autoloader extends Singleton
 {
-    use Reflection;
+    use Reflection, Path;
 
     /**
      * Constructor
      *
      * @param array $setting key 'config' is setting config file.
      * @throws FileLoadException
+     * @throws \Exception
      */
     protected function __construct( array $setting = [] ){
         // Check if file exists.
@@ -41,9 +43,23 @@ class Autoloader extends Singleton
         // Load config file.
         require $setting['config'];
         // Make instance of every Singleton class
-        if( isset($config) && !empty($config) ){
-            foreach($config as $class_name){
+        if( isset($autoloads) && !empty($autoloads) ){
+            foreach($autoloads as $class_name){
                 if( $this->is_singleton($class_name) ){
+                    $class_name::get_instance();
+                }
+            }
+        }
+
+        // Seek API
+        $path = $this->get_theme_dir().'/config/api.php';
+        if( file_exists($path) ){
+            require $path;
+            if( !isset($apis) || !is_array($apis) ){
+                throw new \Exception(sprintf('You must define $apis as class name array in %s.', $path));
+            }
+            foreach( $apis as $class_name ){
+                if( $this->is_controller($class_name) ){
                     $class_name::get_instance();
                 }
             }

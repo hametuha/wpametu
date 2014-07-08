@@ -2,10 +2,19 @@
 
 namespace WPametu\File;
 
-
+/**
+ * Path helper
+ *
+ * @package WPametu\File
+ */
 trait Path
 {
 
+    /**
+     * Is child theme
+     *
+     * @return bool
+     */
     protected function is_child_theme(){
         return WPAMETU_CHILD;
     }
