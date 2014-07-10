@@ -5,7 +5,6 @@ namespace WPametu\DB;
 
 use WPametu\Pattern\Singleton;
 
-
 /**
  * QueryBuilder
  *
@@ -25,18 +24,22 @@ abstract class QueryBuilder extends Singleton
     protected $name = '';
 
     /**
-     * Default select
+     * Related table names.
      *
-     * @var string
-     */
-    protected $default_select = '*';
-
-    /**
-     * Default Join array
+     * You can get this each table name prefixed with getter.
      *
-     * @var array ['name' => 'on']
+     * <code>
+     * // Define like this.
+     * protected $related = ['posts', 'terms'];
+     *
+     * // You can get with table prefix.
+     * $this->posts; // -> 'wp_posts'
+     * $this->terms; // -> 'wp_terms'
+     * </code>
+     *
+     * @var array
      */
-    protected $default_join = [];
+    protected $related = [];
 
     /**
      * Add SQL_CALC_FOUND_ROWS or not
@@ -112,21 +115,24 @@ abstract class QueryBuilder extends Singleton
      *
      * @return string
      */
-    final public function build_query(){
-        $select = empty($this->_select) ? $this->default_select : implode(', ', $this->_select);
+    final protected function build_query(){
+        $select = empty($this->_select) ? $this->default_select() : implode(', ', $this->_select);
         $calc = $this->_calc_rows ? ' SQL_CALC_FOUND_ROWS' : '';
-        $distinct = $this->_distinct ? sprintf('DISTINCT(%s)', $this->escape_backtick($this->_distinct)) : '';
+        $distinct = $this->_distinct ? sprintf('DISTINCT(%s)', $this->escape_column_name($this->_distinct)) : '';
         $from = empty($this->_from) ? $this->table : $this->_from;
         // Build query
         $sql = <<<SQL
-          SELECT{$calc} {$distinct} FROM {$from}
+          SELECT{$calc} {$distinct} {$select} FROM {$from}
 SQL;
         // Add join
         $join = [];
-        if( empty($this->_join) && !empty($this->default_join)){
-            $join = $this->default_join;
-        }else{
+        if( !empty($this->_join) ){
             $join = $this->_join;
+        }else{
+            $default_join = $this->default_join();
+            if( !empty($default_join) ){
+                $join = $default_join;
+            }
         }
         foreach($join as list($table, $on, $method)){
             $method = 'INNER' === strtoupper($method) ? 'INNER' : 'LEFT';
@@ -138,7 +144,7 @@ SQL;
         // Add where
         if( !empty($this->_wheres) ){
             $where_clause = $this->build_where($this->_wheres);
-            $sql =<<<SQL
+            $sql .= <<<SQL
             WHERE {$where_clause}
 SQL;
         }
@@ -146,9 +152,10 @@ SQL;
         if( !empty($this->_group_by) ){
             $group_by = implode(', ', $this->_group_by);
             $sql .= <<<SQL
-            GROUP BY {$$group_by}
+            GROUP BY {$group_by}
 SQL;
         }
+        // Add order by
         if( !empty($this->_order_by) ){
             $order_by = implode(', ', $this->_group_by);
             $sql .= <<<SQL
@@ -161,7 +168,7 @@ SQL;
             $limit = <<<SQL
             LIMIT %d, %d
 SQL;
-            $sql .= sprintf($limit, $per_page, $offset);
+            $sql .= sprintf($limit, $offset, $per_page);
         }
         return $sql;
     }
@@ -176,8 +183,7 @@ SQL;
         $where_clause = [];
         $counter = 0;
         foreach( $where_array as list($glue, $where) ){
-            $where_clause = '';
-            if($counter){
+            if( $counter ){
                 $where_clause[] = $glue;
             }
             if( is_array($where) ){
@@ -196,8 +202,8 @@ SQL;
      * @param string $name
      * @return $this
      */
-    final public function select($name){
-        $this->_select[] = $this->escape_backtick($name);
+    final protected function select($name){
+        $this->_select[] = $this->escape_column_name($name);
         return $this;
     }
 
@@ -207,7 +213,7 @@ SQL;
      * @param bool $on
      * @return $this
      */
-    final public function calc($on = true){
+    final protected function calc($on = true){
         $this->_calc_rows = (bool)$on;
         return $this;
     }
@@ -218,7 +224,7 @@ SQL;
      * @param string $column
      * @return $this
      */
-    final public function distinct($column){
+    final protected function distinct($column){
         $this->_distinct = $column;
         return $this;
     }
@@ -229,7 +235,7 @@ SQL;
      * @param string $table
      * @return $this
      */
-    final public function from($table){
+    final protected function from($table){
         $this->_from = $table;
         return $this;
     }
@@ -242,7 +248,7 @@ SQL;
      * @param string $method
      * @return $this
      */
-    final public function join($table, $on, $method = 'left'){
+    final protected function join($table, $on, $method = 'left'){
         $this->_join[] = [$table, $on, $method];
         return $this;
     }
@@ -255,9 +261,33 @@ SQL;
      * @param bool $or
      * @return $this
      */
-    final public function where($where, $replace, $or = false){
+    final protected function where($where, $replace, $or = false){
         $this->_wheres[] = [$this->and_or($or), $this->db->prepare($where, $replace)];
         return $this;
+    }
+
+    /**
+     * Add Where LIKE
+     *
+     * @param string $column
+     * @param string $replace
+     * @param string $position Position of %. 'left', 'right' or 'both'
+     * @param bool $or
+     */
+    final protected function where_like($column, $replace, $position = 'both', $or = false){
+        switch( strtolower($position) ){
+            case 'left':
+                $replace = '%'.$replace;
+                break;
+            case 'right':
+                $replace = $replace.'%';
+                break;
+            default:
+                $replace = '%'.$replace.'%';
+                break;
+        }
+        $column = $this->escape_column_name($column);
+        $this->_wheres[] = [$this->and_or($or), $this->db->prepare("{$column} LIKE %s", $replace)];
     }
 
     /**
@@ -267,7 +297,7 @@ SQL;
      * @param bool $or
      * @return $this
      */
-    final public function wheres(array $wheres, $or = false){
+    final protected function wheres(array $wheres, $or = false){
         foreach($wheres as $where => $replace){
             $this->where($where, $replace, $or);
         }
@@ -282,12 +312,25 @@ SQL;
      * @param bool $each_or
      * @return $this
      */
-    final public function where_group(array $wheres, $or = false, $each_or = false){
+    final protected function where_group(array $wheres, $or = false, $each_or = false){
         $where_segments = [];
         foreach( $wheres as $where => $format ){
             $where_segments[] = [$this->and_or($each_or), $this->db->prepare($where, $format)];
         }
         $this->_wheres[] = [$this->and_or($or), $where_segments];
+        return $this;
+    }
+
+    /**
+     * Add where in with subquery
+     *
+     * @param string $column
+     * @param string $sub_query
+     * @param bool $or
+     * @return $this
+     */
+    final protected function where_in_subquery($column, $sub_query, $or = false){
+        $this->_wheres[] = [$this->and_or($or), "{$column} IN ({$sub_query})"];
         return $this;
     }
 
@@ -298,9 +341,9 @@ SQL;
      * @param string $order
      * @return $this
      */
-    final public function group_by($column, $order = 'ASC'){
+    final protected function group_by($column, $order = 'ASC'){
         $order = 'DESC' === strtoupper($order) ? 'DESC' : 'ASC';
-        $this->_group_by[] = sprintf('%s %s', $this->escape_backtick($column), $order);
+        $this->_group_by[] = sprintf('%s %s', $this->escape_column_name($column), $order);
         return $this;
     }
 
@@ -311,16 +354,16 @@ SQL;
      * @param string $order
      * @return $this
      */
-    final public function order_by($column, $order = 'ASC'){
+    final protected function order_by($column, $order = 'ASC'){
         $order = 'DESC' === strtoupper($order) ? 'DESC' : 'ASC';
-        $this->_order_by[] = sprintf('%s %s', $this->escape_backtick($column), $order);
+        $this->_order_by[] = sprintf('%s %s', $this->escape_column_name($column), $order);
         return $this;
     }
 
     /**
      * Set order random
      */
-    final public function random(){
+    final protected function random(){
         $this->_order_by = ['RAND()'];
         return $this;
     }
@@ -334,12 +377,12 @@ SQL;
      * @param bool $or
      * @return $this
      */
-    final public function where_in($column, array $values, $format = '%s', $or = false){
+    final protected function where_in($column, array $values, $format = '%s', $or = false){
         $replace_values = [];
         foreach( $values as $val ){
             $replace_values[] = $this->db->prepare($format, $val);
         }
-        $this->_wheres[] = [$this->and_or($or), sprintf('%s IN (%s)', $this->escape_backtick($column), implode(', ', $replace_values))];
+        $this->_wheres[] = [$this->and_or($or), sprintf('%s IN (%s)', $this->escape_column_name($column), implode(', ', $replace_values))];
         return $this;
     }
 
@@ -350,7 +393,7 @@ SQL;
      * @param int $page
      * @return $this
      */
-    final public function limit($per_page, $page = 0){
+    final protected function limit($per_page, $page = 0){
         $this->_limit = [$per_page, $page * $per_page];
         return $this;
     }
@@ -371,15 +414,13 @@ SQL;
      * @param string $column_names
      * @return string
      */
-    private function escape_backtick($column_names){
+    private function escape_column_name($column_names){
         $columns = [];
         foreach( explode(',', $column_names) as $column_name ){
-            $segments = array_map('trim', explode('.', $column_name));
-            if( count($segments) > 1 ){
-                $columns[] = sprintf('`%s`.%s', str_replace('`', '', $segments[0]), $segments[1]);
-            }else{
-                $columns[] = $segments[0];
-            }
+            // trim
+            $column_name = trim($column_name);
+            // Remove special chars
+            $columns[] = preg_replace('/[`\'";\n\r\\\0]/u', '', $column_name);
         }
         return implode(', ', $columns);
     }
@@ -391,7 +432,7 @@ SQL;
      * @param bool $ignore_cache Default false. If true, always return fresh result.
      * @return false|int False on failure, Affected row count on success.
      */
-    final public function execute($query, $ignore_cache = false){
+    final protected function execute($query, $ignore_cache = false){
         if( $this->cache_exist($query) && !$ignore_cache ){
             return $this->get_cache($query);
         }else{
@@ -424,7 +465,7 @@ SQL;
     /**
      * Clear all result
      */
-    final public function clear(){
+    final protected function clear(){
         $this->_distinct = false;
         $this->_select = [];
         $this->_from = '';
@@ -441,7 +482,7 @@ SQL;
      * @param string $sql
      * @param mixed $result
      */
-    public function cache_query($sql, $result){
+    final protected function cache_query($sql, $result){
         if( isset($this->query_cache[$sql]) ){
             $this->query_cache[$sql] = $result;
         }elseif( count($this->query_cache) >= $this->cache_limit ){
@@ -450,6 +491,40 @@ SQL;
             // save query
             $this->query_cache[$sql] = $result;
         }
+    }
+
+
+    /**
+     * Default select
+     *
+     * If select clause is not specified,
+     * this function will fill.
+     * Override this function to change default.
+     *
+     * @return string *(asterisk)
+     */
+    protected function default_select(){
+        return '*';
+    }
+
+
+    /**
+     * Default Join array
+     *
+     * If join is not specified, this will used.
+     * Override this function to change default.
+     *
+     * <code>
+     * return [
+     *     [$this->some, "{$this->some}.ID = {$this->table}.user_id", 'inner'],
+     *     [$this->other, "{$this->table}.other_id = {$this->other}.post_id", 'left'],
+     * ];
+     * </code>
+     *
+     * @return array Array of join array like ['talble', 'on table.ID = another.post_id', 'left']
+     */
+    protected function default_join(){
+        return [];
     }
 
     /**
@@ -468,8 +543,8 @@ SQL;
                 return $wpdb;
                 break;
             default:
-                if( isset($this->join[$name]) ){
-                    return $this->db->prefix.$this->join[$name];
+                if( false !== array_search($name, $this->related) ){
+                    return $this->db->prefix.$name;
                 }
                 break;
         }

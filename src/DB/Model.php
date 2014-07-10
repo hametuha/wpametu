@@ -15,6 +15,25 @@ abstract class Model extends QueryBuilder
 {
 
     /**
+     * If specified, try to add updated column
+     *
+     * @var bool
+     */
+    protected $updated_column = false;
+
+    /**
+     * Specify default column's placeholder.
+     *
+     * <code>
+     * // column => placeholder
+     * [ 'date' => '%s', 'post_id' => '%d']
+     * </code>
+     *
+     * @var array
+     */
+    protected $default_placeholder = [];
+
+    /**
      * Primary key for this model
      *
      * <code>$this_table.$this->primary_key</code> will used for
@@ -22,7 +41,7 @@ abstract class Model extends QueryBuilder
      *
      * @var string
      */
-    protected $primary_key = '';
+    protected $primary_key = 'ID';
 
     /**
      * Result will be convert to this class.
@@ -36,7 +55,7 @@ abstract class Model extends QueryBuilder
      *
      * @return int
      */
-    public function found_count(){
+    final public function found_count(){
         return (int)$this->db->get_var('SELECT FOUND_ROWS() AS count');
     }
 
@@ -48,10 +67,11 @@ abstract class Model extends QueryBuilder
      * @return mixed|null
      */
     public function get($id, $ignore_cache = false){
-        if( empty($this->primay_key) ){
+        if( empty($this->primary_key) ){
             return null;
         }
         $row = $this->where("{$this->table}.{$this->primary_key} = %d", $id)->get_row('', $ignore_cache);
+        var_dump($this->db->last_query);
         if( $row && $this->result_class ){
             return new $this->result_class($row);
         }else{
@@ -65,7 +85,7 @@ abstract class Model extends QueryBuilder
      * @param int $offset
      * @return array|mixed|null
      */
-    public function find(array $wheres, $limit = 0, $offset = 0){
+    public function find(array $wheres = [], $limit = 0, $offset = 0){
         if( !$limit ){
             $limit = $this->per_page;
         }
@@ -165,5 +185,115 @@ abstract class Model extends QueryBuilder
      */
     protected function has_result_class(){
         return !empty($this->result_class) && class_exists($this->result_class);
+    }
+
+    /**
+     * Insert row
+     *
+     * @param array $values Array with 'column' => 'value'
+     * @param array $place_holders Array of '%s', '%d', '%f'
+     * @param string $table
+     * @return false|int number of rows or false on failure
+     */
+    protected function insert(array $values, array $place_holders = [], $table = ''){
+        if( empty($table) ){
+            extract($this->get_default_values($values, $table, $place_holders));
+        }
+        return $this->db->insert($table, $values, $place_holders);
+    }
+
+    /**
+     * Update table
+     *
+     * @param array $values
+     * @param array $wheres ['column' => 'value'] format.
+     * @param array $place_holders
+     * @param array $where_format
+     * @param string $table
+     * @return false|int
+     */
+    protected function update(array $values, array $wheres = [], array $place_holders = [], array $where_format = [], $table = ''){
+        if( empty($table) ){
+            extract($this->get_default_values($values, $table, $place_holders));
+        }
+        if( empty($where_format) && !empty($this->default_placeholder) ){
+            foreach($wheres as $column => $valud){
+                if( isset($this->default_placeholder[$column]) ){
+                    $where_format[] = $this->default_placeholder[$column];
+                }
+            }
+        }
+        return $this->db->update($table, $values, $wheres, $place_holders, $where_format);
+    }
+
+    /**
+     * Get default value
+     *
+     * @param array $values
+     * @param string $table
+     * @param array $place_holders
+     * @return array
+     */
+    protected function get_default_values(array $values = [], $table = '', array $place_holders = [] ){
+        if( empty($table) ){
+            $table = $this->table;
+        }
+        if( $table == $this->table ){
+            // Overwrite place holder
+            if( $this->default_placeholder ){
+                $default_place_holder = [];
+                foreach( $values as $column => $value ){
+                    $default_place_holder[] = $this->default_placeholder[$column];
+                }
+                if( empty($place_holders) ){
+                    $place_holders = $default_place_holder;
+                }
+            }
+            // Add updated column
+            if( $this->updated_column ){
+                if( !isset($values[$this->updated_column]) ){
+                    $values[$this->updated_column] = current_time('mysql');
+                    $place_holders[] = '%s';
+                }
+            }
+        }
+        return compact('table', 'place_holders', 'values');
+    }
+
+    /**
+     * Delete record
+     *
+     * @param array $wheres
+     * @param string $table_name If not specified, <code>$this->table</code> will be used.
+     * @return false|int
+     * @throws \Exception
+     */
+    protected function delete_where(array $wheres, $table_name = ''){
+        if( empty($table_name) ){
+            $table_name = $this->table;
+        }
+        if( !empty($wheres) ){
+            $where_clause = [];
+            foreach( $wheres as $condition ){
+                if( count($condition) != 4 ){
+                    throw new \Exception('Where section of delete query has 4 parameters(column, operand, value, placeholder)', 500);
+                }
+                list($column, $operand, $value, $replace) = $condition;
+                if( is_array($value) ){
+                    $where_clause[] = "{$column} {$operand} (".implode(', ', array_map(function($val) use ($replace) {
+                            return $this->db->prepare($replace, $val);
+                        }, $value)).")";
+                }else{
+                    $where_clause[] = $this->db->prepare("{$column} {$operand} {$replace}", $value);
+                }
+            }
+            $where_clause = implode(' AND ', $where_clause);
+            $query = <<<SQL
+              DELETE FROM {$table_name}
+              WHERE {$where_clause}
+SQL;
+            return $this->db->query($query);
+        }
+        return 0;
     }
 }

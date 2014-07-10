@@ -11,7 +11,6 @@ use WPametu\Pattern\Singleton;
  * Class Ajax
  *
  * @package WPametu\API
- * @property-read Input $input
  */
 abstract class Ajax extends Controller
 {
@@ -43,6 +42,14 @@ abstract class Ajax extends Controller
      * @var string 'admin', 'public', 'both'. Default 'admin';
      */
     protected $screen = 'admin';
+
+
+    /**
+     * Required parameters
+     *
+     * @var array
+     */
+    protected $required = [];
 
     /**
      * Constructor
@@ -122,13 +129,26 @@ abstract class Ajax extends Controller
         if('post' == $this->method){
             nocache_headers();
         }
-        if( $this->auth() ){
+        try{
+            // Authenticate
+            if( !$this->auth() ){
+                $this->error($this->__('Sorry, but you have no permission.'), 403);
+            }
+            // Validate
+            if( !empty($this->required) ){
+                foreach( $this->required as $key ){
+                    if( !isset($_REQUEST[$key]) ){
+                        $this->error($this->__('Sorry, but request parameters are wrong.'), 400);
+                    }
+                }
+            }
+            // O.K.
             $data = $this->get_data();
-        }else{
+        }catch( \Exception $e ){
             $data = [
                 'error' => true,
-                'code' => 403,
-                'message' => $this->__('Sorry, but you have no permission.')
+                'code' => $e->getCode(),
+                'message' => $e->getMessage()
             ];
         }
         header('Content-Type', $this->content_type);
@@ -136,52 +156,13 @@ abstract class Ajax extends Controller
         exit;
     }
 
-    /**
-     * Open form
-     *
-     * @param array $attributes
-     * @param bool $echo
-     * @return string
-     */
-    public function form_open( array $attributes = [], $echo = true){
-        $attributes = array_merge([
-            'method' => $this->method,
-            'action' => $this->ajax_url(),
-        ], $attributes);
-        $str = [];
-        foreach( $attributes as $key => $value ){
-            $str[] = sprintf('%s="%s"', $key, esc_attr($value));
-        }
-        $str = implode(' ', $str);
-        $html = "<form {$str}>";
-        $html .= sprintf('<input type="hidden" name="action" value="%s" />', esc_attr($this->action));
-        $html .= $this->nonce_field('_wpnonce', false, false);
-        if( $echo ){
-            echo $html;
-        }
-        return $html;
-    }
-
-    /**
-     * Close form
-     *
-     * @param bool $echo
-     * @return string
-     */
-    public function form_close($echo = true){
-        $form = '</form>';
-        if( $echo ){
-            echo $form;
-        }
-        return $form;
-    }
 
     /**
      * Returns Ajax endpoint
      *
      * @return string
      */
-    private function ajax_url(){
+    protected function ajax_url(){
         $url = admin_url('admin-ajax.php');
         if( is_ssl() ){
             $url = str_replace('http://', 'https://', $url);

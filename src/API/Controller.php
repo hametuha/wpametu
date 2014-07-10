@@ -6,12 +6,15 @@ use WPametu\File\Path;
 use WPametu\Pattern\Singleton;
 use WPametu\Traits\i18n;
 use WPametu\Http\Input;
+use WPametu\Utility\IteratorWalker;
 
 
-/*
+/**
+ * Controller base class
  *
- *
+ * @package WPametu\API
  * @property-read Input $input
+ * @property-read IteratorWalker $walker
  */
 abstract class Controller extends Singleton
 {
@@ -22,7 +25,7 @@ abstract class Controller extends Singleton
      * Action names
      * @var array
      */
-    private static $actions = [];
+    protected static $actions = [];
 
     /**
      * Action name
@@ -42,6 +45,14 @@ abstract class Controller extends Singleton
      */
     protected $models = [];
 
+    /**
+     * Authentication isn't required
+     *
+     * If authentication with nonce is not required
+     *
+     * @var bool
+     */
+    protected $no_auth = false;
 
     /**
      * Check ajax notification
@@ -52,7 +63,7 @@ abstract class Controller extends Singleton
      * @return bool
      */
     protected function auth(){
-        return $this->verify_nonce();
+        return $this->no_auth || $this->verify_nonce();
     }
 
     /**
@@ -82,7 +93,7 @@ abstract class Controller extends Singleton
      * @return bool
      */
     public function verify_nonce($key = '_wpnonce'){
-        return wp_verify_nonce($this->request($key), $this->action);
+        return wp_verify_nonce($this->input->request($key), $this->action);
     }
 
     /**
@@ -98,6 +109,47 @@ abstract class Controller extends Singleton
     }
 
     /**
+     * Load template
+     *
+     * @param string $slug
+     * @param string $name
+     * @param array $args This array will be extract
+     */
+    public function load_template($slug, $name = '', array $args = []){
+        $base_path = $slug.'.php';
+        $original_path = $slug.( !empty($name) ? '-'.$name : '' ).'.php';
+        $found_path = '';
+        foreach( [$original_path, $base_path] as $file ){
+            foreach( [get_stylesheet_directory(), get_template_directory()] as $dir ){
+                $path = $dir.'/'.ltrim($file, '\\');
+                if( file_exists($path) ){
+                    $found_path = $path;
+                    break 2;
+                }
+            }
+        }
+        if( $found_path ){
+            // Path found. Let's locate template.
+            global $post, $posts, $wp_query;
+            if( !empty($args) ){
+                extract($args);
+            }
+            include $found_path;
+        }
+    }
+
+    /**
+     * Throws error
+     *
+     * @param string $message
+     * @param int $code
+     * @throws \Exception
+     */
+    protected function error($message, $code = 400){
+        throw new \Exception($message, $code);
+    }
+
+    /**
      * Getter
      *
      * @param string $name
@@ -108,9 +160,13 @@ abstract class Controller extends Singleton
             case 'input':
                 return Input::get_instance();
                 break;
+            case 'walker':
+                return IteratorWalker::get_instance();
+                break;
             default:
                 if( isset($this->models[$name]) ){
-                    return $this->models[$name]::get_instance();
+                    $class_name = $this->models[$name];
+                    return $class_name::get_instance();
                 }
                 break;
         }
