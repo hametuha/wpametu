@@ -434,7 +434,7 @@ SQL;
             // trim
             $column_name = trim($column_name);
             // Remove special chars
-            $columns[] = preg_replace('/[`\'";\n\r\\\0]/u', '', $column_name);
+            $columns[] = preg_replace('/[`\'";\n\r\\\\\\0]/u', '', $column_name);
         }
         return implode(', ', $columns);
     }

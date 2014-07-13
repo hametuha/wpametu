@@ -135,8 +135,7 @@ abstract class Model extends QueryBuilder
         if( $this->cache_exist($query) && !$ignore_cache ){
             return $this->get_cache($query);
         }else{
-            $row = $this->db->get_row($query);
-            return $row;
+            return $this->db->get_row($query);
         }
     }
 
