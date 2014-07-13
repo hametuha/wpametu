@@ -1,8 +1,9 @@
 <?php
 
-namespace WPametu\API;
+namespace WPametu\API\Ajax;
 
 
+use WPametu\API\Controller;
 use WPametu\Exception\OverrideException;
 use WPametu\Pattern\Singleton;
 
@@ -12,7 +13,7 @@ use WPametu\Pattern\Singleton;
  *
  * @package WPametu\API
  */
-abstract class Ajax extends Controller
+abstract class AjaxBase extends Controller
 {
 
     /**
@@ -37,14 +38,6 @@ abstract class Ajax extends Controller
     protected $content_type = 'application/json';
 
     /**
-     * Which screen to enqueue scripts
-     *
-     * @var string 'admin', 'public', 'both'. Default 'admin';
-     */
-    protected $screen = 'admin';
-
-
-    /**
      * Required parameters
      *
      * @var array
@@ -64,24 +57,8 @@ abstract class Ajax extends Controller
         }
         // Save action
         self::$actions[] = $this->action;
-        // Occur on Ajax request
-        if( defined('DOING_AJAX') && DOING_AJAX ){
-            // Add action
-            add_action('admin_init', [$this, 'register']);
-        }
-        // Register scripts
-        switch( $this->screen ){
-            case 'public':
-                add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
-                break;
-            case 'both':
-                add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
-                add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
-                break;
-            default:
-                add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
-                break;
-        }
+        // Call parent's constructor
+        parent::__construct();
     }
 
     /**
@@ -95,14 +72,6 @@ abstract class Ajax extends Controller
     protected function encode($data){
         return json_encode($data);
     }
-
-    /**
-     * Enqueue scripts and asset
-     *
-     * @param string $page
-     * @return mixed
-     */
-    abstract public function enqueue_assets( $page = '' );
 
     /**
      * Register ajax.
@@ -178,4 +147,5 @@ abstract class Ajax extends Controller
      * @return array
      */
     abstract protected function get_data();
+
 }

@@ -71,7 +71,6 @@ abstract class Model extends QueryBuilder
             return null;
         }
         $row = $this->where("{$this->table}.{$this->primary_key} = %d", $id)->get_row('', $ignore_cache);
-        var_dump($this->db->last_query);
         if( $row && $this->result_class ){
             return new $this->result_class($row);
         }else{

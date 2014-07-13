@@ -1,6 +1,6 @@
 <?php
 
-namespace WPametu\String;
+namespace WPametu\Utility;
 
 use WPametu\Pattern\Singleton;
 use WPametu\Traits\i18n;
@@ -10,10 +10,20 @@ use WPametu\Traits\i18n;
  *
  * @package WPametu\String
  */
-class Utility extends Singleton
+class StringHelper extends Singleton
 {
 
     use i18n;
+
+    /**
+     * Return hyphenated letter to snake case
+     *
+     * @param string $string
+     * @return string
+     */
+    public function to_snake_case($string){
+        return str_replace('-', '_', $string);
+    }
 
     /**
      * Fetch URL from string and apply callback

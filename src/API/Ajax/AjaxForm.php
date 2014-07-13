@@ -1,6 +1,6 @@
 <?php
 
-namespace WPametu\API;
+namespace WPametu\API\Ajax;
 
 
 /**
@@ -8,7 +8,7 @@ namespace WPametu\API;
  *
  * @package WPametu\API
  */
-abstract class AjaxForm extends Ajax
+abstract class AjaxForm extends AjaxBase
 {
 
 
@@ -60,8 +60,9 @@ abstract class AjaxForm extends Ajax
      * @param array $attributes
      */
     public static function form($slug, $name = '', array $attributes = []){
-        /** @var self $instance */
-        $instance = self::get_instance();
+        $class_name = get_called_class();
+        /** @var AjaxBaseForm $instance */
+        $instance = $class_name::get_instance();
         $instance->form_open($attributes);
         $args = $instance->form_arguments();
         $instance->load_template($slug, $name, $args);

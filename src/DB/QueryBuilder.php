@@ -157,7 +157,7 @@ SQL;
         }
         // Add order by
         if( !empty($this->_order_by) ){
-            $order_by = implode(', ', $this->_group_by);
+            $order_by = implode(', ', $this->_order_by);
             $sql .= <<<SQL
             ORDER BY {$order_by}
 SQL;
@@ -267,12 +267,25 @@ SQL;
     }
 
     /**
+     * Add where not null clause
+     *
+     * @param string $column
+     * @param bool $or Default false
+     * @return $this
+     */
+    final protected function where_not_null($column, $or = false){
+        $this->_wheres[] = [$this->and_or($or), sprintf("%s IS NOT NULL", $this->escape_column_name($column))];
+        return $this;
+    }
+
+    /**
      * Add Where LIKE
      *
      * @param string $column
      * @param string $replace
      * @param string $position Position of %. 'left', 'right' or 'both'
      * @param bool $or
+     * @return $this
      */
     final protected function where_like($column, $replace, $position = 'both', $or = false){
         switch( strtolower($position) ){
@@ -288,6 +301,7 @@ SQL;
         }
         $column = $this->escape_column_name($column);
         $this->_wheres[] = [$this->and_or($or), $this->db->prepare("{$column} LIKE %s", $replace)];
+        return $this;
     }
 
     /**

@@ -54,6 +54,19 @@ class Input extends Singleton
     }
 
     /**
+     * Return current request method
+     *
+     * @return bool
+     */
+    public function request_method(){
+        if( isset($_SERVER['REQUEST_METHOD']) ){
+            return $_SERVER['REQUEST_METHOD'];
+        }else{
+            return false;
+        }
+    }
+
+    /**
      * Returns post body
      *
      * This method is useful for typical XML API.

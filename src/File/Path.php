@@ -81,4 +81,23 @@ trait Path
         return $this->get_root_uri().'/vendor';
     }
 
+    /**
+     * Get configuration directory
+     *
+     * @return string
+     */
+    protected function get_config_dir(){
+        /**
+         * wpametu_config_dir_name
+         *
+         * Configuration directory's name.
+         *
+         * @filter
+         * @param string $dir Default 'config'.
+         * @return string
+         */
+        $basename = apply_filters('wpametu_config_dir_name', 'config');
+        return $this->get_theme_dir().'/'.$basename;
+    }
+
 }

@@ -6,7 +6,7 @@ namespace WPametu;
 use WPametu\Http\Input;
 use WPametu\Pattern\Singleton;
 use WPametu\Service\Recaptcha;
-use WPametu\String\Utility;
+use WPametu\Utility\StringHelper;
 
 
 /**
@@ -22,7 +22,7 @@ use WPametu\String\Utility;
  * </code>
  *
  * @package WPametu
- * @property-read Utility $str
+ * @property-read StringHelper $str
  * @property-read Input $input
  * @property-read Recaptcha $recaptcha
  */
@@ -31,7 +31,7 @@ class ThemeHelper extends Singleton
     public function __get($key){
         switch( $key ){
             case 'str':
-                return Utility::get_instance();
+                return StringHelper::get_instance();
                 break;
             case 'input':
                 return Input::get_instance();

@@ -7,6 +7,7 @@ use WPametu\Pattern\Singleton;
 use WPametu\Traits\i18n;
 use WPametu\Http\Input;
 use WPametu\Utility\IteratorWalker;
+use WPametu\Utility\StringHelper;
 
 
 /**
@@ -15,6 +16,7 @@ use WPametu\Utility\IteratorWalker;
  * @package WPametu\API
  * @property-read Input $input
  * @property-read IteratorWalker $walker
+ * @property-read StringHelper $str
  */
 abstract class Controller extends Singleton
 {
@@ -53,6 +55,45 @@ abstract class Controller extends Singleton
      * @var bool
      */
     protected $no_auth = false;
+
+
+    /**
+     * Which screen to enqueue assets
+     *
+     * @var string 'admin', 'public', 'all'. Default 'admin';
+     */
+    protected $screen = 'admin';
+
+    /**
+     * Constructor
+     *
+     * Register action hook for enqueue assets.
+     *
+     * @param array $setting
+     */
+    protected function __construct(array $setting = []){
+        // Register scripts if this request is NOT Ajax
+        if( !self::is_ajax() ){
+            // Register scripts
+            switch( $this->screen ){
+                case 'admin':
+                    add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
+                    break;
+                case 'public':
+                    add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+                    break;
+                case 'login':
+                    add_action('login_enqueue_scripts', [$this, 'enqueue_assets']);
+                    break;
+                default:
+                    add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+                    add_action('login_enqueue_scripts', [$this, 'enqueue_assets']);
+                    add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
+                    break;
+            }
+        }
+    }
+
 
     /**
      * Check ajax notification
@@ -139,6 +180,31 @@ abstract class Controller extends Singleton
     }
 
     /**
+     * Load view template with arguments
+     *
+     * @param string $slug
+     * @param string $name
+     * @param array $args
+     */
+    public static function view($slug, $name = '', array $args = []){
+        $class_name = get_called_class();
+        /** @var Controller $instance */
+        $instance = $class_name::get_instance();
+        $instance->lazy_scripts();
+        $instance->load_template($slug, $name, $args);
+    }
+
+    /**
+     * Executed on view method
+     *
+     * You can load some scripts on view template loading.
+     *
+     */
+    protected  function lazy_scripts(){
+        // Do something
+    }
+
+    /**
      * Throws error
      *
      * @param string $message
@@ -150,6 +216,26 @@ abstract class Controller extends Singleton
     }
 
     /**
+     * Detect if current request is Ajax
+     *
+     * @return bool
+     */
+    public static function is_ajax(){
+        return defined('DOING_AJAX') && DOING_AJAX;
+    }
+
+    /**
+     * Enqueue scripts and asset
+     *
+     * @param string $page Available only on admin screen
+     * @return mixed
+     */
+    public function enqueue_assets( $page = '' ){
+
+    }
+
+
+    /**
      * Getter
      *
      * @param string $name
@@ -159,6 +245,9 @@ abstract class Controller extends Singleton
         switch($name){
             case 'input':
                 return Input::get_instance();
+                break;
+            case 'str':
+                return StringHelper::get_instance();
                 break;
             case 'walker':
                 return IteratorWalker::get_instance();

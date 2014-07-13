@@ -45,7 +45,7 @@ final class TableBuilder extends Singleton
     public function table_test(){
         if( !defined('DOING_AJAX') && $this->has_auth() ){
             // Grab all config file and test them.
-            $config_files = glob($this->get_theme_dir().'/config/db/*.php');
+            $config_files = glob($this->get_config_dir().'/db/*.php');
             if( !empty($config_files) ){
                 try{
                     $messages = [];
