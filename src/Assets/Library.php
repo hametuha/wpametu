@@ -12,6 +12,11 @@ class Library extends Singleton
 
     use Path;
 
+    /**
+     * Scripts to register
+     *
+     * @var array
+     */
     private $scripts = [
         'chart-js' => ['/vendor/Chart.js/Chart.js', null, '1.0.1', true, '.min'],
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
@@ -44,7 +49,7 @@ class Library extends Singleton
      * @param array $setting
      */
     protected function __construct( array $setting = [] ){
-        add_action('init', [$this, 'register_libraries']);
+        add_action('init', [$this, 'register_libraries'], 9);
     }
 
     /**
@@ -76,7 +81,7 @@ class Library extends Singleton
      * @return string
      */
     private function add_extension($src, $ext){
-        if( !WP_DEBUG ){
+        if( WP_DEBUG ){
             $src = preg_replace('/\A(.*)(\.js|\.css)\z/u', '$1'.$ext.'$2', $src);
         }
         return $src;
