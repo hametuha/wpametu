@@ -4,18 +4,21 @@ namespace WPametu\Assets;
 
 
 use WPametu\File\Path;
+use WPametu\Traits\i18n;
 use WPametu\Pattern\Singleton;
+use WPametu\Utility\StringHelper;
 
 
 /**
  * Load assets library
  *
  * @package WPametu\Assets
+ * @property-read StringHelper $str
  */
 class Library extends Singleton
 {
 
-    use Path;
+    use Path, i18n;
 
     /**
      * Library common version
@@ -32,7 +35,8 @@ class Library extends Singleton
     private $scripts = [
         'chart-js' => ['/vendor/Chart.js/Chart.js', null, '1.0.1', true, '.min'],
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
-        'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['jquery', 'gmap'], self::COMMON_VERSION, true, '.min'],
+        'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog'], self::COMMON_VERSION, true, '.min'],
+        'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap'], self::COMMON_VERSION, true, '.min'],
     ];
 
     /**
@@ -41,7 +45,8 @@ class Library extends Singleton
      * @var array
      */
     private $css = [
-        'wpametu-metabox' => ['/assets/css/admin-metabox.css', null, self::COMMON_VERSION, 'screen', false],
+        'jquery-ui-mp6' => ['/vendor/jquery-ui-mp6/src/css/jquery-ui.css', null, '1.10.3', 'screen', false],
+        'wpametu-metabox' => ['/assets/css/admin-metabox.css', ['jquery-ui-mp6'], self::COMMON_VERSION, 'screen', false],
     ];
 
     /**
@@ -89,6 +94,10 @@ class Library extends Singleton
                 $src = add_query_arg($args, $src);
             }
             wp_register_script($handle, $src, $deps, $version, $footer);
+            $localized = $this->localize($handle);
+            if( !empty($localized) ){
+                wp_localize_script($handle, $this->str->hyphen_to_camel($handle), $localized);
+            }
         }
         // Register all css
         foreach( $this->css as $handle => list($src, $deps, $version, $media, $ext) ){
@@ -126,5 +135,42 @@ class Library extends Singleton
             $src = $this->get_root_uri().$src;
         }
         return $src;
+    }
+
+    /**
+     * Make localized script
+     *
+     * @param string $handle
+     * @return array
+     */
+    private function localize($handle){
+        switch( $handle ){
+            case 'wpametu-admin-helper':
+                return [
+                    'error' => $this->__('Error'),
+                    'close' => $this->__('Close'),
+                ];
+                break;
+            default:
+                return [];
+                break;
+        }
+    }
+
+    /**
+     * Getter
+     *
+     * @param string $name
+     * @return Singleton
+     */
+    public function __get($name){
+        switch( $name ){
+            case 'str':
+                return StringHelper::get_instance();
+                break;
+            default:
+                // Do nothing
+                break;
+        }
     }
 }

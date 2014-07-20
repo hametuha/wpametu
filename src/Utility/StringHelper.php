@@ -26,6 +26,33 @@ class StringHelper extends Singleton
     }
 
     /**
+     * Make hyphenated string to camel case
+     *
+     * @param string $string
+     * @param bool $upper_first Retuns Uppercase first letter if true. Defalt false.
+     * @return string
+     */
+    public function hyphen_to_camel($string, $upper_first = false){
+        $str = preg_replace_callback('/-(.)/u', function($match){
+            return strtoupper($match[1]);
+        }, strtolower($string));
+        if($upper_first){
+            $str = ucfirst($str);
+        }
+        return $str;
+    }
+
+    /**
+     * Detect if string is MySQL Date
+     *
+     * @param string $string
+     * @return bool
+     */
+    public function is_date($string){
+        return (bool) preg_match('/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/u', $string);
+    }
+
+    /**
      * Fetch URL from string and apply callback
      *
      * @param string $string

@@ -4,3 +4,6 @@
 [submodule "vendor/spyc"]
 	path = vendor/spyc
 	url = https://github.com/mustangostang/spyc.git
+[submodule "vendor/jquery-ui-mp6"]
+	path = vendor/jquery-ui-mp6
+	url = https://github.com/hametuha/jquery-ui-mp6.git

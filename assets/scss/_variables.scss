@@ -1,0 +1,18 @@
+
+// core variables
+
+$text-color: #fff !default;
+$base-color: #222 !default;
+$icon-color: hsl( hue( $base-color ), 7%, 95% ) !default;
+$highlight-color: #0074a2 !default;
+$notification-color: #d54e21 !default;
+$success-color: #73d663 !default;
+
+$shade-color: #ccc;
+
+// global
+
+$body-background: #f1f1f1 !default;
+
+$link: #0074a2 !default;
+$link-focus: lighten( $link, 10% ) !default;

@@ -1,0 +1,25 @@
+
+$vendor-prefixes: ("-webkit-", "-o-", "");
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} { @content; }
+  @-o-keyframes #{$name} { @content; }
+  @keyframes #{$name} { @content; }
+}
+
+
+@mixin transform($value){
+  -webkit-transform: $value;
+  transform: $value;
+}
+
+
+// Rotation animation
+@include keyframes( rotation ){
+  0% {
+    @include transform(rotate(0deg));
+  }
+  100% {
+    @include transform(rotate(360deg));
+  }
+}

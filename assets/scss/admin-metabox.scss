@@ -1,12 +1,40 @@
 @import "variables";
+@import "animations";
+
+
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  -o-animation: $animation;
+  animation: $animation;
+}
+
+// error string
+.inline-error{
+  color: $notification-color;
+}
+
+// spinner
+.wpametu-spinner{
+  @include animation(rotation 1.5s linear infinite);
+}
 
 
 // Google map
 .form-table .geo-row{
   padding-left: 0;
 }
+input + .wpametu-spinner{
+  color: $shade-color;
+  margin-left: 0.5em;
+  vertical-align: bottom;
+}
+
 .wpametu-map{
   height: 200px;
   background-color: #f9f9f9;
   margin: 10px 0;
+  &.ok + p.inline-error{
+    display: none;
+  }
 }
+
