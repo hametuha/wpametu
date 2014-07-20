@@ -134,7 +134,7 @@ final class Rewrite extends Singleton
     private function is_valid_class($class_name){
         return class_exists($class_name)
                &&
-               $this->is_sub_class_of($class_name, RestBase::class);
+               $this->is_sub_class_of($class_name, RewriteParser::class);
     }
 
     /**

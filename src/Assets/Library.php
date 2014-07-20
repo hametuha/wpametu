@@ -7,10 +7,22 @@ use WPametu\File\Path;
 use WPametu\Pattern\Singleton;
 
 
+/**
+ * Load assets library
+ *
+ * @package WPametu\Assets
+ */
 class Library extends Singleton
 {
 
     use Path;
+
+    /**
+     * Library common version
+     *
+     * @const string
+     */
+    const COMMON_VERSION = '1.0';
 
     /**
      * Scripts to register
@@ -20,10 +32,16 @@ class Library extends Singleton
     private $scripts = [
         'chart-js' => ['/vendor/Chart.js/Chart.js', null, '1.0.1', true, '.min'],
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
+        'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['jquery', 'gmap'], self::COMMON_VERSION, true, '.min'],
     ];
 
+    /**
+     * CSS to register
+     *
+     * @var array
+     */
     private $css = [
-
+        'wpametu-metabox' => ['/assets/css/admin-metabox.css', null, self::COMMON_VERSION, 'screen', false],
     ];
 
     /**
@@ -56,6 +74,7 @@ class Library extends Singleton
      * Register assets
      */
     public function register_libraries(){
+        // Register all scripts
         foreach($this->scripts as $handle => list($src, $deps, $version, $footer, $ext) ){
             $src = $this->build_src($src);
             if( $ext ){
@@ -70,6 +89,14 @@ class Library extends Singleton
                 $src = add_query_arg($args, $src);
             }
             wp_register_script($handle, $src, $deps, $version, $footer);
+        }
+        // Register all css
+        foreach( $this->css as $handle => list($src, $deps, $version, $media, $ext) ){
+            $src = $this->build_src($src);
+            if( $ext ){
+                $src = $this->add_extension($src, $ext);
+            }
+            wp_register_style($handle, $src, $deps, $version, $media);
         }
     }
 

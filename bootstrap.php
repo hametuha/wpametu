@@ -9,7 +9,9 @@
 defined('ABSPATH') or die();
 
 // This bootstrap can be load only once.
-!defined('WPAMETU_INIT') or die('Do not load twitce!');
+if( defined('WPAMETU_INIT') ){
+    return;
+}
 
 /**
  * Required PHP Version
