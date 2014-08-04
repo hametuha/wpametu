@@ -30,6 +30,47 @@ class Text extends Input
     }
 
     /**
+     * Return input field
+     *
+     * @param mixed $data
+     * @param array $fields
+     * @return string
+     */
+    protected function build_input($data, array $fields = [] ){
+        return parent::build_input($data, $fields).$this->length_helper($data);
+    }
+
+    /**
+     * Returns length helper
+     *
+     * @param string $data
+     * @return string
+     */
+    protected function length_helper($data){
+        if ( $this->min || $this->max ){
+            $notice = [];
+            $class_name = 'ok';
+            if( $this->min ){
+                $notice[] = sprintf($this->__('%s chars or more'), number_format($this->min));
+                if( $this->min > mb_strlen($data, 'utf-8') ){
+                    $class_name = 'ng';
+                }
+            }
+            if( $this->max ){
+                $notice[] = sprintf($this->__('%s chars or less'), number_format($this->max));
+                if( $this->max < mb_strlen($data, 'utf-8') ){
+                    $class_name = 'ng';
+                }
+            }
+
+            return sprintf('<p class="char-counter %s"><i class="dashicons"></i> <strong>%s</strong><span> %s</span><small>%s</small></p>',
+                $class_name, mb_strlen($data, 'utf-8'), $this->__('Letters'), implode(', ', $notice));
+        }else{
+            return '';
+        }
+    }
+
+    /**
      * Field arguments
      *
      * @return array
@@ -57,8 +98,8 @@ class Text extends Input
      */
     protected function validate($value){
         if( parent::validate($value) ){
-            $length = strlen(utf8_decode($value));
-            if( $this->min &&  $this->min > $length ){
+            $length = mb_strlen($value, 'utf-8');
+            if( $this->min && $this->min > $length ){
                 throw new ValidateException(sprintf($this->__('Fields %s must be %d digits and more.'), $this->label, $this->min));
             }
             if( $this->max &&  $this->min > $length ){

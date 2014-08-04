@@ -141,12 +141,12 @@ abstract class Controller extends Singleton
      * Echo nonce field
      *
      * @param string $key Default _wpnonce
-     * @param bool $referer Default false.
+     * @param bool $referrer Default false.
      * @param bool $echo Default true
      * @return string
      */
-    public function nonce_field($key = '_wpnonce', $referer = false, $echo = true){
-        return wp_nonce_field($this->action, $key, $referer, $echo);
+    public function nonce_field($key = '_wpnonce', $referrer = false, $echo = true){
+        return wp_nonce_field($this->action, $key, $referrer, $echo);
     }
 
     /**
@@ -228,7 +228,6 @@ abstract class Controller extends Singleton
      * Enqueue scripts and asset
      *
      * @param string $page Available only on admin screen
-     * @return mixed
      */
     public function enqueue_assets( $page = '' ){
 

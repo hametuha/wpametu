@@ -31,10 +31,24 @@ abstract class Input extends Base
         foreach( $this->get_field_arguments() as $key => $val ){
             $fields[] = sprintf('%s="%s"', $key, esc_attr($val));
         }
+        return $this->build_input($this->get_data($post), $fields);
+    }
+
+    /**
+     * build input field
+     *
+     * @param mixed $data
+     * @param array $fields
+     * @return string
+     */
+    protected function build_input($data, array $fields = [] ){
         $fields = implode(' ', $fields);
         return sprintf('<input id="%1$s" name="%1$s" type="%2$s" %3$s value="%4$s" />',
-            $this->name, $this->type, $fields, esc_attr($this->get_data($post)));
+            $this->name, $this->type, $fields, esc_attr($data));
+
     }
+
+
 
     /**
      * @param array $setting
@@ -67,7 +81,9 @@ abstract class Input extends Base
             if( $this->required && empty($value) ){
                 throw new ValidateException(sprintf($this->__('Field %s is required.'), $this->label));
             }
+            return true;
+        }else{
+            return false;
         }
-        return true;
     }
 }

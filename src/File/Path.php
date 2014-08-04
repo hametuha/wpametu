@@ -81,6 +81,27 @@ trait Path
         return $this->get_root_uri().'/vendor';
     }
 
+
+    /**
+     * Remove directory recursively
+     *
+     * @param string $path
+     */
+    private function remove_dir($path){
+        if( is_dir($path) ){
+            foreach( scandir($path) as $file ){
+                if( $file != '.' && $file != '..' ){
+                    if( is_dir("{$path}/{$file}") ){
+                        $this->remove_dir("{$path}/{$file}");
+                    }else{
+                        @unlink("{$path}/{$file}");
+                    }
+                }
+            }
+            @rmdir($path);
+        }
+    }
+
     /**
      * Get configuration directory
      *

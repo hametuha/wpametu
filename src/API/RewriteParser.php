@@ -2,6 +2,8 @@
 
 namespace WPametu\API;
 
+use WPametu\Exception\AuthException;
+
 /**
  * Rewrite rule parser
  *

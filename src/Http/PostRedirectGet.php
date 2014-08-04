@@ -59,7 +59,7 @@ class PostRedirectGet extends Pattern\Singleton
          * @param bool $start Default true
          * @return bool
          */
-        if( apply_filters('wpametu_auto_start_session', true) ){
+        if( apply_filters('wpametu_auto_start_session', false) ){
             add_action('template_redirect', array($this, 'start_session'));
         }
     }

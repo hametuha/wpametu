@@ -4,7 +4,7 @@ namespace WPametu\UI\Admin;
 
 use WPametu\UI\MetaBox;
 
-class EditMetaBox extends MetaBox
+abstract class EditMetaBox extends MetaBox
 {
 
     /**
@@ -23,13 +23,8 @@ class EditMetaBox extends MetaBox
 
 
     /**
-     * Register save post hook
+     * Register UI hook
      */
-    protected function register_save_action(){
-        add_action('save_post', [$this, 'save_post'], 10, 2);
-    }
-
-
     protected function register_ui(){
         add_action('add_meta_boxes', [$this, 'add_meta_boxes'], 10, 2);
     }
@@ -50,37 +45,6 @@ class EditMetaBox extends MetaBox
             }else{
                 add_meta_box($this->name, $this->label, [$this, 'render'], $post_type, $this->context, $this->priority);
             }
-        }
-    }
-
-    /**
-     * Save post data
-     *
-     * @param int $post_id
-     * @param \WP_Post $post
-     */
-    public function save_post($post_id, \WP_Post $post ){
-        // Skip auto save
-        if( wp_is_post_revision($post) || wp_is_post_autosave($post) ){
-            return;
-        }
-        // Check Nonce
-        if( !$this->verify_nonce() ){
-            return;
-        }
-        // O.K., let's save
-        foreach( $this->loop_fields() as $field ){
-            try{
-                if( is_wp_error($field) ){
-                    /** @var \WP_Error $field */
-                    throw new \Exception($field->get_error_message(), $field->get_error_code());
-                }
-                /** @var \WPametu\UI\Field\Base $field */
-                $field->update($this->input->post($field->name), $post);
-            }catch ( \Exception $e ){
-                $this->prg->addErrorMessage($e->getMessage());
-            }
-
         }
     }
 }

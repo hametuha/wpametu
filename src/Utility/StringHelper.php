@@ -43,6 +43,18 @@ class StringHelper extends Singleton
     }
 
     /**
+     * Make camel case to hyphenated string
+     *
+     * @param string $string
+     * @return string
+     */
+    public function camel_to_hyphen($string){
+        return strtolower(preg_replace_callback('/(?<!^)([A-Z]+)/u', function($match){
+            return '-'.strtolower($match[1]);
+        }, (string)$string));
+    }
+
+    /**
      * Detect if string is MySQL Date
      *
      * @param string $string
@@ -60,7 +72,7 @@ class StringHelper extends Singleton
      * @return mixed
      */
     public function fetch_link($string, callable $callback){
-        return preg_replace_callback("/(https?)(:\/\/[[:alnum:]\+\$\;\?\.%,!#~*\/:@&=_-]+)/iu", $callback, $string);
+        return preg_replace_callback("/(https?)(:\/\/[[:alnum:]\+\$\;\?\.%,!#~*\/:@&=_-]+)/iu", $callback, $string) ;
     }
 
     /**
@@ -72,7 +84,7 @@ class StringHelper extends Singleton
      */
     public function auto_link($string, $nofollow = true){
         return $this->fetch_link($string, function($match) use ($nofollow) {
-            return sprintf('<a href="%1$s"%2$s>%1$s</a>',
+            return sprintf('<a href="%2$s"%1$s>%2$s</a>',
                            ($nofollow ? ' target="_blank" rel="nofollow,external"' : ''), $match[0]);
         });
     }

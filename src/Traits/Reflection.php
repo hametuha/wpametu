@@ -38,15 +38,16 @@ trait Reflection
     /**
      * Detect if specifies class is subclass
      *
-     * @param $class_name
-     * @param $should Parent class name
+     * @param string $class_name
+     * @param string $should Parent class name
+     * @param bool $allow_abstract Default false
      * @return bool
      */
-    protected function is_sub_class_of($class_name, $should){
+    protected function is_sub_class_of($class_name, $should, $allow_abstract = false){
         if( class_exists($class_name) ){
             // Check if this is subclass
             $refl = new \ReflectionClass($class_name);
-            return !$refl->isAbstract() && $refl->isSubclassOf($should);
+            return ( !$allow_abstract || !$refl->isAbstract() ) && $refl->isSubclassOf($should);
         }
         return false;
     }

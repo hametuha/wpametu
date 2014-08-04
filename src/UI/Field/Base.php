@@ -72,7 +72,7 @@ abstract class Base
      * @param \WP_Post $post
      */
     public function render( \WP_Post $post = null ){
-        $required = $this->required ? sprintf(' <small><i class="dashicons dashicons-yes"></i> %s</small>', $this->__('Required')) : '';
+        $required = $this->required ? sprintf(' <small class="required"><i class="dashicons dashicons-yes"></i> %s</small>', $this->__('Required')) : '';
         $label = esc_html($this->label);
         $desc_str = $this->description;
         $desc = !empty($desc_str) ? sprintf('<p class="description">%s</p>', $this->description) : '';
@@ -119,7 +119,28 @@ HTML;
      * @return mixed
      */
     protected function get_data( \WP_Post $post ){
-        return get_post_meta($post->ID, $this->name, true);
+        switch( $this->name ){
+            case 'excerpt':
+                return $post->post_excerpt;
+                break;
+            default:
+                if( false !== array_search(Taxonomy::class, class_uses(get_called_class())) ){
+                    // This is taxonomy
+                    $terms = get_the_terms($post, $this->name);
+                    $term_id = 0;
+                    if( $terms && !is_wp_error($terms) ){
+                        foreach($terms as $term){
+                            $term_id = $term->term_id;
+                        }
+                    }
+                    return $term_id;
+
+                }else{
+                    // This is post meta
+                    return get_post_meta($post->ID, $this->name, true);
+                }
+                break;
+        }
     }
 
     /**

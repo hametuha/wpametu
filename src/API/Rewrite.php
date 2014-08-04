@@ -9,6 +9,7 @@ use WPametu\File\Path;
 use WPametu\Pattern\Singleton;
 use WPametu\Traits\i18n;
 use WPametu\Traits\Reflection;
+use WPametu\Utility\StringHelper;
 
 /**
  * Rewrite rule manager
@@ -18,6 +19,8 @@ use WPametu\Traits\Reflection;
  * @property-read string $api_vars
  * @property-read bool|string $config
  * @property-read int $last_updated
+ * @property-read string $rewrite_md5
+ * @property-read StringHelper $str
  */
 final class Rewrite extends Singleton
 {
@@ -32,6 +35,13 @@ final class Rewrite extends Singleton
     private $option_name = 'wpametu_rewrite_last_updated';
 
     /**
+     * Option name of rewrite rule's md5
+     *
+     * @var string
+     */
+    private $rewrite_md5_name = 'wpametu_rewrite_md5';
+
+    /**
      * Query vars name for method name
      *
      * @var string
@@ -44,6 +54,13 @@ final class Rewrite extends Singleton
      * @var string
      */
     private $vars_query_name = 'api_vars';
+
+    /**
+     * Rewrite classes
+     *
+     * @var array
+     */
+    private $classes = [];
 
     /**
      * Constructor
@@ -76,19 +93,27 @@ final class Rewrite extends Singleton
      * @return array
      */
     public function rewrite_rules_array( array $rules ){
-        if( $this->config ){
-            include $this->config;
+        if( !empty($this->classes) ){
             // Normal rewrite rules
-            if( isset($rewrites) && is_array($rewrites) ){
-                $rules = array_merge($rewrites, $rules);
-            }
-            // API Rewrite rules
-            if( isset($api_rewrites) && is_array($api_rewrites) ){
-                $new_rewrite = [];
-                foreach( $api_rewrites as $rewrite => $class_name ){
-                    $new_rewrite[$rewrite] = "index.php?{$this->api_class}={$class_name}&{$this->api_vars}=\$matches[1]";
+            $new_rewrite = [];
+            $error_message = [];
+            foreach( $this->classes as $class_name ){
+                $prefix = $this->get_prefix($class_name);
+                /** @var RestBase $class_name */
+                if( empty($prefix) ){
+                    $error_message[] = sprintf($this->__('<code>%s</code> should have prefix property.'), $class_name);
+                    continue;
                 }
+                // API Rewrite rules
+                $new_rewrite[trim($prefix, '/').'(/.*)?$'] = "index.php?{$this->api_class}={$class_name}&{$this->api_vars}=\$matches[1]";
+            }
+            if( !empty($new_rewrite) ){
                 $rules = array_merge($new_rewrite, $rules);
+            }
+            if( !empty($error_message) ){
+                add_action('admin_notices', function() use ($error_message) {
+                    printf('<div class="error"><p>%s</p></div>', implode('<br />', $error_message));
+                });
             }
         }
         return $rules;
@@ -126,6 +151,17 @@ final class Rewrite extends Singleton
     }
 
     /**
+     * Add class name to rewrite rules
+     *
+     * @param $class_name
+     */
+    public static function register_class( $class_name ){
+        /** @var $this $instance */
+        $instance = self::get_instance();
+        $instance->classes[] = $class_name;
+    }
+
+    /**
      * Detect if class name is valid
      *
      * @param string $class_name
@@ -134,7 +170,7 @@ final class Rewrite extends Singleton
     private function is_valid_class($class_name){
         return class_exists($class_name)
                &&
-               $this->is_sub_class_of($class_name, RewriteParser::class);
+               $this->is_sub_class_of($class_name, RestBase::class);
     }
 
     /**
@@ -142,17 +178,40 @@ final class Rewrite extends Singleton
      */
     public function admin_init(){
         if( !AjaxBase::is_ajax() && current_user_can('manage_options') ){
-            if( $this->config ){
-                $last_updated = filemtime($this->config);
-                if( get_option('rewrite_rules') && $last_updated && $this->last_updated < $last_updated ){
+            if( !empty($this->classes) ){
+                $rewrites = '';
+                foreach( $this->classes as $class_name ){
+                   $rewrites .= $this->get_prefix($class_name);
+                }
+                $rewrites = md5($rewrites);
+                if( get_option('rewrite_rules') && $this->rewrite_md5 != $rewrites ){
                     flush_rewrite_rules();
+                    $last_updated = current_time('timestamp');
                     update_option($this->option_name, $last_updated);
+                    update_option($this->rewrite_md5_name, $rewrites);
                     $message = sprintf($this->__('Rewrite rules updated. Last modified date is %s'), date_i18n(get_option('date_format').' '.get_option('time_format'), $last_updated));
                     add_action('admin_notices', function() use ($message){
                         printf('<div class="updated"><p>%s</p></div>', $message);
                     });
                 }
             }
+        }
+    }
+
+    /**
+     * Get class prefix
+     *
+     * @param string $class_name
+     * @return string
+     */
+    public function get_prefix($class_name){
+        /** @var RestBase $class_name */
+        if( !empty($class_name::$prefix) ){
+            return $class_name::$prefix;
+        }else{
+            $seg = explode('\\', $class_name);
+            $base = $seg[count($seg) - 1];
+            return $this->str->camel_to_hyphen($base);
         }
     }
 
@@ -198,6 +257,12 @@ final class Rewrite extends Singleton
                 break;
             case 'last_updated':
                 return (int)get_option($this->option_name, false);
+                break;
+            case 'rewrite_md5':
+                return (string)get_option($this->rewrite_md5_name, false);
+                break;
+            case 'str':
+                return StringHelper::get_instance();
                 break;
             default:
                 // Do nothing

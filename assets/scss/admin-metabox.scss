@@ -1,3 +1,6 @@
+@charset "utf-8";
+
+@import "compass";
 @import "variables";
 @import "animations";
 
@@ -18,6 +21,48 @@
   @include animation(rotation 1.5s linear infinite);
 }
 
+.wpametu-meta-table{
+
+  // Textarea
+  textarea{
+    height: auto;
+    width: 98%;
+    resize: vertical;
+  }
+
+  select{
+    overflow: hidden;
+    width: 80%;
+  }
+
+  // Dashicons
+  .dashicons{
+    height: 1em;
+    width: 1em;
+    font-size: 1.4em;
+    vertical-align: middle;
+  }
+}
+
+// Char Counter
+.char-counter{
+  text-align: right;
+  small{
+    margin-left: 1em;
+  }
+  &.ok{
+    color: $success-color;
+    i:before{
+      content: "\f147";
+    }
+  }
+  &.ng{
+    color: $notification-color;
+    i:before{
+      content: "\f158";
+    }
+  }
+}
 
 // Google map
 .form-table .geo-row{
@@ -29,6 +74,10 @@ input + .wpametu-spinner{
   vertical-align: bottom;
 }
 
+small.required{
+  color: $notification-color;
+}
+
 .wpametu-map{
   height: 200px;
   background-color: #f9f9f9;
@@ -38,3 +87,55 @@ input + .wpametu-spinner{
   }
 }
 
+// After title
+.wpametu-after-title{
+
+  margin: 20px 0;
+  border-top: 3px double #ddd;
+  border-bottom: 3px double #ddd;
+
+  .form-table{
+    th, td{
+      display: block;
+      padding: 15px 0;
+    }
+    th{
+      width: auto;
+      padding-bottom: 0;
+    }
+    th{
+      border-top: 1px solid #ddd;
+    }
+    tr:first-child{
+      th{
+        border-top: none;
+      }
+    }
+  }
+}
+
+// Side
+#side-sortables{
+  .form-table{
+    th, td{
+      padding: 3px 0;
+      display: block;
+      width: auto;
+    }
+  }
+}
+
+// Radio box
+.radio-container{
+  label{
+    display: block;
+    margin: 0.5em 0;
+    &:hover{
+      background-color: $hover-bg;
+    }
+    &.inline{
+      @include inline-block();
+      margin: 0 1em 0 0;
+    }
+  }
+}

@@ -37,6 +37,7 @@ class Library extends Singleton
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
         'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog'], self::COMMON_VERSION, true, '.min'],
         'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap'], self::COMMON_VERSION, true, '.min'],
+        'imagesloaded' => ['/vendor/imagesloaded/imagesloaded.pkgd.min.js', null, '', true, false],
     ];
 
     /**

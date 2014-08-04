@@ -9,6 +9,29 @@
 
     $(document).ready(function(){
 
+        // Char counter
+        $('.char-counter').each(function(index, p){
+            var input = $(p).prev('input, textarea');
+            input.keyup(function(){
+                var len = $(this).val().length,
+                    max = parseInt($(this).attr('data-max-length')),
+                    min = parseInt($(this).attr('data-min-length')),
+                    flg = true;
+                $(p).find('strong').text(len);
+                if( min && len < min ){
+                    flg = false;
+                }
+                if( max && len > max ){
+                    flg = false;
+                }
+                if( flg ){
+                    $(p).removeClass('ng').addClass('ok');
+                }else{
+                    $(p).removeClass('ok').addClass('ng');
+                }
+            });
+        });
+
         // Google map
         $('.geo-row').each(function(index, row){
             var input = $(row).find('input[type=hidden]'),

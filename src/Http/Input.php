@@ -2,6 +2,7 @@
 
 namespace WPametu\Http;
 use WPametu\Pattern\Singleton;
+use WPametu\Traits\i18n;
 
 
 /**
@@ -11,6 +12,9 @@ use WPametu\Pattern\Singleton;
  */
 class Input extends Singleton
 {
+
+    use i18n;
+
     /**
      * Return GET Request
      *
@@ -63,6 +67,45 @@ class Input extends Singleton
             return $_SERVER['REQUEST_METHOD'];
         }else{
             return false;
+        }
+    }
+
+    /**
+     * Get file input
+     *
+     * @param string $key
+     * @return array
+     */
+    public function file_info($key){
+        if( isset($_FILES[$key]['error']) && $_FILES[$key]['error'] == UPLOAD_ERR_OK ){
+            return $_FILES[$key];
+        }else{
+            return [];
+        }
+    }
+
+    /**
+     * Get file upload error message
+     *
+     * @param string $key
+     * @return string
+     */
+    public function file_error_message($key){
+        if( $this->file_info($key) ){
+            return '';
+        }elseif( !isset($_FILES[$key]) ){
+            return $this->__('File is not specified.');
+        }else{
+            switch($_FILES[$key]['error']){
+                case UPLOAD_ERR_FORM_SIZE:
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    return $this->__('Uploaded file size exceeds allowed limit.');
+                    break;
+                default:
+                    return $this->__('Failed to upload');
+                    break;
+            }
         }
     }
 

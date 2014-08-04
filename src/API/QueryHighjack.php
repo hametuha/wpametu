@@ -9,7 +9,7 @@ namespace WPametu\API;
  * @package WPametu\API
  * @property-read \wpdb $db
  */
-abstract class QueryHighjack extends Controller
+abstract class QueryHighJack extends Controller
 {
 
     /**
@@ -51,13 +51,17 @@ abstract class QueryHighjack extends Controller
      */
     public function query_vars( array $vars ){
         if( !empty($this->query_var) ){
-            $vars = array_merge($vars, $this->query_var);
+            foreach( $this->query_var as $var ){
+                if( false === array_search($var, $vars) ){
+                    $vars[] = $var;
+                }
+            }
         }
         return $vars;
     }
 
     /**
-     * Regsiter rewrite rules
+     * Register rewrite rules
      *
      * @param array $rules
      * @return array
