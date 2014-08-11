@@ -72,12 +72,22 @@ abstract class Base
      * @param \WP_Post $post
      */
     public function render( \WP_Post $post = null ){
-        $required = $this->required ? sprintf(' <small class="required"><i class="dashicons dashicons-yes"></i> %s</small>', $this->__('Required')) : '';
+        $required = $this->get_required($post);
         $label = esc_html($this->label);
         $desc_str = $this->description;
         $desc = !empty($desc_str) ? sprintf('<p class="description">%s</p>', $this->description) : '';
         $input = $this->get_field($post);
         echo $this->render_row($label, $required, $input, $desc, $post);
+    }
+
+    /**
+     * Required string
+     *
+     * @param \WP_Post $post
+     * @return string
+     */
+    protected function get_required( \WP_Post $post = null ){
+        return $this->required ? sprintf(' <small class="required"><i class="dashicons dashicons-yes"></i> %s</small>', $this->__('Required')) : '';
     }
 
     /**

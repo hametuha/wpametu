@@ -23,6 +23,11 @@
 
 .wpametu-meta-table{
 
+  // Token input
+  ul.token-input-list-admin{
+    margin-top: 3px;
+  }
+
   // Textarea
   textarea{
     height: auto;
@@ -40,7 +45,7 @@
     height: 1em;
     width: 1em;
     font-size: 1.4em;
-    vertical-align: middle;
+    vertical-align: text-top;
   }
 }
 
@@ -85,6 +90,10 @@ small.required{
   &.ok + p.inline-error{
     display: none;
   }
+}
+
+a .dashicons{
+  text-decoration: none;
 }
 
 // After title

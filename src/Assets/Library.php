@@ -35,7 +35,7 @@ class Library extends Singleton
     private $scripts = [
         'chart-js' => ['/vendor/Chart.js/Chart.js', null, '1.0.1', true, '.min'],
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
-        'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog'], self::COMMON_VERSION, true, '.min'],
+        'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog', 'jquery-ui-tooltip'], self::COMMON_VERSION, true, '.min'],
         'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap'], self::COMMON_VERSION, true, '.min'],
         'imagesloaded' => ['/vendor/imagesloaded/imagesloaded.pkgd.min.js', null, '', true, false],
     ];
@@ -74,6 +74,7 @@ class Library extends Singleton
      */
     protected function __construct( array $setting = [] ){
         add_action('init', [$this, 'register_libraries'], 9);
+        add_action('admin_enqueue_scripts', [$this, 'admin_assets']);
     }
 
     /**
@@ -156,6 +157,16 @@ class Library extends Singleton
                 return [];
                 break;
         }
+    }
+
+    /**
+     * Load assets on admin screen
+     *
+     * @param string $page
+     */
+    public function admin_assets( $page = '' ){
+        wp_enqueue_script('wpametu-admin-helper');
+        wp_enqueue_style('jquery-ui-mp6');
     }
 
     /**

@@ -3,6 +3,7 @@
  */
 
 /*global google: true*/
+/*global IRT: true*/
 
 (function ($) {
     'use strict';
@@ -31,6 +32,24 @@
                 }
             });
         });
+
+        // Token Input
+        if( window.IRT ){
+            $('.token-input').each(function(index, input){
+                $(input).tokenInput($(input).attr('data-endpoint'), {
+                    method: 'GET',
+                    queryParam: 's',
+                    theme: 'admin',
+                    preventDuplicates: true,
+                    tokenValue: 'id',
+                    tokenLimit: $(input).attr('data-max-length') ? parseInt($(input).attr('data-max-length'), 10) : null,
+                    hintText: IRT.hintText,
+                    noResultsText: IRT.noResultsText,
+                    searchingText: IRT.searchingText,
+                    prePopulate: WPametuTokenInput[$(input).attr('id')]
+                });
+            });
+        }
 
         // Google map
         $('.geo-row').each(function(index, row){

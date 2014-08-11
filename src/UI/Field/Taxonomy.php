@@ -36,6 +36,16 @@ trait Taxonomy
     }
 
     /**
+     * Taxonomy is different name.
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function validate($value){
+        return true;
+    }
+
+    /**
      * Get terms as option
      *
      * @return array
@@ -51,6 +61,16 @@ trait Taxonomy
             }
             return $result;
         }
+    }
+
+    /**
+     * Detect if this value is allowed
+     *
+     * @param string $value
+     * @return bool
+     */
+    protected function is_allowed_value($value){
+        return true;
     }
 
 

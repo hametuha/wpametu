@@ -4,6 +4,7 @@ namespace WPametu;
 
 
 use WPametu\API\Ajax\AjaxBase;
+use WPametu\API\Ajax\AjaxPostSearch;
 use WPametu\API\QueryHighJack;
 use WPametu\API\Rest\RestBase;
 use WPametu\Exception\FileLoadException;
@@ -48,7 +49,9 @@ class AutoLoader extends Singleton
      *
      * @var array
      */
-    private $ajax_controllers = [];
+    private $ajax_controllers = [
+        AjaxPostSearch::class,
+    ];
 
     /**
      * Widgets

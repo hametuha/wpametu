@@ -2,10 +2,14 @@
  * Description
  */
 
+/* global wpametuAdminHelper:true */
+
 (function ($) {
     'use strict';
 
-
+    //
+    // Global funcitons
+    //
     window.WPametu = {
         alert: function(msg){
             var dialog = $('<div id="wpametu-alert"></div>');
@@ -26,5 +30,19 @@
             });
         }
     };
+
+    //
+    // Tooltips
+    //
+    $(document).ready(function(){
+        $(document).tooltip({
+            items: 'a[data-tooltip-title]',
+            content: function(){
+                return $(this).attr('data-tooltip-title');
+            },
+            track: true
+        });
+    });
+
 
 })(jQuery);

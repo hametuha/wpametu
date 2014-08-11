@@ -45,6 +45,13 @@ abstract class AjaxBase extends Controller
     protected $required = [];
 
     /**
+     * If no cache header required
+     *
+     * @var bool
+     */
+    protected $always_nocache = false;
+
+    /**
      * Constructor
      *
      * @param array $setting
@@ -95,7 +102,7 @@ abstract class AjaxBase extends Controller
      * Do Ajax
      */
     public function ajax(){
-        if('post' == $this->method){
+        if( 'post' == $this->method || $this->always_nocache ){
             nocache_headers();
         }
         try{
