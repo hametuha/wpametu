@@ -1,39 +1,74 @@
 <?php
 /** 
- * 
- * 
- * 
- * 
+ * Load WPametu Framework
+ *
+ * @since 1.0
  */
 
 // Do not load this file directly.
 defined('ABSPATH') or die();
 
+// This bootstrap can be load only once.
+if( defined('WPAMETU_INIT') ){
+    return;
+}
 
-// If PHP >= 5.3
-if( version_compare(PHP_VERSION, '5.3.0') >= 0 ){
+/**
+ * Required PHP Version
+ * @const
+ */
+define('WPAMETU_PHP_VERSION', '5.5.0');
+
+// Add i18n Domain
+define('WPAMETU_DOMAIN', 'wpametu');
+
+// Check PHP Version
+if( version_compare(PHP_VERSION, WPAMETU_PHP_VERSION) >= 0 ){
     call_user_func(function(){
-        // Register global object
-        global $hametuha_framework;
-        // Version of this directory
-        $version = '0.1';
-        
-        // Load functions.
-        if( !function_exists('hametuha_bootstrap') ){
-            require dirname(__FILE__).'/hametuha/functions.php';
-            // Add action to init
-            add_action('init', 'hametuha_bootstrap', 1);
+
+        // Mark as initialized.
+        define('WPAMETU_INIT', true);
+
+        // Define is Child theme
+        if( !defined('WPAMETU_CHILD') ){
+            /**
+             * Whether is's child theme
+             */
+            define('WPAMETU_CHILD', false);
         }
 
-        // Compare version and assign if greater
-        if( !isset($hametuha_framework['version']) || version_compare($hametuha_framework['version'], $version) > 0 ){
-            // assign version to it
-            $hametuha_framework = array(
-                'version' => $version,
-                'file' => dirname(__FILE__).'/autoload.php',
-            );
+        // Load i18n files
+        load_theme_textdomain( WPAMETU_DOMAIN, __DIR__.'/i18n' );
+
+        // Load global functions
+        require __DIR__.'/functions.php';
+
+        // Register autoload
+        $vendor_dir = __DIR__.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR;
+        spl_autoload_register(function( $class_name ) use ($vendor_dir){
+            $class_name = ltrim($class_name, '\\');
+            if( 0 === strpos($class_name, 'WPametu\\') ){
+                $path = __DIR__.DIRECTORY_SEPARATOR.'src'.DIRECTORY_SEPARATOR.
+                    str_replace('\\', '/', str_replace('WPametu\\', '', $class_name)).'.php';
+                if( file_exists($path) ){
+                    require $path;
+                }
+            }elseif( ltrim($class_name, '\\') == 'Spyc' ){
+                require $vendor_dir.'spyc'.DIRECTORY_SEPARATOR.'Spyc.php';
+            }
+        });
+
+        // Fire AutoLoader
+        try{
+            \WPametu\AutoLoader::get_instance();
+        }catch ( \Exception $e ) {
+            wp_die($e->getMessage(), get_status_header_desc($e->getCode()), [
+                'response' => $e->getCode()
+            ]);
         }
+
+
     });
-}elseif(WP_DEBUG){
-    trigger_error( sprintf('PHP version should not be less than 5.3.0. Your version is %s.', PHP_VERSION), E_USER_WARNING);
+}elseif( WP_DEBUG ){
+    trigger_error( sprintf(__('PHP version should not be less than %s. Your version is %s.', WPAMETU_DOMAIN), WPAMETU_PHP_VERSION, PHP_VERSION), E_USER_WARNING);
 }

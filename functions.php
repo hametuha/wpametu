@@ -1,10 +1,25 @@
 <?php
-if(function_exists('hametuha_bootstrap')){
-    return;
+
+
+/**
+ * Access to theme helper instance
+ *
+ * @return \WPametu\ThemeHelper
+ */
+function wpametu(){
+    return WPametu\ThemeHelper::get_instance();
 }
 
-
-
-function hametuha_bootstrap($config_json){
-    
+/**
+ * Force session
+ */
+function wpametu_session(){
+    static $done = false;
+    if( !$done ){
+        add_filter('wpametu_auto_start_session', function(){
+            return true;
+        });
+        $done = true;
+    }
 }
+

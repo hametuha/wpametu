@@ -1,0 +1,12 @@
+[submodule "vendor/Chart.js"]
+	path = vendor/Chart.js
+	url = https://github.com/nnnick/Chart.js.git
+[submodule "vendor/spyc"]
+	path = vendor/spyc
+	url = https://github.com/mustangostang/spyc.git
+[submodule "vendor/jquery-ui-mp6"]
+	path = vendor/jquery-ui-mp6
+	url = https://github.com/hametuha/jquery-ui-mp6.git
+[submodule "vendor/imagesloaded"]
+	path = vendor/imagesloaded
+	url = https://github.com/desandro/imagesloaded.git
