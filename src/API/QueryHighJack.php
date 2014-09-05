@@ -41,6 +41,7 @@ abstract class QueryHighJack extends Controller
         add_filter('posts_search', [$this, 'posts_search'], 10, 2);
         add_filter('posts_groupby', [$this, 'posts_groupby'], 10, 2);
         add_filter('posts_request', [$this, 'posts_request'], 10, 2);
+        add_filter('the_posts', [$this, 'the_posts'], 10, 2);
     }
 
     /**
@@ -169,6 +170,17 @@ abstract class QueryHighJack extends Controller
      */
     public function posts_request($request, \WP_Query $wp_query){
         return $request;
+    }
+
+    /**
+     * Posts results
+     *
+     * @param array $posts
+     * @param \WP_Query $wp_query
+     * @return array
+     */
+    public function the_posts(array $posts, \WP_Query $wp_query){
+        return $posts;
     }
 
     /**
