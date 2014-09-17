@@ -33,6 +33,7 @@ abstract class QueryHighJack extends Controller
         add_filter('query_vars', [$this, 'query_vars']);
         add_filter('rewrite_rules_array', [$this, 'rewrite_rules_array']);
         add_filter('posts_distinct', [$this, 'posts_distinct'], 10, 2);
+	    add_action('pre_get_posts', [$this, 'detect_title']);
         add_action('pre_get_posts', [$this, 'pre_get_posts']);
         add_filter('posts_fields', [$this, 'posts_fields'], 10, 2);
         add_filter('posts_join', [$this, 'posts_join'], 10, 2);
@@ -73,6 +74,31 @@ abstract class QueryHighJack extends Controller
         }
         return $rules;
     }
+
+	/**
+	 * Add wp_title filter if required
+	 *
+	 * @param \WP_Query $wp_query
+	 */
+	final public function detect_title( \WP_Query &$wp_query ){
+		if( $wp_query->is_main_query() && $this->is_valid_query($wp_query) ){
+			add_filter('wp_title', [$this, 'wp_title'], 10, 3);
+		}
+	}
+
+
+	/**
+	 * Override this method if you want to change title
+	 *
+	 * @param string $title
+	 * @param string $sep
+	 * @param string $sep_location
+	 *
+	 * @return string
+	 */
+	public function wp_title($title, $sep, $sep_location){
+		return $title;
+	}
 
     /**
      * action for pre_get_posts
