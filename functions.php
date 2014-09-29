@@ -23,3 +23,15 @@ function wpametu_session(){
     }
 }
 
+
+/**
+ * Show recaptcha
+ *
+ * @param string $theme
+ * @param string $lang
+ *
+ * @return mixed
+ */
+function wpametu_recaptcha($theme = 'clean', $lang = 'en'){
+	return WPametu\Service\Recaptcha::get_instance()->get_html($theme, $lang);
+}
