@@ -231,9 +231,9 @@ class AutoLoader extends Singleton
     /**
      * Assign global $post object
      *
-     * @param \WP_Post $post_obj
+     * @param \WP_Post|\stdClass $post_obj
      */
-    public function the_post( \WP_Post &$post_obj ){
+    public function the_post( &$post_obj ){
         if( isset($this->post_type_to_override[$post_obj->post_type]) ){
             // Post type exists. Let's override
             $class_name = $this->post_type_to_override[$post_obj->post_type];
