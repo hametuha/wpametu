@@ -69,15 +69,16 @@ class RestTemplate extends RestBase
      *
      * @param string $slug
      * @param string $name
+     * @param array $args
      */
-    public function load_template($slug, $name = ''){
+    public function load_template($slug, $name = '', array $args = []){
         if( !did_action('template_redirect') ){
             do_action('template_redirect');
         }
         if( !$this->filtered ){
             add_filter('wp_title', [$this, 'wp_title'], 10, 3);
         }
-        parent::load_template($slug, $name, $this->data);
+        parent::load_template($slug, $name, $this->data, $args);
     }
 
     /**
