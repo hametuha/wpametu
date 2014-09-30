@@ -12,6 +12,9 @@ namespace WPametu\UI\Field;
  */
 abstract class TokenInput extends Text
 {
+
+	protected $length_helper = false;
+
     /**
      * Parse arguments
      *
@@ -78,13 +81,5 @@ HTML;
      */
     abstract protected function get_endpoint();
 
-    /**
-     * Override length helper
-     *
-     * @return string
-     */
-    protected function length_helper(){
-        return '';
-    }
 
 } 

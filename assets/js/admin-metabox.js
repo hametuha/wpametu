@@ -33,6 +33,12 @@
             });
         });
 
+        // DateTime Picker
+        $('.wpametu-datetime-picker').datetimepicker({
+            dateFormat: 'yy-mm-dd',
+            timeFormat: 'hh:mm:00'
+        });
+
         // Token Input
         if( window.IRT ){
             $('.token-input').each(function(index, input){

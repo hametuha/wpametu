@@ -16,6 +16,13 @@ class Text extends Input
 
     protected $type = 'text';
 
+	/**
+	 * Whether if length helper is required.
+	 *
+	 * @var bool
+	 */
+	protected $length_helper = true;
+
     /**
      * Parse arguments
      *
@@ -47,7 +54,7 @@ class Text extends Input
      * @return string
      */
     protected function length_helper($data){
-        if ( $this->min || $this->max ){
+	    if ( ($this->min || $this->max) && $this->length_helper ){
             $notice = [];
             $class_name = 'ok';
             if( $this->min ){

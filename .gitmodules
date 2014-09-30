@@ -10,3 +10,6 @@
 [submodule "vendor/imagesloaded"]
 	path = vendor/imagesloaded
 	url = https://github.com/desandro/imagesloaded.git
+[submodule "vendor/jquery-timepicker-addon"]
+	path = vendor/jquery-timepicker-addon
+	url = https://github.com/trentrichardson/jQuery-Timepicker-Addon.git

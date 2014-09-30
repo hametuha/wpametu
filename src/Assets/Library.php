@@ -36,8 +36,9 @@ class Library extends Singleton
         'chart-js' => ['/vendor/Chart.js/Chart.js', null, '1.0.1', true, '.min'],
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
         'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog', 'jquery-ui-tooltip'], self::COMMON_VERSION, true, '.min'],
-        'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap'], self::COMMON_VERSION, true, '.min'],
+        'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap', 'jquery-ui-timepicker-i18n'], self::COMMON_VERSION, true, '.min'],
         'imagesloaded' => ['/vendor/imagesloaded/imagesloaded.pkgd.min.js', null, '', true, false],
+	    'jquery-ui-timepicker' => ['/vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', ['jquery-ui-datepicker-i18n', 'jquery-ui-slider'], '1.5.0', true, '.min'],
     ];
 
     /**
@@ -47,7 +48,8 @@ class Library extends Singleton
      */
     private $css = [
         'jquery-ui-mp6' => ['/vendor/jquery-ui-mp6/src/css/jquery-ui.css', null, '1.10.3', 'screen', false],
-        'wpametu-metabox' => ['/assets/css/admin-metabox.css', ['jquery-ui-mp6'], self::COMMON_VERSION, 'screen', false],
+	    'jquery-ui-timepicker' => ['/vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.css', ['jquery-ui-mp6'], '1.5.0', 'screen', '.min'],
+        'wpametu-metabox' => ['/assets/css/admin-metabox.css', ['jquery-ui-mp6', 'jquery-ui-timepicker'], self::COMMON_VERSION, 'screen', false],
     ];
 
     /**
@@ -81,6 +83,27 @@ class Library extends Singleton
      * Register assets
      */
     public function register_libraries(){
+	    // Detect Locale
+	    $locale = explode('_', get_locale());
+	    if( count($locale) === 1 ){
+		    $locale = strtolower($locale[0]);
+	    }else{
+		    $locale = strtolower($locale[0]).'-'.strtoupper($locale[1]);
+	    }
+	    $this->scripts['jquery-ui-datepicker-i18n'] = [
+		    '/vendor/jquery-ui-i18n/datepicker-'.$locale.'.js',
+		    ['jquery-ui-datepicker'],
+		    '1.9.1',
+		    true,
+		    false
+	    ];
+	    $this->scripts['jquery-ui-timepicker-i18n'] = [
+		    '/vendor/jquery-timepicker-addon/dist/i18n/jquery-ui-timepicker-'.$locale.'.js', ['jquery-ui-timepicker'],
+		    '1.5.0',
+		    true,
+		    false
+	    ];
+
         // Register all scripts
         foreach($this->scripts as $handle => list($src, $deps, $version, $footer, $ext) ){
             $src = $this->build_src($src);

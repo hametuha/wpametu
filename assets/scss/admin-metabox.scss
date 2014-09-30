@@ -30,14 +30,20 @@
 
   // Textarea
   textarea{
+    box-sizing: border-box;
     height: auto;
-    width: 98%;
+    width: 100% !important;
     resize: vertical;
   }
 
   select{
     overflow: hidden;
     width: 80%;
+  }
+
+  .number-input{
+    text-align: right;
+    width: 12em;
   }
 
   // Dashicons
