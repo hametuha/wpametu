@@ -36,7 +36,7 @@
         // DateTime Picker
         $('.wpametu-datetime-picker').datetimepicker({
             dateFormat: 'yy-mm-dd',
-            timeFormat: 'hh:mm:00'
+            timeFormat: 'HH:mm:00'
         });
 
         // Token Input
