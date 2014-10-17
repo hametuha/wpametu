@@ -18,7 +18,7 @@ abstract class RestFormat extends RestBase
      */
     protected function handle_result( $result ){
         if( isset($this->content_type) ){
-            header('Content-Type', $this->content_type);
+            header("Content-Type: {$this->content_type}");
             echo $this->convert_result($result);
         }
     }

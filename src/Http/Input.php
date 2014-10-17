@@ -99,7 +99,6 @@ class Input extends Singleton
             switch($_FILES[$key]['error']){
                 case UPLOAD_ERR_FORM_SIZE:
                 case UPLOAD_ERR_INI_SIZE:
-                case UPLOAD_ERR_FORM_SIZE:
                     return $this->__('Uploaded file size exceeds allowed limit.');
                     break;
                 default:
