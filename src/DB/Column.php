@@ -186,9 +186,18 @@ class Column
         // Has default?
         if( isset($column['default']) ){
             if( self::is_numeric($column['default']) ){
-                $repl = ' DEFAULT = '.$column['default'];
+                $repl = ' DEFAULT '.$column['default'];
             }else{
-                $sql .= $wpdb->prepare(' DEFAULT = %s', $column['default']);
+	            switch( $column['default'] ){
+		            case 'CURRENT_TIMESTAMP':
+						// Without replace
+						$sql .= " DEFAULT {$column['default']}";
+			            break;
+		            default:
+						// Replace
+		                $sql .= $wpdb->prepare(' DEFAULT %s', $column['default']);
+			            break;
+	            }
             }
         }
         return $sql;

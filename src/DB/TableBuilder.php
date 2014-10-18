@@ -153,6 +153,7 @@ final class TableBuilder extends Singleton
         /** @var $columns array */
         /** @var $primary_key array */
         /** @var $indexes array */
+	    /** @var $charset string */
         extract($config);
         if( empty($columns) ){
             throw new \Exception(sprintf('Columns of %s shouldn\'t be empty.', $name), 500);
@@ -172,12 +173,16 @@ final class TableBuilder extends Singleton
                 $column_query[] = sprintf('KEY %s (%s)', $name, implode(', ', $index));
             }
         }
+	    if( !isset($charset) ){
+		    $charset = 'utf8';
+	    }
+	    // Normalize charset
         $sql = <<<SQL
 CREATE TABLE %s (
     %s
-) ENGINE = %s
+) ENGINE = %s CHARACTER SET %s
 SQL;
-        $sql = sprintf($sql, $config['name'], implode(','.PHP_EOL.'    ', $column_query), $engine);
+        $sql = sprintf($sql, $config['name'], implode(','.PHP_EOL.'    ', $column_query), $engine, $charset);
         return $sql;
     }
 
@@ -204,7 +209,7 @@ SQL;
      * @return bool
      */
     protected function need_update($name, $version){
-        return !isset($this->option[$name]) || !$this->option[$name] || version_compare($version, $this->option[$name]) < 0 ;
+        return !isset($this->option[$name]) || !$this->option[$name] || version_compare($this->option[$name], $version, '<');
     }
 
     /**
