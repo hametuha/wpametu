@@ -13,3 +13,6 @@
 [submodule "vendor/jquery-timepicker-addon"]
 	path = vendor/jquery-timepicker-addon
 	url = https://github.com/trentrichardson/jQuery-Timepicker-Addon.git
+[submodule "vendor/jsrender"]
+	path = vendor/jsrender
+	url = https://github.com/BorisMoore/jsrender.git

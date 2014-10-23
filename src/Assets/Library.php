@@ -39,6 +39,7 @@ class Library extends Singleton
         'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap', 'jquery-ui-timepicker-i18n'], self::COMMON_VERSION, true, '.min'],
         'imagesloaded' => ['/vendor/imagesloaded/imagesloaded.pkgd.min.js', null, '', true, false],
 	    'jquery-ui-timepicker' => ['/vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', ['jquery-ui-datepicker-i18n', 'jquery-ui-slider'], '1.5.0', true, '.min'],
+	    'jsrender' => ['/vendor/jsrender/jsrender.js',  ['jquery'], '1.0.0', true, '.min'],
     ];
 
     /**
