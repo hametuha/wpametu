@@ -10,6 +10,7 @@ use WPametu\API\Rest\RestBase;
 use WPametu\Exception\FileLoadException;
 use WPametu\File\Path;
 use WPametu\Pattern\Singleton;
+use WPametu\Tool\BatchProcessor;
 use WPametu\Traits\Reflection;
 use WPametu\Assets\Library;
 use WPametu\DB\TableBuilder;
@@ -42,6 +43,7 @@ class AutoLoader extends Singleton
         Library::class,
         TableBuilder::class,
         Rewrite::class,
+	    BatchProcessor::class,
     ];
 
     /**
@@ -135,6 +137,9 @@ class AutoLoader extends Singleton
                         case RestBase::class:
                             Rewrite::register_class($class_name);
                             break;
+	                    default:
+							// Do nothing
+		                    break;
                     }
                 }else{
                     switch( $sub_class ){

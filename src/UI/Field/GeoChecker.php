@@ -24,7 +24,7 @@ class GeoChecker extends GeoPoint
     /**
      * Do not save.
      */
-    protected function save(){
+	protected function save($value, \WP_Post $post = null){
         // Do nothing.
     }
 

@@ -119,6 +119,18 @@ class Input extends Singleton
         return file_get_contents('php://input');
     }
 
+	/**
+	 * Verify nonce
+	 *
+	 * @param string $action
+	 * @param string $key Default '_wpnonce'
+	 *
+	 * @return bool
+	 */
+	public function verify_nonce($action, $key = '_wpnonce'){
+		return wp_verify_nonce($this->request($key), $action);
+	}
+
     /**
      * Sanitize super globals
      *

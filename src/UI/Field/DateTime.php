@@ -34,7 +34,11 @@ class DateTime extends Input
 			$args['max'] = $this->max;
 		}
 		if( is_admin() ){
-			$args['class'] .= ' wpametu-datetime-picker';
+			if( isset($args['class']) ){
+				$args['class'] .= ' wpametu-datetime-picker';
+			}else{
+				$args['class'] = ' wpametu-datetime-picker';
+			}
 		}
 		unset($args['data-max-length']);
 		unset($args['data-min-length']);

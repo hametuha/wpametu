@@ -37,6 +37,7 @@ class Library extends Singleton
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
         'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog', 'jquery-ui-tooltip'], self::COMMON_VERSION, true, '.min'],
         'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap', 'jquery-ui-timepicker-i18n'], self::COMMON_VERSION, true, '.min'],
+	    'wpametu-batch-helper' => ['/assets/js/batch-helper.js', ['jquery-form', 'jquery-effects-highlight'], self::COMMON_VERSION, true, '.min'],
         'imagesloaded' => ['/vendor/imagesloaded/imagesloaded.pkgd.min.js', null, '', true, false],
 	    'jquery-ui-timepicker' => ['/vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js', ['jquery-ui-datepicker-i18n', 'jquery-ui-slider'], '1.5.0', true, '.min'],
 	    'jsrender' => ['/vendor/jsrender/jsrender.js',  ['jquery'], '1.0.0', true, '.min'],
@@ -51,6 +52,7 @@ class Library extends Singleton
         'jquery-ui-mp6' => ['/vendor/jquery-ui-mp6/src/css/jquery-ui.css', null, '1.10.3', 'screen', false],
 	    'jquery-ui-timepicker' => ['/vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.css', ['jquery-ui-mp6'], '1.5.0', 'screen', '.min'],
         'wpametu-metabox' => ['/assets/css/admin-metabox.css', ['jquery-ui-mp6', 'jquery-ui-timepicker'], self::COMMON_VERSION, 'screen', false],
+        'wpametu-batch-screen' => ['/assets/css/batch-screen.css', ['jquery-ui-mp6'], self::COMMON_VERSION, 'screen', false],
     ];
 
     /**
