@@ -120,6 +120,15 @@ class Input extends Singleton
     }
 
 	/**
+	 * Get remote address
+	 *
+	 * @return bool|string
+	 */
+	public function remote_ip(){
+		return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : false;
+	}
+
+	/**
 	 * Verify nonce
 	 *
 	 * @param string $action
@@ -128,7 +137,8 @@ class Input extends Singleton
 	 * @return bool
 	 */
 	public function verify_nonce($action, $key = '_wpnonce'){
-		return wp_verify_nonce($this->request($key), $action);
+		$nonce = $this->request($key);
+		return $nonce && wp_verify_nonce($this->request($key), $action);
 	}
 
     /**

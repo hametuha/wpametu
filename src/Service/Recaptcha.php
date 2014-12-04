@@ -5,6 +5,7 @@ namespace WPametu\Service;
 
 use WPametu\Exception\FileLoadException;
 use WPametu\File\Path;
+use WPametu\Http\Input;
 use WPametu\Pattern\Singleton;
 
 
@@ -24,6 +25,7 @@ use WPametu\Pattern\Singleton;
  * @package WPametu\Service
  * @property-read bool $enabled
  * @property-read string $lib Library path.
+ * @property-read Input $input
  */
 class Recaptcha extends Singleton
 {
@@ -45,6 +47,7 @@ class Recaptcha extends Singleton
     /**
      * Load reCaptcha library
      *
+     * @deprecated
      * @throws \WPametu\Exception\FileLoadException
      */
     private function load_lib(){
@@ -58,40 +61,89 @@ class Recaptcha extends Singleton
     /**
      * Return reCaptcha's HTML
      *
-     * @param string $theme clean(default), white, red, blackglass
-     * @param string $lang en(default), fr, nl, de, pt, ru, es, tr, ja
+     * @link https://developers.google.com/recaptcha/docs/language
+     * @param string $theme light(default), dark
+     * @param string $lang en(default), fr, nl, de, pt, ru, es, tr, ja and more.
+     * @param string $type image(default) audio
      * @return string|false
      */
-    public function get_html($theme = 'clean', $lang = 'en'){
+    public function get_html($theme = 'light', $lang = 'en', $type = 'image'){
         if( $this->enabled ){
             // Option value
             $option = [];
             // Select theme
             switch($theme){
-                case 'clean':
-                case 'white':
-                case 'blackglass':
+                case 'dark':
                     $option['theme'] = $theme;
                     break;
                 case 'red':
                 default:
+					$option['theme'] = 'light';
                     // Do nothing
                     break;
             }
+	        // Select image
+	        switch( $type ){
+		        case 'audio':
+					$option['type'] = $type;
+			        break;
+		        default:
+					$option['type'] = 'image';
+			        break;
+	        }
             // Select language
             switch($lang){
-                case 'nl':
-                case 'de':
-                case 'fr':
-                case 'pt':
-                case 'ru':
-                case 'es':
-                case 'tr':
-                    $option['lang'] = $lang;
+	            case 'ar':
+	            case 'bg':
+	            case 'ca':
+	            case 'zh-CN':
+	            case 'zh-TW':
+	            case 'hr':
+	            case 'cs':
+	            case 'da':
+	            case 'nl':
+	            case 'en-GB':
+	            case 'en':
+	            case 'fil':
+	            case 'fi':
+	            case 'fr':
+	            case 'fr-CA':
+	            case 'de':
+	            case 'de-AT':
+	            case 'de-CH':
+	            case 'el':
+	            case 'iw':
+	            case 'hi':
+	            case 'hu':
+	            case 'id':
+	            case 'it':
+	            case 'ja':
+	            case 'ko':
+	            case 'lv':
+	            case 'lt':
+	            case 'no':
+	            case 'fa':
+	            case 'pl':
+	            case 'pt':
+	            case 'pt-BR':
+	            case 'pt-PT':
+	            case 'ro':
+	            case 'ru':
+	            case 'sr':
+	            case 'sk':
+	            case 'sl':
+	            case 'es':
+	            case 'es-419':
+	            case 'sv':
+	            case 'th':
+	            case 'tr':
+	            case 'uk':
+	            case 'vi':
+	                $option['lang'] = $lang;
                     break;
-                case 'en':
                 default:
                     // Do nothing
+					$option['lang'] = 'en';
                     break;
 
             }
@@ -101,22 +153,14 @@ class Recaptcha extends Singleton
              * Filter option to set for reCaptcha
              *
              * @param array $option
-             * @param string $theme
-             * @param string $lang
              * @return array
              */
-            $option = apply_filters('wpametu_recaptcha_setting', $option, $theme, $lang);
-            $script = '';
-            if( !empty($option) ){
-                $json = json_encode($option);
-                $script .= <<<EOS
-<script type="text/javascript">
-window.RecaptchaOptions = {$json};
-</script>
-EOS;
-            }
-            $this->load_lib();
-            return $script.recaptcha_get_html( constant(self::PUBLIC_KEY), null, is_ssl() );
+            $option = apply_filters('wpametu_recaptcha_setting', $option);
+            $script = '<script src="https://www.google.com/recaptcha/api.js?hl='.$option['lang'].'" async defer></script>';
+            $html = <<<HTML
+<div class="g-recaptcha" data-sitekey="%s" data-theme="%s" data-type="%s"></div>
+HTML;
+            return $script.sprintf($html, constant(self::PUBLIC_KEY), $option['theme'], $option['type']);
         }else{
             return false;
         }
@@ -128,11 +172,15 @@ EOS;
      * @return bool
      */
     public function validate(){
-        if( $this->enabled && isset($_REQUEST["recaptcha_challenge_field"], $_REQUEST["recaptcha_response_field"]) ){
-            $this->load_lib();
-            $resp = recaptcha_check_answer(constant(self::PRIVATE_KEY), $_SERVER['REMOTE_ADDR'],
-                $_REQUEST["recaptcha_challenge_field"], $_REQUEST["recaptcha_response_field"]);
-            return $resp->is_valid;
+        if( $this->enabled && ($response = $this->input->request('g-recaptcha-response')) && $this->input->remote_ip() ){
+	        $endpoint = sprintf('https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s&remoteip=%s',
+		        constant(self::PRIVATE_KEY), rawurlencode($response), rawurlencode($this->input->remote_ip()));
+	        $response = wp_remote_get($endpoint);
+	        if( is_wp_error($response) ){
+		        return false;
+	        }
+	        $result = json_decode($response['body']);
+	        return isset($result->success) && $result->success;
         }else{
             return false;
         }
@@ -152,6 +200,9 @@ EOS;
             case 'lib':
                 return $this->get_vendor_dir().'/reCaptcha/recaptchalib.php';
                 break;
+	        case 'input':
+				return Input::get_instance();
+		        break;
             default:
                 // Do nothing.
                 break;
