@@ -14,6 +14,15 @@ use WPametu\Pattern\Singleton;
 class Image extends Singleton
 {
 
+	/**
+	 * Include Media libraries
+	 */
+	public function include_wp_libs(){
+		require_once ABSPATH.'wp-admin/includes/file.php';
+		require_once ABSPATH.'wp-admin/includes/image.php';
+		require_once ABSPATH.'wp-admin/includes/media.php';
+	}
+
     /**
      * Clone of image resize
      *
@@ -101,6 +110,17 @@ class Image extends Singleton
         }
         return [$info[0], $info[1]];
     }
+
+	/**
+	 * Replace IMG tag's src
+	 *
+	 * @param string $img_tag
+	 * @param string $new_src
+	 * @return string
+	 */
+	public function replace_url($img_tag, $new_src){
+		return preg_replace('/src=[\'"][^\'"]+[\'"]/u', 'src="'.$new_src.'"', $img_tag);
+	}
 
 
     /**
