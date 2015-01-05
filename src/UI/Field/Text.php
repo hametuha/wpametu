@@ -109,7 +109,7 @@ class Text extends Input
             if( $this->min && $this->min > $length ){
                 throw new ValidateException(sprintf($this->__('Fields %s must be %d digits and more.'), $this->label, $this->min));
             }
-            if( $this->max &&  $this->min > $length ){
+            if( $this->max &&  $this->max < $length ){
                 throw new ValidateException(sprintf($this->__('Fields %s must be %d digits and fewer.'), $this->label, $this->max));
             }
         }
