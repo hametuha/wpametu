@@ -13,6 +13,16 @@ $vendor-prefixes: ("-webkit-", "-o-", "");
   transform: $value;
 }
 
+@mixin bg-blink($name, $from, $to){
+  @include keyframes($name){
+    0%, 100%{
+      background-color: $from;
+    }
+    50%{
+      background-color: $to;
+    }
+  }
+}
 
 // Rotation animation
 @include keyframes( rotation ){
@@ -23,3 +33,5 @@ $vendor-prefixes: ("-webkit-", "-o-", "");
     @include transform(rotate(360deg));
   }
 }
+
+

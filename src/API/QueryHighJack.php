@@ -218,6 +218,18 @@ abstract class QueryHighJack extends Controller
     abstract protected function is_valid_query( \WP_Query $wp_query );
 
     /**
+     * Add meta query
+     *
+     * @param \WP_Query $wp_query
+     * @param array $meta_query
+     */
+    protected function add_meta_query( \WP_Query &$wp_query, array $meta_query ){
+        $old_query = (array) $wp_query->get('meta_query');
+        array_push($old_query, $meta_query);
+        $wp_query->set('meta_query', $old_query);
+    }
+
+    /**
      * Getter
      *
      * @param string $name
