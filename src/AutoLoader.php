@@ -16,6 +16,7 @@ use WPametu\Assets\Library;
 use WPametu\DB\TableBuilder;
 use WPametu\API\Rewrite;
 use WPametu\UI\Admin\EditMetaBox;
+use WPametu\UI\Admin\Screen;
 use WPametu\UI\Widget;
 use WPametu\Utility\PostHelper;
 use WPametu\Utility\StringHelper;
@@ -112,6 +113,7 @@ class AutoLoader extends Singleton
             'QueryHighJack' => QueryHighJack::class,
             'Rest' => RestBase::class,
             'Widget' => Widget::class,
+            'Admin/Screens' => Screen::class,
                 ] as $base => $sub_class){
             $base_dir = $this->namespace_root.'/'.$base;
             if( !is_dir($base_dir) ){
@@ -121,12 +123,12 @@ class AutoLoader extends Singleton
                 if( !preg_match('/\.php$/u', $file) ){
                     continue;
                 }
-                $class_name = $this->namespace.'\\'.$base.'\\'.preg_replace('/\.php$/u', '', basename($file));
+                $class_name = $this->namespace.'\\'.str_replace('/', '\\', $base).'\\'.preg_replace('/\.php$/u', '', basename($file));
                 if( !class_exists($class_name) ){
                     throw new \Exception(sprintf('Class %s doesn\'t exist.', $class_name));
                 }
                 if( !$this->is_sub_class_of($class_name, $sub_class) ){
-                    throw new \Exception(sprintf('Ajax class %s must be sub class of %s.', $class_name, $sub_class));
+                    throw new \Exception(sprintf('Class %s must be sub class of %s.', $class_name, $sub_class));
                 }
                 if( $this->is_sub_class_of($class_name, Singleton::class) ){
                     $class_name::get_instance();
