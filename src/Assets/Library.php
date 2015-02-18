@@ -35,6 +35,7 @@ class Library extends Singleton
     private $scripts = [
         'chart-js' => ['/vendor/Chart.js/Chart.js', null, '1.0.1', true, '.min'],
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true, false],
+	    'google-jsapi' => ['https://www.google.com/jsapi', null, null, true, false],
         'wpametu-admin-helper' => ['/assets/js/admin-helper.js', ['jquery-ui-dialog', 'jquery-ui-tooltip'], self::COMMON_VERSION, true, '.min'],
         'wpametu-metabox' => ['/assets/js/admin-metabox.js', ['wpametu-admin-helper', 'gmap', 'jquery-ui-timepicker-i18n'], self::COMMON_VERSION, true, '.min'],
 	    'wpametu-batch-helper' => ['/assets/js/batch-helper.js', ['jquery-form', 'jquery-effects-highlight'], self::COMMON_VERSION, true, '.min'],
@@ -158,7 +159,7 @@ class Library extends Singleton
      * @return string
      */
     private function build_src($src){
-        if( !preg_match('/^(https?)?\/\//u', $src) ){
+        if( !preg_match('/^(https?:)?\/\//u', $src) ){
             // O.K. This is a library in WPametu!
             $src = $this->get_root_uri().$src;
         }
