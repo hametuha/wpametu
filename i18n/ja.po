@@ -1,346 +1,340 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WPametu 1.0\n"
+"Project-Id-Version: \n"
 "POT-Creation-Date: 2015-03-08 20:26+0900\n"
-"PO-Revision-Date: 2015-03-08 20:26+0900\n"
+"PO-Revision-Date: 2015-03-08 20:39+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
-"Language-Team: Hametuha inc. <takahashi.fumiki@hametuha.co.jp>\n"
-"Language: en_US\n"
+"Language-Team: \n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.7.1\n"
-"X-Poedit-KeywordsList: __;_e;_x;_ex\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SearchPath-0: ..\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../bootstrap.php:73
 #, php-format
 msgid "PHP version should not be less than %s. Your version is %s."
-msgstr ""
+msgstr "PHP %s以上が必須です。現在のバージョンは%sです。"
 
 #: ../src/API/Ajax/AjaxBase.php:111 ../src/API/Ajax/AjaxPostSearch.php:36
 msgid "Sorry, but you have no permission."
-msgstr ""
+msgstr "申し訳ありませんが、権限をお持ちでありません。"
 
 #: ../src/API/Ajax/AjaxBase.php:117
 msgid "Sorry, but request parameters are wrong."
-msgstr ""
+msgstr "申し訳ありません、リクエストパラメータが間違っています。"
 
 #: ../src/API/Ajax/AjaxPostSearch.php:33
 #, php-format
 msgid "Post type %s does not exist."
-msgstr ""
+msgstr "投稿タイプ%sが存在しません。"
 
 #: ../src/API/Rewrite.php:104
 #, php-format
 msgid "<code>%s</code> should have prefix property."
-msgstr ""
+msgstr "<code>%s</code>はprefix属性を持っていなければなりません。"
 
 #: ../src/API/Rewrite.php:135
 msgid "Specified URL is invalid."
-msgstr ""
+msgstr "指定されたURLは無効です。"
 
 #: ../src/API/Rewrite.php:192
 #, php-format
 msgid "Rewrite rules updated. Last modified date is %s"
-msgstr ""
+msgstr "リライトルールが更新されました。最後の更新日は%sです。"
 
 #: ../src/API/RewriteParser.php:94
 msgid "Sorry, but this request doesn't exist."
-msgstr ""
+msgstr "このリクエストは存在しません。"
 
 #: ../src/API/RewriteParser.php:103
 msgid "Authentication require."
-msgstr ""
+msgstr "ログインが必要です。"
 
 #: ../src/Assets/Library.php:179
 msgid "Error"
-msgstr ""
+msgstr "エラー"
 
 #: ../src/Assets/Library.php:180
 msgid "Close"
-msgstr ""
+msgstr "閉じる"
 
 #: ../src/Exception/PropertyException.php:27
 #, php-format
 msgid "Property '%1$s' is required for %2$s."
-msgstr ""
+msgstr "プロパティ'%1$s'が%2$sには必要です。"
 
 #: ../src/Http/Input.php:97
 msgid "File is not specified."
-msgstr ""
+msgstr "ファイルが指定されていません。"
 
 #: ../src/Http/Input.php:102
 msgid "Uploaded file size exceeds allowed limit."
-msgstr ""
+msgstr "アップロードされたファイルサイズが大きすぎます。"
 
 #: ../src/Http/Input.php:105
 msgid "Failed to upload"
-msgstr ""
+msgstr "ファイルをアップロードできませんでした。"
 
 #: ../src/Http/PostRedirectGet.php:73
 msgid "Cannot start session. WPametu\\Http\\PostRedirectGet requires session."
-msgstr ""
+msgstr "セッションを開始できません。WPametu\\Http\\PostRedirectGetはセッション必須です。"
 
 #: ../src/Tool/Batch.php:64
 #, php-format
 msgid "%d has been done."
-msgstr ""
+msgstr "%d件が完了しました。"
 
 #: ../src/Tool/BatchProcessor.php:50 ../src/Tool/BatchProcessor.php:71
 msgid "Do Batch Actions"
-msgstr ""
+msgstr "バッチアクションを実行"
 
 #: ../src/Tool/BatchProcessor.php:50
 msgid "Batch Actions"
-msgstr ""
+msgstr "バッチアクション"
 
 #: ../src/Tool/BatchProcessor.php:98
 msgid "Never executed"
-msgstr ""
+msgstr "実行されない"
 
 #: ../src/Tool/BatchProcessor.php:106
 msgid "Execute"
-msgstr ""
+msgstr "実行"
 
 #: ../src/Tool/BatchProcessor.php:112
 msgid "Console"
-msgstr ""
+msgstr "コンソール"
 
 #: ../src/Tool/BatchProcessor.php:118
 msgid "There is no classes."
-msgstr ""
+msgstr "クラスがありません。"
 
 #: ../src/Tool/BatchProcessor.php:133
 msgid "Are you sure to execute this?"
-msgstr ""
+msgstr "これを実行してよろしいですか？"
 
 #: ../src/Tool/BatchProcessor.php:134
 msgid "No Batch is selected."
-msgstr ""
+msgstr "バッチが選択されていません。"
 
 #: ../src/Tool/BatchProcessor.php:135
 msgid "[DONE] Batch process done."
-msgstr ""
+msgstr "[完了] バッチ処理が完了しました。"
 
 #: ../src/Tool/BatchProcessor.php:174
 msgid "You have no permission"
-msgstr ""
+msgstr "権限がありません。"
 
 #: ../src/Tool/BatchProcessor.php:179
 #, php-format
 msgid "Batch %s doesn't exist."
-msgstr ""
+msgstr "バッチ%sは存在しません。"
 
 #: ../src/Tool/BatchProcessor.php:183
 msgid "Invalid arguments."
-msgstr ""
+msgstr "引数が無効です。"
 
 #: ../src/Tool/BatchProcessor.php:190
 msgid "Sorry, but batch returns unexpected result."
-msgstr ""
+msgstr "もうしわけございません。バッチが想定外の結果を返しました。"
 
 #: ../src/Tool/BatchProcessor.php:202
 #, php-format
 msgid "%s / %s have been processed."
-msgstr ""
+msgstr "%s / %s 件が処理されました。"
 
 #: ../src/Tool/BatchProcessor.php:203
 #, php-format
 msgid "%s have been processed."
-msgstr ""
+msgstr "%s件が処理されました。"
 
 #: ../src/UI/Admin/EditMetaBox.php:41
 #, php-format
 msgid "<code>%s</code> has invalid name or label."
-msgstr ""
+msgstr "<code>%s</code>は無効な名前またはラベルです。"
 
 #: ../src/UI/Field/Base.php:90
 msgid "Required"
-msgstr ""
+msgstr "必須"
 
 #: ../src/UI/Field/GeoChecker.php:39
 msgid "Can't find map point. Try another string"
-msgstr ""
+msgstr "地図上のポイントが見つけられませんでした。別の文字列で試してください。"
 
 #: ../src/UI/Field/GeoPoint.php:104
 msgid "Input address"
-msgstr ""
+msgstr "住所を入力してください。"
 
 #: ../src/UI/Field/GeoPoint.php:105
 msgid "Move point"
-msgstr ""
+msgstr "ポイントを動かす"
 
 #: ../src/UI/Field/GeoPoint.php:106
 msgid "Sorry, but nothing found with input address"
-msgstr ""
+msgstr "申し訳ございません。入力された住所にはなにもみつかりませんでした。"
 
 #: ../src/UI/Field/Input.php:82
-#, php-format
+#, fuzzy, php-format
 msgid "Field %s is required."
-msgstr ""
+msgstr "%sは必須項目です。"
 
 #: ../src/UI/Field/Multiple.php:46
 #, php-format
 msgid "Field %s is invalid."
-msgstr ""
+msgstr "%sが無効です。"
 
 #: ../src/UI/Field/Text.php:61
 #, php-format
 msgid "%s chars or more"
-msgstr ""
+msgstr "%s文字以上"
 
 #: ../src/UI/Field/Text.php:67
 #, php-format
 msgid "%s chars or less"
-msgstr ""
+msgstr "%s文字以下"
 
 #: ../src/UI/Field/Text.php:74
 msgid "Letters"
-msgstr ""
+msgstr "文字数"
 
 #: ../src/UI/Field/Text.php:110
 #, php-format
 msgid "Fields %s must be %d digits and more."
-msgstr ""
+msgstr "%sは%d桁以上でなくてはなりません。"
 
 #: ../src/UI/Field/Text.php:113
 #, php-format
 msgid "Fields %s must be %d digits and fewer."
-msgstr ""
+msgstr "%sは%d桁以下でなくてはなりません。"
 
 #: ../src/UI/Field/TokenInput.php:43
-#, fuzzy
 msgid "Type and search..."
-msgstr "Post Type"
+msgstr "検索してください…"
 
 #: ../src/UI/Field/TokenInputPost.php:92 ../src/Utility/StringHelper.php:108
 #, php-format
 msgid "Add new %s"
-msgstr ""
+msgstr "新規%s追加"
 
 #: ../src/UI/MetaBox.php:226
 #, php-format
 msgid "%s's argument setting is invalid."
-msgstr ""
+msgstr "%sの引数が無効です。"
 
 #: ../src/UI/Widget.php:128
-#, fuzzy
 msgid "Post title"
-msgstr "Post Type"
+msgstr "投稿タイトル"
 
 #: ../src/UI/Widget.php:129
 msgid "Permalink"
-msgstr ""
+msgstr "パーマリンク"
 
 #: ../src/UI/Widget.php:130
 msgid "Excerpt"
-msgstr ""
+msgstr "抜粋文"
 
 #: ../src/UI/Widget.php:131
 msgid "Published"
-msgstr ""
+msgstr "公開日"
 
 #: ../src/UI/Widget.php:132
 msgid "Last modified"
-msgstr ""
+msgstr "最終更新日"
 
 #: ../src/UI/Widget.php:133
 msgid "Author name"
-msgstr ""
+msgstr "投稿者名"
 
 #: ../src/UI/Widget.php:134
 msgid "Category"
-msgstr ""
+msgstr "カテゴリー"
 
 #: ../src/UI/Widget.php:135
-#, fuzzy
 msgid "Post tag"
-msgstr "Post Type"
+msgstr "投稿タグ"
 
 #: ../src/Utility/StringHelper.php:107
 msgid "Add new"
-msgstr ""
+msgstr "新規追加"
 
 #: ../src/Utility/StringHelper.php:109 ../src/Utility/StringHelper.php:145
 #, php-format
 msgid "Edit %s"
-msgstr ""
+msgstr "%sを編集"
 
 #: ../src/Utility/StringHelper.php:110
 #, php-format
 msgid "New %s"
-msgstr ""
+msgstr "新規%s"
 
 #: ../src/Utility/StringHelper.php:111
 #, php-format
 msgid "Vew %s"
-msgstr ""
+msgstr "%sを表示"
 
 #: ../src/Utility/StringHelper.php:112 ../src/Utility/StringHelper.php:140
 #, php-format
 msgid "Search %s"
-msgstr ""
+msgstr "%sを検索"
 
 #: ../src/Utility/StringHelper.php:113 ../src/Utility/StringHelper.php:152
 #, php-format
 msgid "No %s found."
-msgstr ""
+msgstr "%sは見つかりませんでした。"
 
 #: ../src/Utility/StringHelper.php:114
 #, php-format
 msgid "No %s in trash."
-msgstr ""
+msgstr "ゴミ箱に%sは見つかりませんでした。"
 
 #: ../src/Utility/StringHelper.php:115 ../src/Utility/StringHelper.php:144
 #, php-format
 msgid "Parent %s:"
-msgstr ""
+msgstr "親%s"
 
 #: ../src/Utility/StringHelper.php:116 ../src/Utility/StringHelper.php:142
 #, php-format
 msgid "All %s"
-msgstr ""
+msgstr "すべての%s"
 
 #: ../src/Utility/StringHelper.php:141
 #, php-format
 msgid "Popular %s"
-msgstr ""
+msgstr "人気の%s"
 
 #: ../src/Utility/StringHelper.php:143
 #, php-format
 msgid "Parent %s"
-msgstr ""
+msgstr "親%s"
 
 #: ../src/Utility/StringHelper.php:146
 #, php-format
 msgid "Update %s"
-msgstr ""
+msgstr "%sを更新"
 
 #: ../src/Utility/StringHelper.php:147
 #, php-format
 msgid "Add New %s"
-msgstr ""
+msgstr "新規%s追加"
 
 #: ../src/Utility/StringHelper.php:148
 #, php-format
 msgid "New %s Name"
-msgstr ""
+msgstr "新しい%s名"
 
 #: ../src/Utility/StringHelper.php:149
 #, php-format
 msgid "Separate %s with commas"
-msgstr ""
+msgstr "%sをカンマで区切ってください"
 
 #: ../src/Utility/StringHelper.php:150
 #, php-format
 msgid "Add or remove %s"
-msgstr ""
+msgstr "%sを追加または削除"
 
 #: ../src/Utility/StringHelper.php:151
 #, php-format
 msgid "Choose from the most used %s"
-msgstr ""
+msgstr "もっとも使われている%sから選ぶ"

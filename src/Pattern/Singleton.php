@@ -27,7 +27,7 @@ abstract class Singleton
      * Singleton initialize method
      *
      * @param array $setting
-     * @return self
+     * @return static
      */
     final public static function get_instance( array $setting = [] ){
         $class_name = get_called_class();

@@ -50,7 +50,7 @@ class TokenInputPost extends TokenInput
                         'suppress_filters' => false,
                     ]);
                 }else{
-                    return false;
+                    return [];
                 }
                 break;
         }
