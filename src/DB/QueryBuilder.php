@@ -257,12 +257,18 @@ SQL;
      * Add where group
      *
      * @param string $where
-     * @param mixed $replace
+     * @param array|mixed $replace
      * @param bool $or
      * @return $this
      */
     final protected function where($where, $replace, $or = false){
-        $this->_wheres[] = [$this->and_or($or), $this->db->prepare($where, $replace)];
+	    if( is_array($replace) ){
+		    array_unshift($replace, $where);
+		    $query = call_user_func_array([$this->db, 'prepare'], $replace);
+	    }else{
+		    $query = $this->db->prepare($where, $replace);
+	    }
+        $this->_wheres[] = [$this->and_or($or), $query];
         return $this;
     }
 

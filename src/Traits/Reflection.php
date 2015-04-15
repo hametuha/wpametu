@@ -47,7 +47,7 @@ trait Reflection
         if( class_exists($class_name) ){
             // Check if this is subclass
             $refl = new \ReflectionClass($class_name);
-            return ( !$allow_abstract || !$refl->isAbstract() ) && $refl->isSubclassOf($should);
+            return ( $allow_abstract || !$refl->isAbstract() ) && $refl->isSubclassOf($should);
         }
         return false;
     }

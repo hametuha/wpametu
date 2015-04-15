@@ -16,6 +16,7 @@ use WPametu\Assets\Library;
 use WPametu\DB\TableBuilder;
 use WPametu\API\Rewrite;
 use WPametu\UI\Admin\EditMetaBox;
+use WPametu\UI\Admin\EmptyMetaBox;
 use WPametu\UI\Admin\Screen;
 use WPametu\UI\Widget;
 use WPametu\Utility\PostHelper;
@@ -114,6 +115,7 @@ class AutoLoader extends Singleton
             'Rest' => RestBase::class,
             'Widget' => Widget::class,
             'Admin/Screens' => Screen::class,
+            'Admin/MetaBox' => EmptyMetaBox::class,
                 ] as $base => $sub_class){
             $base_dir = $this->namespace_root.'/'.$base;
             if( !is_dir($base_dir) ){
@@ -127,7 +129,7 @@ class AutoLoader extends Singleton
                 if( !class_exists($class_name) ){
                     throw new \Exception(sprintf('Class %s doesn\'t exist.', $class_name));
                 }
-                if( !$this->is_sub_class_of($class_name, $sub_class) ){
+                if( !$this->is_sub_class_of($class_name, $sub_class, true) ){
                     throw new \Exception(sprintf('Class %s must be sub class of %s.', $class_name, $sub_class));
                 }
                 if( $this->is_sub_class_of($class_name, Singleton::class) ){

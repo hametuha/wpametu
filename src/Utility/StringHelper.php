@@ -155,4 +155,20 @@ class StringHelper extends Singleton
         return $as_object ? (object)$labels : $labels;
     }
 
+	/**
+	 * Extract host value from url
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	public function extract_host($url){
+		$string = (string)$url;
+		if ( preg_match('@https?://([^/\?#]+)@u', $url, $match) ){
+			return $match[1];
+		}else{
+			return $url;
+		}
+	}
+
 }

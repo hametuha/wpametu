@@ -108,6 +108,12 @@ abstract class MetaBox extends Singleton
         return wp_verify_nonce($this->input->post($this->nonce), $this->nonce);
     }
 
+	/**
+	 * Override default meta box
+	 *
+	 * @param string $post_type
+	 * @param \WP_Post $post
+	 */
     public function override($post_type, \WP_Post $post){
         if( $this->is_valid_post_type($post_type) ){
             foreach( $this->fields as $name => $vars ){
