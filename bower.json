@@ -1,0 +1,28 @@
+{
+  "name": "WPametu",
+  "version": "1.0.0",
+  "homepage": "https://github.com/hametuha/wpametu",
+  "authors": [
+    "Hametuha INC. <info@hametuha.co.jp>"
+  ],
+  "description": "A WordPress Theme FrameWork",
+  "main": "bower.json",
+  "keywords": [
+    "WordPress"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-ui-mp6": "1.*",
+    "jsrender": "~1.0.0-beta",
+    "chartjs": "~1.0.2",
+    "imagesloaded": "~3.1.8",
+    "jquery-timepicker-addon": "~1.3.1"
+  }
+}

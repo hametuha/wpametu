@@ -5,5 +5,5 @@ wpametu
 
 ## Requirements
 
-- PHP 5.4 <
-- WordPress 3.8 <
+- >= PHP 5.5
+- >= WordPress 4.1
