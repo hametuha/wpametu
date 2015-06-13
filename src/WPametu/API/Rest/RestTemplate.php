@@ -125,6 +125,54 @@ class RestTemplate extends RestBase
         echo json_encode($data);
     }
 
+	/**
+	 * Output file
+	 *
+	 * @param string $path
+	 * @param string $mime_type
+	 * @param string $file_name
+	 */
+	protected function print_file($path, $mime_type, $file_name = ''){
+		set_time_limit(0);
+		if( !$file_name ){
+			$file_name = basename($path);
+		}
+		foreach( array_merge(wp_get_nocache_headers(), [
+			'Content-Type' => $mime_type,
+		    'Content-Disposition' => sprintf('attachment; filename="%s"', $file_name),
+		    'Content-Length' => filesize($path),
+		]) as $header => $value){
+			header("{$header}: {$value}");
+		}
+		readfile($path);
+		exit;
+	}
+
+	/**
+	 * Echo message
+	 *
+	 * @param string $message
+	 */
+	protected function iframe_alert($message, $code = 500){
+		$message = esc_js($message);
+		status_header($code);
+		echo <<<HTML
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+<script>
+	window.alert('{$message}');
+</script>
+</body>
+</html>
+HTML;
+		exit;
+	}
+
     /**
      * Getter
      *

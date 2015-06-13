@@ -17,6 +17,7 @@ use WPametu\API\Rewrite;
 use WPametu\UI\Admin\EditMetaBox;
 use WPametu\UI\Admin\EmptyMetaBox;
 use WPametu\UI\Admin\Screen;
+use WPametu\UI\MetaBox;
 use WPametu\UI\Widget;
 use WPametu\Utility\PostHelper;
 use WPametu\Utility\StringHelper;
@@ -141,23 +142,25 @@ class AutoLoader extends Singleton
 	            'QueryHighJack' => QueryHighJack::class,
 	            'Rest' => RestBase::class,
 	            'Widget' => Widget::class,
+	            'Metaboxes' => MetaBox::class,
 	            'Admin/Screens' => Screen::class,
 	            'Admin/MetaBox' => EmptyMetaBox::class,
 			    'Commands'      => Command::class,
 	                ] as $base => $sub_class
 			){
+				$sub_base = $base_dir.'/'.$ns.'/'.$base;
 				// Skip if directory doesn't exist
-	            if( !is_dir($base_dir) ){
+	            if( !is_dir($sub_base) ){
 	                continue;
 	            }
 				// Scan directory
-	            foreach( scandir($base_dir) as $file ){
+	            foreach( scandir($sub_base) as $file ){
 		            // Parse only PHP
 	                if( !preg_match('/\.php$/u', $file) ){
-	                    continue;
+		                continue;
 	                }
 		            // Build class name
-	                $class_name = $this->namespace.'\\'.str_replace('/', '\\', $base).'\\'.preg_replace('/\.php$/u', '', basename($file));
+	                $class_name = $ns.'\\'.str_replace('/', '\\', $base).'\\'.preg_replace('/\.php$/u', '', basename($file));
 		            // Check class exitence
 	                if( !class_exists($class_name) ){
 	                    $errors->add(404, sprintf('Class %s doesn\'t exist.', $class_name));
@@ -165,7 +168,7 @@ class AutoLoader extends Singleton
 	                }
 		            // Check requirements
 	                if( $this->is_sub_class_of($class_name, $sub_class, true) ){
-			            // If this is singleton, call get_instance()
+		                // If this is singleton, call get_instance()
 		                if( $this->is_sub_class_of($class_name, Singleton::class) ){
 		                    $class_name::get_instance();
 		                    switch( $sub_class ){
@@ -215,10 +218,11 @@ class AutoLoader extends Singleton
     public function register_meta_box(){
         $flg = false;
 	    foreach( $this->namespaces as $ns => $dir ){
-	        if( is_dir($dir.'/MetaBoxes') ){
+		    $sub_base = $dir.'/'.$ns.'/MetaBoxes';
+	        if( is_dir($sub_base) ){
 	            // Enqueue script flag
 	            // Load all meta boxes
-	            foreach( scandir($dir.'/MetaBoxes') as $file ){
+	            foreach( scandir($sub_base) as $file ){
 	                if( !preg_match('/\.php$/u', $file) ){
 	                    $class_name = $ns.'\\MetaBoxes\\'.str_replace('.php', '', $file);
 	                    if( class_exists($class_name) && $this->is_sub_class_of($class_name, EditMetaBox::class) ){
@@ -271,12 +275,12 @@ class AutoLoader extends Singleton
     public function scan_post_type(){
         $flg = false;
 	    foreach( $this->namespaces as $ns => $dir ){
-	        $dir = $dir.DIRECTORY_SEPARATOR.'ThePost';
+	        $dir = $dir.'/'.$ns.'/ThePost';
 	        if( is_dir($dir) ){
 	            foreach( scandir($dir) as $file ){
 	                if( !preg_match('/^\./u', $file) ){
 	                    $base_class = str_replace('.php', '', $file);
-	                    $class_name = $this->namespace.'\\ThePost\\'.$base_class;
+	                    $class_name = $ns.'\\ThePost\\'.$base_class;
 	                    if( class_exists($class_name) && $this->is_sub_class_of($class_name, PostHelper::class) ){
 	                        $this->post_type_to_override[$this->str->camel_to_hyphen($base_class)] = $class_name;
 	                        $flg = true;

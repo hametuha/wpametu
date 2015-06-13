@@ -173,6 +173,14 @@ abstract class EmptyMetaBox extends Singleton
 	}
 
 
+	/**
+	 * Detect if this is Ajax request
+	 *
+	 * @return bool
+	 */
+	protected function isAjax(){
+		return is_admin() && defined('DOING_AJAX') && DOING_AJAX;
+	}
 
 	/**
 	 * Getter

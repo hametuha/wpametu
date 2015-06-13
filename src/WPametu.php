@@ -1,6 +1,7 @@
 <?php
 
 use WPametu\AutoLoader;
+use  WPametu\Service\Recaptcha;
 
 /**
  * Class WPametu
@@ -87,7 +88,16 @@ class WPametu
 	 * @return false|string
 	 */
 	public static function recaptcha($theme = 'clean', $lang = 'en'){
-		return WPametu\Service\Recaptcha::get_instance()->get_html($theme, $lang);
+		return Recaptcha::get_instance()->get_html($theme, $lang);
+	}
+
+	/**
+	 * Validate ReCaptcha
+	 *
+	 * @return bool
+	 */
+	public static function validate_recaptcha(){
+		return Recaptcha::get_instance()->validate();
 	}
 
 

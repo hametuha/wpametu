@@ -40,7 +40,7 @@ class Library extends Singleton
         'chart-js' => ['/assets/js/lib/chartjs/Chart.min.js', null, '1.0.1', true],
         'imagesloaded' => ['/assets/js/lib/imagesloaded/imagesloaded.pkgd.min.js', null, '', true],
 	    'jsrender' => ['/assets/js/lib/jsrender/jsrender.min.js',  ['jquery'], '1.0.0', true],
-	    'jquery-ui-timepicker' => ['/assets/js/jquery-timepicker-addon/jquery-ui-timepicker-addon.js', ['jquery-ui-datepicker-i18n', 'jquery-ui-slider'], '1.5.0', true],
+	    'jquery-ui-timepicker' => ['/assets/js/lib/jquery-timepicker-addon/jquery-ui-timepicker-addon.js', ['jquery-ui-datepicker-i18n', 'jquery-ui-slider'], '1.5.0', true],
 
         'gmap' => ['//maps.googleapis.com/maps/api/js', null, null, true],
 	    'google-jsapi' => ['https://www.google.com/jsapi', null, null, true],
@@ -104,7 +104,7 @@ class Library extends Singleton
 		    $locale = strtolower($locale[0]).'-'.strtoupper($locale[1]);
 	    }
 	    $this->scripts['jquery-ui-datepicker-i18n'] = [
-		    '/assets/js/lib/jquery-ui/i18n/datepicker-'.$locale.'.js',
+		    '/assets/js/lib/jquery-ui/ui/i18n/datepicker-'.$locale.'.js',
 		    ['jquery-ui-datepicker'],
 		    '1.9.1',
 		    true

@@ -46,8 +46,9 @@ class TokenInputPost extends TokenInput
                     return get_posts([
                         'p' => $post->post_parent,
                         'post_type' => $this->post_type,
-                        'author' => get_current_user_id(),
+                        'author' => $post->post_author,
                         'suppress_filters' => false,
+                        'post_status' => array('publish', 'future', 'pending', 'draft', 'private')
                     ]);
                 }else{
                     return [];

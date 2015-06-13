@@ -93,7 +93,7 @@ final class Rewrite extends Singleton
      * @return array
      */
     public function rewrite_rules_array( array $rules ){
-        if( !empty($this->classes) ){
+	    if( !empty($this->classes) ){
             // Normal rewrite rules
             $new_rewrite = [];
             $error_message = [];
