@@ -142,7 +142,7 @@ class AutoLoader extends Singleton
 	            'QueryHighJack' => QueryHighJack::class,
 	            'Rest' => RestBase::class,
 	            'Widget' => Widget::class,
-	            'Metaboxes' => MetaBox::class,
+	            'MetaBoxes' => MetaBox::class,
 	            'Admin/Screens' => Screen::class,
 	            'Admin/MetaBox' => EmptyMetaBox::class,
 			    'Commands'      => Command::class,
