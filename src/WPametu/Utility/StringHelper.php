@@ -171,4 +171,20 @@ class StringHelper extends Singleton
 		}
 	}
 
+	/**
+	 * Trim string
+	 *
+	 * @param string $string
+	 * @param int $limit Default 80
+	 * @param string $suffix Default &hellip;
+	 *
+	 * @return string
+	 */
+	public function trim($string, $limit = 80, $suffix = '&hellip;'){
+		if( $limit < mb_strlen($string, 'utf-8') ){
+			$string = mb_substr($string, 0, $limit - 1).$suffix;
+		}
+		return $string;
+	}
+
 }

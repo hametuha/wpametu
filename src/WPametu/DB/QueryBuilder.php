@@ -200,10 +200,13 @@ SQL;
      * Set select param
      *
      * @param string $name
+     * @param bool $escape Default true
      * @return $this
      */
-    final protected function select($name){
-        $this->_select[] = $this->escape_column_name($name);
+    final protected function select($name, $escape = true){
+        $this->_select[] = $escape
+            ? $this->escape_column_name($name)
+            : $name;
         return $this;
     }
 

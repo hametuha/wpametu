@@ -37,7 +37,7 @@ class TokenInputPost extends TokenInput
                 return get_posts([
                     'posts__in' => explode(',', get_post_meta($post->ID, $this->name, true)),
                     'post_type' => $this->post_type,
-                    'author' => get_current_user_id(),
+                    'author' => $post->post_author,
                     'suppress_filters' => false,
                 ]);
                 break;

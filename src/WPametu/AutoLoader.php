@@ -136,18 +136,20 @@ class AutoLoader extends Singleton
         }
 		// Register auto loader for each namespace
 		$errors = new \WP_Error();
+		$autoloaded_classes = [
+            'Ajax' => AjaxBase::class,
+            'QueryHighJack' => QueryHighJack::class,
+            'Rest' => RestBase::class,
+            'Widget' => Widget::class,
+            'MetaBoxes' => MetaBox::class,
+            'Admin/Screens' => Screen::class,
+            'Admin/MetaBox' => EmptyMetaBox::class,
+		];
+		if( defined('WP_CLI') && WP_CLI ){
+			$autoloaded_classes['Commands'] = Command::class;
+		}
 		foreach( $this->namespaces as $ns => $base_dir ){
-			foreach([
-	            'Ajax' => AjaxBase::class,
-	            'QueryHighJack' => QueryHighJack::class,
-	            'Rest' => RestBase::class,
-	            'Widget' => Widget::class,
-	            'MetaBoxes' => MetaBox::class,
-	            'Admin/Screens' => Screen::class,
-	            'Admin/MetaBox' => EmptyMetaBox::class,
-			    'Commands'      => Command::class,
-	                ] as $base => $sub_class
-			){
+			foreach( $autoloaded_classes as $base => $sub_class ){
 				$sub_base = $base_dir.'/'.$ns.'/'.$base;
 				// Skip if directory doesn't exist
 	            if( !is_dir($sub_base) ){
@@ -203,7 +205,7 @@ class AutoLoader extends Singleton
 		// Show error messages
 		if( $errors->get_error_messages() ){
 			add_action('admin_notices', function() use ($errors){
-				printf('<div class="error"><p>%s</p></div>', implode('<br />', $errors->get_error_message()));
+				printf('<div class="error"><p>%s</p></div>', implode('<br />', $errors->get_error_messages()));
 			});
 		}
 		// Register WP_CLI commands

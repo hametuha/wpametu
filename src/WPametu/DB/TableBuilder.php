@@ -153,6 +153,7 @@ final class TableBuilder extends Singleton
         /** @var $columns array */
         /** @var $primary_key array */
         /** @var $indexes array */
+	    /** @var $fulltext array */
 	    /** @var $charset string */
         extract($config);
         if( empty($columns) ){
@@ -173,6 +174,13 @@ final class TableBuilder extends Singleton
                 $column_query[] = sprintf('KEY %s (%s)', $name, implode(', ', $index));
             }
         }
+	    // has full text index?
+	    if( !empty($fulltext) ){
+		    foreach( $fulltext as $name => $index ){
+			    $keys = (array) $index;
+			    $column_query[] = sprintf('FULLTEXT %s (%s)', $name, implode(', ', $index));
+		    }
+	    }
 	    if( !isset($charset) ){
 		    $charset = 'utf8';
 	    }

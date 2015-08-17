@@ -53,8 +53,10 @@ class AjaxPostSearch extends AjaxBase
             // This is private search.
             $args = array_merge($args, [
                 'post_status' => ['publish', 'draft', 'future'],
-                'author' => get_current_user_id(),
             ]);
+            if( !current_user_can('edit_others_posts') ){
+                $args['author'] = get_current_user_id();
+            }
         }
         $data = [];
         foreach( get_posts($args) as $post){
