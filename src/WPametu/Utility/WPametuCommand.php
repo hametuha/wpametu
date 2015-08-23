@@ -80,9 +80,37 @@ class WPametuCommand extends Command
 				}, $asset));
 			}
 		}
+
 		self::table($header, $rows);
 		self::l('');
 		self::s(sprintf('%d %s are available on WPametu.', count($rows), $type));
 	}
 
+	/**
+	 * Check if akismet is available
+	 *
+	 * ## OPTIONS
+	 *
+	 * ## EXAMPLES
+	 *
+	 *     wp ametu akismet
+	 *
+	 * @synopsis
+	 */
+	public function akismet(){
+		try{
+			if( !class_exists( 'Akismet' ) ){
+				throw new \Exception('Akismet is not installed.');
+			}
+			if( ! ( $key = \Akismet::get_api_key() ) ){
+				throw new \Exception('Akismet API key is not set.');
+			}
+			if( 'valid' !== \Akismet::verify_key( $key ) ){
+				throw new \Exception( 'Akismet API key is invalid.' );
+			}
+			static::s( 'Akismet is available!' );
+		}catch ( \Exception $e ){
+			static::e( $e->getMessage() );
+		}
+	}
 }
