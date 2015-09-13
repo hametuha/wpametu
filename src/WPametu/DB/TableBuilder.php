@@ -88,6 +88,8 @@ final class TableBuilder extends Singleton
                 'columns' => false,
                 'primary_key' => [],
                 'indexes' => [],
+                'unique' => [],
+                'fulltext' => [],
             ]);
             $table_name = $config['name'];
             if( $config['name'] && $config['version'] && $config['indexes'] ){
@@ -153,6 +155,7 @@ final class TableBuilder extends Singleton
         /** @var $columns array */
         /** @var $primary_key array */
         /** @var $indexes array */
+        /** @var $unique array */
 	    /** @var $fulltext array */
 	    /** @var $charset string */
         extract($config);
@@ -172,6 +175,13 @@ final class TableBuilder extends Singleton
             foreach( $indexes as $name => $index ){
                 $keys = (array)$index;
                 $column_query[] = sprintf('KEY %s (%s)', $name, implode(', ', $index));
+            }
+        }
+        // Is unique?
+        if( !empty($unique) ){
+            foreach ( $unique as $name => $index ) {
+                $keys = (array)$index;
+                $column_query[] = sprintf('UNIQUE (%s)', implode(', ', $index));
             }
         }
 	    // has full text index?
