@@ -40,7 +40,7 @@ class RestBase extends RewriteParser {
 	 *
 	 * @param array $setting Setting value.
 	 */
-	public function __construct( array $setting ) {
+	protected function __construct( array $setting ) {
 		parent::__construct( $setting );
 		// If REST API is supported, call it.
 		if ( defined( 'REST_API_VERSION' ) ) {
