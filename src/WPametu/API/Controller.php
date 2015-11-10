@@ -77,10 +77,14 @@ abstract class Controller extends Singleton
             // Register scripts
             switch( $this->screen ){
                 case 'admin':
-                    add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
+                    if( is_admin() ){
+                        add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
+                    }
                     break;
                 case 'public':
-                    add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+                    if( !is_admin() ){
+                       add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+                    }
                     break;
                 case 'login':
                     add_action('login_enqueue_scripts', [$this, 'enqueue_assets']);

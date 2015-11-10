@@ -35,13 +35,6 @@ class RestTemplate extends RestBase
     private $filtered = false;
 
     /**
-     * Is always public page
-     *
-     * @var string
-     */
-    protected $screen = 'public';
-
-    /**
      * Content type
      *
      * @var string
