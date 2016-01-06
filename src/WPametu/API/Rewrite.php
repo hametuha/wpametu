@@ -138,13 +138,21 @@ final class Rewrite extends Singleton
                 $instance = $api_class::get_instance();
                 $instance->parse_request($wp_query->get($this->api_vars), $wp_query);
             }catch ( \Exception $e ){
-                if( 404 == $e->getCode() ){
-                    $wp_query->set_404();
-                }else{
-                    wp_die($e->getMessage(), get_status_header_desc($e->getCode()), [
-                        'response' => $e->getCode(),
-                        'back_link' => true,
-                    ]);
+                switch( $e->getCode() ){
+                    case 404:
+                        $wp_query->set_404();
+                        break;
+                    case 200:
+                    case 201:
+                        // If status is O.K.
+                        // Do nothing.
+                        break;
+                    default:
+                        wp_die($e->getMessage(), get_status_header_desc($e->getCode()), [
+                            'response' => $e->getCode(),
+                            'back_link' => true,
+                        ]);
+                        break;
                 }
             }
         }
