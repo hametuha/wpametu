@@ -19,6 +19,7 @@ use WPametu\UI\Admin\EmptyMetaBox;
 use WPametu\UI\Admin\Screen;
 use WPametu\UI\MetaBox;
 use WPametu\UI\Widget;
+use WPametu\Utility\CronBase;
 use WPametu\Utility\PostHelper;
 use WPametu\Utility\StringHelper;
 use WPametu\Utility\WPametuCommand;
@@ -144,6 +145,7 @@ class AutoLoader extends Singleton
             'MetaBoxes' => MetaBox::class,
             'Admin/Screens' => Screen::class,
             'Admin/MetaBox' => EmptyMetaBox::class,
+		    'Cron' => CronBase::class,
 		];
 		if( defined('WP_CLI') && WP_CLI ){
 			$autoloaded_classes['Commands'] = Command::class;
