@@ -40,13 +40,13 @@ gulp.task('jshint', function () {
 
 // Image min
 gulp.task('imagemin', function () {
-    return gulp.src('./assets/img/src/**/*')
+    return gulp.src('./assets/images/**/*')
         .pipe($.imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use        : [pngquant()]
         }))
-        .pipe(gulp.dest('./assets/img'));
+        .pipe(gulp.dest('./assets/images'));
 });
 
 // Copy required
@@ -95,7 +95,6 @@ gulp.task('copy', ['copyJs', 'copyMp6', 'copyTimePicker']);
 gulp.task('watch', function () {
     gulp.watch('./assets/sass/**/*.scss', ['compass']);
     gulp.watch('./assets/js/src/**/*.js', ['js', 'jshint']);
-    gulp.watch('./assets/img/src/**/*', ['imagemin']);
 });
 
 // Build

@@ -4,7 +4,7 @@
   "description": "A WordPress Theme Framework",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/hametuha/wpametu",
   "devDependencies": {
+    "gulp": "^3.9.1",
     "gulp-compass": "^2.0.4",
     "gulp-imagemin": "^2.2.1",
     "gulp-jshint": "^1.10.0",

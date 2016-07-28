@@ -1,7 +1,9 @@
 .DS_Store
 .svn
 .sass-cache
-
+/assets/css
+/assets/js/lib/
+/assets/js/dist/
 /vendor/
 /bower_components/
 /node_modules/

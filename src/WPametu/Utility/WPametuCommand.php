@@ -1,6 +1,7 @@
 <?php
 
 namespace WPametu\Utility;
+
 use WPametu\Traits\i18n;
 use WPametu\Assets\Library;
 
@@ -14,8 +15,7 @@ use WPametu\Assets\Library;
  *
  * @package WPametu\Utility
  */
-class WPametuCommand extends Command
-{
+class WPametuCommand extends Command {
 
 	use i18n;
 
@@ -38,22 +38,22 @@ class WPametuCommand extends Command
 	 *
 	 * @synopsis <type> [--global]
 	 */
-	public function assets( $args, $assoc_args ){
+	public function assets( $args, $assoc_args ) {
 		list( $type ) = $args;
-		$global       = self::get_flag('global', $assoc_args);
-		if( false === array_search($type, ['css', 'js']) ){
-			self::e($this->__('Only css and js are supported.'));
+		$global = self::get_flag( 'global', $assoc_args );
+		if ( false === array_search( $type, [ 'css', 'js' ] ) ) {
+			self::e( $this->__( 'Only css and js are supported.' ) );
 		}
 		$header = [
 			'Handle',
 			'Source',
 			'Dependency',
 			'Version',
-			$type == 'css' ? 'Media' : 'Footer'
-         ];
-		$rows = [];
-		if( $global ){
-			switch( $type ){
+			'css' === $type ? 'Media' : 'Footer',
+		];
+		$rows   = [];
+		if ( $global ) {
+			switch ( $type ) {
 				case 'js':
 
 					break;
@@ -64,26 +64,26 @@ class WPametuCommand extends Command
 					// Do nothing
 					break;
 			}
-		}else{
-			$assets = Library::all_assets()[$type];
-			foreach( $assets as $handle => $asset ){
-				$rows[] = array_merge([$handle], array_map(function($var){
-					if( is_bool($var) ){
-						return $var ? 'Yes' : 'No' ;
-					}elseif( is_array($var) ){
-						return empty($var) ? '-' : implode(', ', $var);
-					}elseif( is_null($var) ){
+		} else {
+			$assets = Library::all_assets()[ $type ];
+			foreach ( $assets as $handle => $asset ) {
+				$rows[] = array_merge( [ $handle ], array_map( function ( $var ) {
+					if ( is_bool( $var ) ) {
+						return $var ? 'Yes' : 'No';
+					} elseif ( is_array( $var ) ) {
+						return empty( $var ) ? '-' : implode( ', ', $var );
+					} elseif ( is_null( $var ) ) {
 						return '-';
-					}else{
+					} else {
 						return $var;
 					}
-				}, $asset));
+				}, $asset ) );
 			}
 		}
 
-		self::table($header, $rows);
-		self::l('');
-		self::s(sprintf('%d %s are available on WPametu.', count($rows), $type));
+		self::table( $header, $rows );
+		self::l( '' );
+		self::s( sprintf( '%d %s are available on WPametu.', count( $rows ), $type ) );
 	}
 
 	/**
@@ -97,19 +97,19 @@ class WPametuCommand extends Command
 	 *
 	 * @synopsis
 	 */
-	public function akismet(){
-		try{
-			if( !class_exists( 'Akismet' ) ){
-				throw new \Exception('Akismet is not installed.');
+	public function akismet() {
+		try {
+			if ( ! class_exists( 'Akismet' ) ) {
+				throw new \Exception( 'Akismet is not installed.' );
 			}
-			if( ! ( $key = \Akismet::get_api_key() ) ){
-				throw new \Exception('Akismet API key is not set.');
+			if ( ! ( $key = \Akismet::get_api_key() ) ) {
+				throw new \Exception( 'Akismet API key is not set.' );
 			}
-			if( 'valid' !== \Akismet::verify_key( $key ) ){
+			if ( 'valid' !== \Akismet::verify_key( $key ) ) {
 				throw new \Exception( 'Akismet API key is invalid.' );
 			}
 			static::s( 'Akismet is available!' );
-		}catch ( \Exception $e ){
+		} catch ( \Exception $e ) {
 			static::e( $e->getMessage() );
 		}
 	}

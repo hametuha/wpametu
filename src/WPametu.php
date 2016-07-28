@@ -8,8 +8,7 @@ use  WPametu\Service\Recaptcha;
  *
  * @package WPametu
  */
-class WPametu
-{
+class WPametu {
 
 	/**
 	 * Required PHP Version
@@ -31,8 +30,8 @@ class WPametu
 	/**
 	 * Avoid new
 	 */
-	private function __construct(){
-
+	private function __construct() {
+		// Do nothing.
 	}
 
 	/**
@@ -41,28 +40,30 @@ class WPametu
 	 * @param string $namespace Namespace base to scan
 	 * @param string $base Namespace root directory path
 	 */
-	public static function entry( $namespace = '', $base = '' ){
-		if( !self::$initialized ){
+	public static function entry( $namespace = '', $base = '' ) {
+		if ( ! self::$initialized ) {
 			self::init();
 		}
 		// Namespace is specified.
-		AutoLoader::get_instance()->register_namespace($namespace, $base);
+		AutoLoader::get_instance()->register_namespace( $namespace, $base );
 	}
 
 	/**
 	 * Initialize WPametu
 	 */
-	private static function init(){
+	private static function init() {
 		// Avoid double initialization
-		if( self::$initialized ){
-			trigger_error('Do not call WPametu::init twice!', E_USER_WARNING);
+		if ( self::$initialized ) {
+			trigger_error( 'Do not call WPametu::init twice!', E_USER_WARNING );
+
 			return;
 		}
 		// Todo: i18n for plugin
-		load_theme_textdomain( self::DOMAIN, dirname(__DIR__).'/i18n' );
+		load_theme_textdomain( self::DOMAIN, dirname( __DIR__ ) . '/i18n' );
 		// Check version
-		if( version_compare(phpversion(), self::PHP_VERSION, '<') ){
-			trigger_error( sprintf(__('PHP version should be more and over %s. Your version is %s.', self::DOMAIN), self::PHP_VERSION, phpversion()), E_USER_WARNING);
+		if ( version_compare( phpversion(), self::PHP_VERSION, '<' ) ) {
+			trigger_error( sprintf( __( 'PHP version should be %s and over. Your version is %s.', self::DOMAIN ), self::PHP_VERSION, phpversion() ), E_USER_WARNING );
+
 			return;
 		}
 		// Fire AutoLoader
@@ -75,7 +76,7 @@ class WPametu
 	 *
 	 * @return \WPametu\ThemeHelper
 	 */
-	public static function helper(){
+	public static function helper() {
 		return WPametu\ThemeHelper::get_instance();
 	}
 
@@ -87,8 +88,8 @@ class WPametu
 	 *
 	 * @return false|string
 	 */
-	public static function recaptcha($theme = 'clean', $lang = 'en'){
-		return Recaptcha::get_instance()->get_html($theme, $lang);
+	public static function recaptcha( $theme = 'clean', $lang = 'en' ) {
+		return Recaptcha::get_instance()->get_html( $theme, $lang );
 	}
 
 	/**
@@ -96,9 +97,7 @@ class WPametu
 	 *
 	 * @return bool
 	 */
-	public static function validate_recaptcha(){
+	public static function validate_recaptcha() {
 		return Recaptcha::get_instance()->validate();
 	}
-
-
 }

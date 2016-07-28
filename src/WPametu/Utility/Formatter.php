@@ -9,8 +9,7 @@ use Masterminds\HTML5;
  *
  * @package Hametuha\Utility
  */
-class Formatter
-{
+class Formatter {
 
 	/**
 	 * Create HTML 5
@@ -19,9 +18,9 @@ class Formatter
 	 *
 	 * @return \DOMDocument
 	 */
-	public static function get_dom($segment){
+	public static function get_dom( $segment ) {
 		$html5 = new HTML5();
-		$xml = <<<HTML
+		$xml   = <<<HTML
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +31,8 @@ class Formatter
 </body>
 </html>
 HTML;
-		return $html5->loadHTML($xml);
+
+		return $html5->loadHTML( $xml );
 	}
 
 	/**
@@ -42,9 +42,10 @@ HTML;
 	 *
 	 * @return mixed
 	 */
-	public static function to_string( \DOMDocument $dom ){
+	public static function to_string( \DOMDocument $dom ) {
 		$html5 = new HTML5();
-		preg_match('/<body>(.*)<\/body>/s', $html5->saveHTML($dom), $match);
+		preg_match( '/<body>(.*)<\/body>/s', $html5->saveHTML( $dom ), $match );
+
 		return $match[1];
 	}
 
