@@ -17,11 +17,6 @@ php:
 env:
   - WP_VERSION=latest WP_MULTISITE=0
 
-matrix:
-  include:
-    - php: 5.3
-      env: WP_VERSION=latest WP_MULTISITE=1
-
 before_script:
   - npm install
   - npm start
