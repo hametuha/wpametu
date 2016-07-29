@@ -1,5 +1,11 @@
 
-$vendor-prefixes: ("-webkit-", "-o-", "");
+$vendor-prefixes: ("-webkit-", "-o-", "-moz-", "");
+
+@mixin animation($animation){
+  @each $vendor in $vendor-prefixes{
+    #{$vendor}animation: $animation;
+  }
+}
 
 @mixin keyframes($name) {
   @-webkit-keyframes #{$name} { @content; }
@@ -33,5 +39,3 @@ $vendor-prefixes: ("-webkit-", "-o-", "");
     @include transform(rotate(360deg));
   }
 }
-
-

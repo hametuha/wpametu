@@ -4,17 +4,13 @@ var gulp     = require('gulp'),
 
 
 // Compass Task
-gulp.task('compass', function () {
-    return gulp.src(['src/scss/**/*.scss'])
-        .pipe($.plumber())
-        .pipe($.compass({
-            config_file: 'assets/config.rb',
-            sourcemap  : false,
-            debug      : true,
-            css        : 'src/css',
-            sass       : 'src/scss'
+gulp.task('sass', function () {
+    return gulp.src(['assets/scss/**/*.scss'])
+        .pipe($.plumber() )
+        .pipe($.sass({
+            sourcemap  : true
         }))
-        .pipe(gulp.dest('src/css'));
+        .pipe(gulp.dest('assets/css'));
 });
 
 
@@ -53,14 +49,14 @@ gulp.task('imagemin', function () {
 gulp.task('copyJs', function () {
     return gulp.src(
         [
-            'bower_components/chartjs/Chart.min.js',
-            'bower_components/imagesloaded/imagesloaded.pkgd.min.js',
-            'bower_components/jsrender/jsrender.min.js',
-            'bower_components/jquery-timepicker-addon/jquery-ui-timepicker-addon.js',
-            'bower_components/jquery-timepicker-addon/i18n/*.js',
-            'bower_components/jquery-ui/ui/i18n/*.js'
+            'node_modules/chart.js/dist/Chart.min.js',
+            'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
+            'node_modules/jsrender/jsrender.min.js',
+            'node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',
+            'node_modules/jquery-ui-timepicker-addon/dist/i18n/*.js',
+            'node_modules/jquery-ui/ui/i18n/*.js'
         ],
-        {base: 'bower_components/'}
+        {base: 'node_modules/'}
     )
         .pipe(gulp.dest('./assets/js/lib'));
 });
@@ -69,10 +65,10 @@ gulp.task('copyJs', function () {
 gulp.task('copyMp6', function() {
     return gulp.src(
         [
-            'bower_components/jquery-ui-mp6/src/css/*',
-            'bower_components/jquery-ui-mp6/src/images/*'
+            'node_modules/jquery-ui-mp6/src/css/*',
+            'node_modules/jquery-ui-mp6/src/images/*'
         ],
-        {base: 'bower_components/jquery-ui-mp6/src'}
+        {base: 'node_modules/jquery-ui-mp6/src'}
     )
         .pipe(gulp.dest('./assets'));
 });
@@ -81,9 +77,9 @@ gulp.task('copyMp6', function() {
 gulp.task('copyTimePicker', function(){
         return gulp.src(
             [
-                'bower_components/jquery-timepicker-addon/jquery-ui-timepicker-addon.css',
+                'node_moduels/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css'
             ],
-            {base: 'bower_components/jquery-timepicker-addon'}
+            {base: 'node_moduels/jquery-ui-timepicker-addon/dist'}
         )
             .pipe(gulp.dest('./assets/css'));
 });
@@ -93,12 +89,12 @@ gulp.task('copy', ['copyJs', 'copyMp6', 'copyTimePicker']);
 
 // watch
 gulp.task('watch', function () {
-    gulp.watch('./assets/sass/**/*.scss', ['compass']);
+    gulp.watch('./assets/scss/**/*.scss', ['sass']);
     gulp.watch('./assets/js/src/**/*.js', ['js', 'jshint']);
 });
 
 // Build
-gulp.task('build', ['copy', 'jshint', 'js', 'compass', 'imagemin']);
+gulp.task('build', ['copy', 'jshint', 'js', 'sass', 'imagemin']);
 
 // Default Tasks
 gulp.task('default', ['watch']);

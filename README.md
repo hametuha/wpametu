@@ -41,7 +41,11 @@ if ( $autoloader = file_exists( __DIR__.'/vendor/autoload.php' ) ) {
 }
 ```
 
-これで利用準備ができました。
+これで利用準備ができました。便利な各クラスを利用することができます。
+
+### Auto Loader
+
+テーマを名前空間に準拠させることで、便利なAuto Loaderを利用できます。これは単にファイルを配置しておくだけで、あらゆる機能が利用可能になることを意味します。
 
 ## Requirements
 

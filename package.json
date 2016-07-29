@@ -20,17 +20,23 @@
   },
   "homepage": "https://github.com/hametuha/wpametu",
   "devDependencies": {
+    "chart.js": "^2.2.0-rc.2",
     "gulp": "^3.9.1",
-    "gulp-compass": "^2.0.4",
     "gulp-imagemin": "^2.2.1",
     "gulp-jshint": "^1.10.0",
     "gulp-load-plugins": "^0.10.0",
     "gulp-plumber": "^1.0.0",
+    "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.4",
     "imagemin-optipng": "^4.2.0",
     "imagemin-pngquant": "^4.1.0",
-    "jshint-stylish": "^1.0.1"
+    "imagesloaded": "^4.1.0",
+    "jquery-ui": "^1.12.0",
+    "jquery-ui-mp6": "^1.0.2",
+    "jquery-ui-timepicker-addon": "^1.5.5",
+    "jshint-stylish": "^1.0.1",
+    "jsrender": "^0.9.79"
   }
 }
