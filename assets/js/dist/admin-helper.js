@@ -1,2 +1,0 @@
-!function(t){"use strict";window.WPametu={alert:function(e){var i=t('<div id="wpametu-alert"></div>');i.html("<p>"+e+"</p>"),i.dialog({title:wpametuAdminHelper.error,resizable:!1,modal:!0,buttons:[{text:wpametuAdminHelper.close,click:function(){t(this).dialog("close"),t(this).remove()}}]})}},t(document).ready(function(){t(document).tooltip({items:"a[data-tooltip-title]",content:function(){return t(this).attr("data-tooltip-title")},track:!0})})}(jQuery);
-//# sourceMappingURL=map/admin-helper.js.map
