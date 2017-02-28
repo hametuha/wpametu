@@ -114,7 +114,7 @@ abstract class MetaBox extends Singleton
 	 * @param string $post_type
 	 * @param \WP_Post $post
 	 */
-    public function override($post_type, \WP_Post $post){
+    public function override($post_type, $post){
         if( $this->is_valid_post_type($post_type) ){
             foreach( $this->fields as $name => $vars ){
                 switch( $name ){
