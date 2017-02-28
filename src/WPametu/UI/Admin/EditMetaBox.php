@@ -35,7 +35,7 @@ abstract class EditMetaBox extends MetaBox
      * @param string $post_type
      * @param \WP_Post $post
      */
-    public function add_meta_boxes($post_type, \WP_Post $post){
+    public function add_meta_boxes($post_type, $post){
         if( $this->is_valid_post_type($post_type) && $this->has_cap() ){
             if( empty($this->name) || empty($this->label) ){
                 $message = sprintf($this->__('<code>%s</code> has invalid name or label.'), get_called_class());
