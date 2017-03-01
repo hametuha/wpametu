@@ -55,7 +55,7 @@ class Library extends Singleton {
 		'imagesloaded'         => [ '/assets/js/lib/imagesloaded/imagesloaded.pkgd.min.js', null, '4.1.0', true ],
 		'jsrender'             => [ '/assets/js/lib/jsrender/jsrender.min.js', [ 'jquery' ], '0.9.79', true ],
 		'jquery-ui-timepicker' => [
-			'/assets/js/lib/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.js',
+			'/assets/js/lib/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',
 			[ 'jquery-ui-datepicker-i18n', 'jquery-ui-slider' ],
 			'1.5.5',
 			true,
