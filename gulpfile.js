@@ -52,6 +52,7 @@ gulp.task('copyJs', function () {
             'node_modules/chart.js/dist/Chart.min.js',
             'node_modules/imagesloaded/imagesloaded.pkgd.min.js',
             'node_modules/jsrender/jsrender.min.js',
+            'node_modules/jsrender/jsrender.min.js.map',
             'node_modules/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',
             'node_modules/jquery-ui-timepicker-addon/dist/i18n/*.js',
             'node_modules/jquery-ui/ui/i18n/*.js'
