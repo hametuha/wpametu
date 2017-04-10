@@ -7,7 +7,7 @@ use WPametu\Pattern\NoConstructor;
 /**
  * Akismet utility
  *
- * @package WPametu\Service
+ * @package WPametu
  */
 class Akismet extends NoConstructor
 {

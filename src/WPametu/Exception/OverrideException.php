@@ -6,7 +6,7 @@ namespace WPametu\Exception;
 /**
  * Thrown when class override is wrong
  *
- * @package WPametu\Exception
+ * @package WPametu
  */
 class OverrideException extends \Exception
 {

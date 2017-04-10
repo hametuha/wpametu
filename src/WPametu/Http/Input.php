@@ -8,7 +8,7 @@ use WPametu\Traits\i18n;
 /**
  * Input utility class
  *
- * @package WPametu\Http
+ * @package WPametu
  */
 class Input extends Singleton
 {

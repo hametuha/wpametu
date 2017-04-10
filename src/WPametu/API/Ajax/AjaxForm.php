@@ -6,7 +6,7 @@ namespace WPametu\API\Ajax;
 /**
  * Form with Ajax
  *
- * @package WPametu\API
+ * @package WPametu
  */
 abstract class AjaxForm extends AjaxBase
 {

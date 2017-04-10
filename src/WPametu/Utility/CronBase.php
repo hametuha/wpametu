@@ -11,7 +11,7 @@ use WPametu\Traits\i18n;
 /**
  * Class CronBase
  *
- * @package WPametu\Utility
+ * @package WPametu
  * @property-read Input $input
  * @property-read StringHelper $str
  */

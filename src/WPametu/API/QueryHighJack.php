@@ -6,7 +6,7 @@ namespace WPametu\API;
 /**
  * Highjack WP_Query
  *
- * @package WPametu\API
+ * @package WPametu
  * @property-read \wpdb $db
  */
 abstract class QueryHighJack extends Controller

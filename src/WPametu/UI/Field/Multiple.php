@@ -8,7 +8,7 @@ use WPametu\Exception\ValidateException;
 /**
  * Multiple selection
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read array $options
  * @property-read string $default
  */

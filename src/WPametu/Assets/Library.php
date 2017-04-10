@@ -12,7 +12,7 @@ use WPametu\Utility\StringHelper;
 /**
  * Load assets library
  *
- * @package WPametu\Assets
+ * @package WPametu
  * @property-read StringHelper $str
  */
 class Library extends Singleton {

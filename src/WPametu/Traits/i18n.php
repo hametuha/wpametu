@@ -14,7 +14,7 @@ namespace WPametu\Traits;
  * load_plugin_textdomain( 'your_domain', false, '/path/to/your/mo/dir/' );
  * </code>
  *
- * @package WPametu\Traits
+ * @package WPametu
  */
 trait i18n
 {

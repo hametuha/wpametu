@@ -9,7 +9,7 @@ use WPametu\Traits\i18n;
 /**
  * Batch class
  *
- * @package WPametu\Tool
+ * @package WPametu
  * @property-read string $version
  * @property-read string $title
  * @property-read string $description

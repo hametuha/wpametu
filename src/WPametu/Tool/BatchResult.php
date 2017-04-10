@@ -5,7 +5,7 @@ namespace WPametu\Tool;
 /**
  * Batch's result structure
  *
- * @package WPametu\Tool
+ * @package WPametu
  */
 class BatchResult
 {

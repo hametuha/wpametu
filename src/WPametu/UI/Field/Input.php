@@ -7,7 +7,7 @@ use WPametu\Exception\ValidateException;
 /**
  * Input field base
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read string $placeholder
  */
 abstract class Input extends Base

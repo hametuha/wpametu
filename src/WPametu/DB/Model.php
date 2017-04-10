@@ -8,7 +8,7 @@ use WPametu\Pattern\Singleton;
 /**
  * Model class
  *
- * @package WPametu\DB
+ * @package WPametu
  * @property-read string $table
  */
 abstract class Model extends QueryBuilder

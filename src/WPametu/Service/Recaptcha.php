@@ -22,7 +22,7 @@ use WPametu\Pattern\Singleton;
  * </code>
  *
  *
- * @package WPametu\Service
+ * @package WPametu
  * @property-read bool $enabled
  * @property-read string $lib Library path.
  * @property-read Input $input

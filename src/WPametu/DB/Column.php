@@ -8,7 +8,7 @@ use WPametu\Traits\Reflection;
 /**
  * Column shorthand
  *
- * @package WPametu\DB
+ * @package WPametu
  */
 class Column
 {

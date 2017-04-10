@@ -14,7 +14,7 @@ use WPametu\Utility\StringHelper;
 /**
  * Rewrite rule manager
  *
- * @package WPametu\API
+ * @package WPametu
  * @property-read string $api_class
  * @property-read string $api_vars
  * @property-read bool|string $config

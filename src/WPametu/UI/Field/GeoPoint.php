@@ -6,7 +6,7 @@ namespace WPametu\UI\Field;
 /**
  * GeoPoint
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  */
 class GeoPoint extends Hidden
 {

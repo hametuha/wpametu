@@ -13,7 +13,7 @@ use WPametu\Assets\Library;
  *     # Show all libraries for WPametu
  *     wp ametu assets css
  *
- * @package WPametu\Utility
+ * @package WPametu
  */
 class WPametuCommand extends Command {
 

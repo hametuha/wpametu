@@ -7,7 +7,7 @@ use WPametu\Exception\ValidateException;
 /**
  * Text input field
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read int $min
  * @property-read int $max
  */

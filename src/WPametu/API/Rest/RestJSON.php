@@ -6,7 +6,7 @@ namespace WPametu\API\Rest;
 /**
  * REST API for JSON
  *
- * @package WPametu\API\Rest
+ * @package WPametu
  */
 abstract class RestJSON extends RestFormat
 {

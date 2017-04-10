@@ -9,7 +9,7 @@ use WPametu\Pattern\Singleton;
 /**
  * Admin screen
  *
- * @package WPametu\UI\Admin
+ * @package WPametu
  * @property-read Input $input
  * @property-read PostRedirectGet $prg
  * @property-read string $base_url

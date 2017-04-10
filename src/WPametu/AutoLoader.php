@@ -7,6 +7,7 @@ use WPametu\API\Ajax\AjaxBase;
 use WPametu\API\Ajax\AjaxPostSearch;
 use WPametu\API\QueryHighJack;
 use WPametu\API\Rest\RestBase;
+use WPametu\API\Rest\WpApi;
 use WPametu\File\Path;
 use WPametu\Pattern\Singleton;
 use WPametu\Tool\BatchProcessor;
@@ -141,6 +142,7 @@ class AutoLoader extends Singleton {
 			'Ajax'          => AjaxBase::class,
 			'QueryHighJack' => QueryHighJack::class,
 			'Rest'          => RestBase::class,
+			'WpApi'         => WpApi::class,
 			'Widget'        => Widget::class,
 			'MetaBoxes'     => MetaBox::class,
 			'Admin/Screens' => Screen::class,

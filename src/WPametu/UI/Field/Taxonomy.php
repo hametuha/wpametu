@@ -8,7 +8,7 @@ use WPametu\Exception\PropertyException;
 /**
  * Taxonomy field
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  */
 trait Taxonomy
 {

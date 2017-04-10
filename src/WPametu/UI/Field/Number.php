@@ -6,7 +6,7 @@ namespace WPametu\UI\Field;
 /**
  * Number input field
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read int $step
  * @property-read string $prefix
  * @property-read string $suffix

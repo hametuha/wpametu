@@ -12,7 +12,7 @@ use WPametu\Http\PostRedirectGet;
 /**
  * Create meta box for edit screen
  *
- * @package WPametu\UI\Admin
+ * @package WPametu
  * @property-read StringHelper $string
  * @property-read Input $input
  * @property-read PostRedirectGet $prg

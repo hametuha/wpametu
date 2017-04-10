@@ -9,7 +9,7 @@ use WPametu\Utility\StringHelper;
 /**
  * Widget class
  *
- * @package WPametu\UI
+ * @package WPametu
  * @property-read StringHelper $str
  */
 abstract class Widget extends \WP_Widget

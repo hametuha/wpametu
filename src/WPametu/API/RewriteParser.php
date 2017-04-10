@@ -7,7 +7,7 @@ use WPametu\Exception\AuthException;
 /**
  * Rewrite rule parser
  *
- * @package WPametu\API
+ * @package WPametu
  */
 abstract class RewriteParser extends Controller
 {

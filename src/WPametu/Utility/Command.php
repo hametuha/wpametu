@@ -5,7 +5,7 @@ namespace WPametu\Utility;
 /**
  * Short hand class for WP_CLI command
  *
- * @package WPametu\Utility
+ * @package WPametu
  */
 abstract class Command extends \WP_CLI_Command
 {

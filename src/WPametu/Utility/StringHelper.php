@@ -8,7 +8,7 @@ use WPametu\Traits\i18n;
 /**
  * String utility
  *
- * @package WPametu\String
+ * @package WPametu
  */
 class StringHelper extends Singleton {
 

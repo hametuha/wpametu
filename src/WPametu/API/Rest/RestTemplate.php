@@ -7,7 +7,7 @@ use WPametu\Http\PostRedirectGet;
 /**
  * Rest Page template
  *
- * @package WPametu\API\Rest
+ * @package WPametu
  * @property-read PostRedirectGet $prg
  */
 class RestTemplate extends RestBase

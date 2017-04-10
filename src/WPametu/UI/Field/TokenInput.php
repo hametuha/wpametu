@@ -6,7 +6,7 @@ namespace WPametu\UI\Field;
 /**
  * Class TokenInput
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read string $action
  * @property-read array $args
  */

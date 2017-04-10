@@ -10,7 +10,7 @@ use WPametu\Traits\i18n;
  *
  * Fires when argument's length or property
  *
- * @package WPametu\Exception
+ * @package WPametu
  */
 class PropertyException extends \RuntimeException
 {

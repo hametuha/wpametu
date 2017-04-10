@@ -11,7 +11,7 @@ use WPametu\Pattern\Singleton;
 /**
  * Class Ajax
  *
- * @package WPametu\API
+ * @package WPametu
  */
 abstract class AjaxBase extends Controller
 {

@@ -6,7 +6,7 @@ namespace WPametu\UI\Field;
 
 /**
  * Class Radio
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read bool $inline
  */
 class Radio extends Multiple

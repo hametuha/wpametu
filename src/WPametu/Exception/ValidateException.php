@@ -5,7 +5,7 @@ namespace WPametu\Exception;
 /**
  * Validation exception
  * 
- * @package WPametu\Exception
+ * @package WPametu
  */
 class ValidateException extends \RuntimeException
 {

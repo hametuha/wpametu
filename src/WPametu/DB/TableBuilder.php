@@ -14,7 +14,7 @@ use WPametu\Pattern\Singleton;
  * Assistance for table creation.
  * Putting files on YOUR_THEME_DIR/config/db/*.php.
  *
- * @package WPametu\DB
+ * @package WPametu
  * @property-read \wpdb $db
  * @property-read array $option
  */

@@ -5,7 +5,7 @@ namespace WPametu\UI\Field;
 /**
  * TokenInput UI for Post search
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read string $post_type
  * @property-read string $field
  */

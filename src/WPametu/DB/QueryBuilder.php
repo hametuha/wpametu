@@ -8,7 +8,7 @@ use WPametu\Pattern\Singleton;
 /**
  * QueryBuilder
  *
- * @package WPametu\DB
+ * @package WPametu
  * @property-read \wpdb $db
  * @property-read string $table
  */

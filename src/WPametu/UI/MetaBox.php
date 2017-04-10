@@ -15,7 +15,7 @@ use WPametu\UI\Field\Taxonomy;
 /**
  * Class MetaBox
  *
- * @package WPametu\Admin
+ * @package WPametu
  * @property-read string $nonce
  * @property-read Input $input
  * @property-read StringHelper $str

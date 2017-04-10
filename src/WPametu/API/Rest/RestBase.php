@@ -9,7 +9,7 @@ use WPametu\Exception\AuthException;
 /**
  * Rest Controller base
  *
- * @package WPametu\API
+ * @package WPametu
  * @property-read \WP_User $user
  */
 class RestBase extends RewriteParser {

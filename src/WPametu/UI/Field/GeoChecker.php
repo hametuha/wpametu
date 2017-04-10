@@ -8,7 +8,7 @@ use WPametu\Exception\PropertyException;
 /**
  * Geo checker
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read string $target
  */
 class GeoChecker extends GeoPoint

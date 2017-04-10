@@ -6,7 +6,7 @@ namespace WPametu\API\Rest;
 /**
  * REST API with static content
  *
- * @package WPametu\API\Rest
+ * @package WPametu
  */
 abstract class RestFormat extends RestBase
 {

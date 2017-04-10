@@ -13,7 +13,7 @@ use WPametu\Utility\StringHelper;
 /**
  * Controller base class
  *
- * @package WPametu\API
+ * @package WPametu
  * @property-read Input $input
  * @property-read IteratorWalker $walker
  * @property-read StringHelper $str

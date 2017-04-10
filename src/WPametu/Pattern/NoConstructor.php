@@ -5,7 +5,7 @@ namespace WPametu\Pattern;
 /**
  * You can't new this.
  *
- * @package WPametu\Pattern
+ * @package WPametu
  */
 abstract class NoConstructor
 {

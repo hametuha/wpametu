@@ -6,7 +6,7 @@ namespace WPametu\Utility;
 /**
  * Override WP_Post
  *
- * @package WPametu\Utility
+ * @package WPametu
  * @property-read StringHelper $str
  */
 abstract class PostHelper {

@@ -5,7 +5,7 @@ namespace WPametu\Exception;
 /**
  * Authenctication error
  *
- * @package WPametu\Exception
+ * @package WPametu
  */
 class AuthException extends \Exception
 {

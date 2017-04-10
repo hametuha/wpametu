@@ -6,7 +6,7 @@ namespace WPametu\UI\Field;
 /**
  * TextArea
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read int $rows
  */
 class TextArea extends Text

@@ -4,7 +4,7 @@ namespace WPametu\UI\Field;
 
 /**
  * Hidden field
- * @package WPametu\UI\Field
+ * @package WPametu
  */
 abstract class Hidden extends Input
 {

@@ -5,7 +5,7 @@ namespace WPametu\File;
 /**
  * Path helper
  *
- * @package WPametu\File
+ * @package WPametu
  */
 trait Path
 {

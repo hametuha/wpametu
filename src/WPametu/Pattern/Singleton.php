@@ -5,7 +5,7 @@ namespace WPametu\Pattern;
 /**
  * Singleton Pattern
  *
- * @package WPametu\Pattern
+ * @package WPametu
  */
 abstract class Singleton {
 	/**

@@ -10,7 +10,7 @@ use WPametu\Pattern\Singleton;
 /**
  * Reflection helper
  *
- * @package WPametu\Traits
+ * @package WPametu
  */
 trait Reflection
 {

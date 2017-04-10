@@ -8,7 +8,7 @@ use WPametu\Pattern\Singleton;
 /**
  * Mime type controller
  *
- * @package WPametu\File
+ * @package WPametu
  */
 class Mime extends Singleton
 {

@@ -7,7 +7,7 @@ use WPametu\Traits\Reflection;
 /**
  * Class representing database engine
  *
- * @package WPametu\Data
+ * @package WPametu
  */
 class Engine
 {

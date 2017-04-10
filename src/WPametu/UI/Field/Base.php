@@ -9,7 +9,7 @@ use WPametu\Traits\i18n;
 /**
  * Field base
  *
- * @package WPametu\UI\Field
+ * @package WPametu
  * @property-read string $name
  * @property-read string $label
  * @property-read string $description

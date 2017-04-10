@@ -7,7 +7,7 @@ use WPametu\Pattern, \WPametu\Traits\i18n;
 /**
  * Class which provides session-based PRG(Post Redirect Get)
  *
- * @package WPametu\Http
+ * @package WPametu
  */
 class PostRedirectGet extends Pattern\Singleton
 {

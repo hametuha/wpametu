@@ -13,7 +13,7 @@ use WPametu\Traits\Reflection;
 /**
  * Class BatchProcessor
  *
- * @package WPametu\Tool
+ * @package WPametu
  * @property-read array $option
  * @property-read Input $input
  */

@@ -7,7 +7,7 @@ use Exception;
 /**
  * Exception thrown at library loading
  *
- * @package WPametu\Exception
+ * @package WPametu
  */
 class FileLoadException extends \Exception
 {

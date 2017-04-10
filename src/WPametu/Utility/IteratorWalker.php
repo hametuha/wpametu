@@ -8,7 +8,7 @@ use WPametu\Pattern\Singleton;
 /**
  * Utility class for array
  *
- * @package WPametu\Utility
+ * @package WPametu
  */
 class IteratorWalker extends Singleton {
 	/**
