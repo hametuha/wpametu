@@ -46,7 +46,7 @@ abstract class WpApi extends Controller {
 			}
 			$register[] = [
 				'methods' => $method,
-			    'callback' => $method_name,
+			    'callback' => [ $this, $method_name ],
 			    'args'     => $this->get_arguments( $method ),
 			    'permission_callback' => [ $this, 'permission_callback' ],
 			];
