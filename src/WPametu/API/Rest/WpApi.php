@@ -39,7 +39,7 @@ abstract class WpApi extends Controller {
 	 */
 	public function rest_api_init() {
 		$register = [];
-		foreach ( [ 'GET', 'POST', 'PUSH', 'PATCH', 'DELETE', 'HEAD', 'OPTION' ] as $method ) {
+		foreach ( [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTION' ] as $method ) {
 			$method_name = strtolower( "handle_{$method}" );
 			if ( ! method_exists( $this, $method_name ) ) {
 				continue;
