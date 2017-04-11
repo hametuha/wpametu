@@ -51,7 +51,7 @@ abstract class WpApi extends Controller {
 			    'permission_callback' => [ $this, 'permission_callback' ],
 			];
 		}
-		if ( $register ) {
+		if ( ! $register ) {
 			throw new \Exception( sprintf( 'Class %s has no handler.', get_called_class() ), 500 );
 		} else {
 			register_rest_route( $this->namespace, $this->get_route(), $register );
