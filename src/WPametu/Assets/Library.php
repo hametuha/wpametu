@@ -51,13 +51,13 @@ class Library extends Singleton {
 			true,
 		],
 		// Bundled libraries
-		'chart-js'             => [ '/assets/js/lib/chart.js/dist/Chart.min.js', null, '2.2.0', true ],
-		'imagesloaded'         => [ '/assets/js/lib/imagesloaded/imagesloaded.pkgd.min.js', null, '4.1.0', true ],
-		'jsrender'             => [ '/assets/js/lib/jsrender/jsrender.min.js', [ 'jquery' ], '0.9.79', true ],
+		'chart-js'             => [ '/assets/js/lib/chart.js/dist/Chart.min.js', null, '2.7.1', true ],
+		'imagesloaded'         => [ '/assets/js/lib/imagesloaded/imagesloaded.pkgd.min.js', null, '4.1.3', true ],
+		'jsrender'             => [ '/assets/js/lib/jsrender/jsrender.min.js', [ 'jquery' ], '0.9.89', true ],
 		'jquery-ui-timepicker' => [
 			'/assets/js/lib/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',
 			[ 'jquery-ui-datepicker-i18n', 'jquery-ui-slider' ],
-			'1.5.5',
+			'1.6.3',
 			true,
 		],
 		// External Libraries
@@ -84,18 +84,17 @@ class Library extends Singleton {
 			'screen',
 		],
 
-		'jquery-ui-mp6'        => [ '/assets/css/jquery-ui.css', null, '1.10.3', 'screen' ],
+		'jquery-ui-mp6'        => [ '/assets/css/jquery-ui.css', null, '1.12.1', 'screen' ],
 		'jquery-ui-timepicker' => [
 			'/assets/css/jquery-ui-timepicker-addon.css',
 			[ 'jquery-ui-mp6' ],
-			'1.5.5',
+			'1.6.3',
 			'screen',
 		],
-
 		'font-awesome' => [
-			'//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css',
+			'/assets/js/lib/font-awesome/css/font-awesome.min.css',
 			[],
-			'4.3.0',
+			'4.7.0',
 			'all',
 		],
 	];
@@ -146,13 +145,13 @@ class Library extends Singleton {
 		$this->scripts['jquery-ui-datepicker-i18n'] = [
 			'/assets/js/lib/jquery-ui/ui/i18n/datepicker-' . $locale . '.js',
 			[ 'jquery-ui-datepicker' ],
-			'1.9.1',
+			'1.12.1',
 			true,
 		];
 		$this->scripts['jquery-ui-timepicker-i18n'] = [
 			'/assets/js/lib/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-' . $locale . '.js',
 			[ 'jquery-ui-timepicker' ],
-			'1.5.5',
+			'1.6.3',
 			true,
 		];
 

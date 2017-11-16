@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package 
+ * @package wpametu
  */
 
 /**

@@ -1,6 +1,6 @@
-/*! jQuery Timepicker Addon - v1.5.5 - 2015-05-24
+/*! jQuery Timepicker Addon - v1.6.3 - 2016-04-20
 * http://trentrichardson.com/examples/timepicker
-* Copyright (c) 2015 Trent Richardson; Licensed MIT */
+* Copyright (c) 2016 Trent Richardson; Licensed MIT */
 
 (function($){
 
@@ -168,8 +168,8 @@
 		hourText: 'Ώρες',
 		minuteText: 'Λεπτά',
 		secondText: 'Δευτερόλεπτα',
-		millisecText: 'μιλιδευτερόλεπτο',
-		microsecText: 'Microseconds',
+		millisecText: 'Χιλιοστοδευτερόλεπτα',
+		microsecText: 'Μικροδευτερόλεπτα',
 		timezoneText: 'Ζώνη ώρας',
 		currentText: 'Τώρα',
 		closeText: 'Κλείσιμο',
@@ -534,6 +534,28 @@
 		isRTL: false
 	};
 
+// source: src/i18n/jquery-ui-timepicker-mk.js
+/* Macedonian cyrilic translation for the jQuery Timepicker Addon */
+/* Written by Vlatko Ristovski */
+
+	$.timepicker.regional['mk'] = {
+		timeOnlyTitle: 'Одберете време',
+		timeText: 'Време',
+		hourText: 'Час',
+		minuteText: 'Минути',
+		secondText: 'Секунди',
+		millisecText: 'Милисекунди',
+		microsecText: 'Микросекунди',
+		timezoneText: 'Временска зона',
+		currentText: 'Сега',
+		closeText: 'Затвори',
+		timeFormat: 'HH:mm',
+		timeSuffix: '',
+		amNames: ['AM', 'A'],
+		pmNames: ['PM', 'P'],
+		isRTL: false
+	};
+
 // source: src/i18n/jquery-ui-timepicker-nl.js
 /* Dutch translation for the jQuery Timepicker Addon */
 /* Written by Martijn van der Lee */
@@ -729,6 +751,28 @@
         timeSuffix: '',
         amNames: ['dop.', 'AM', 'A'],
         pmNames: ['pop.', 'PM', 'P'],
+        isRTL: false
+    };
+
+// source: src/i18n/jquery-ui-timepicker-sq.js
+/* Albanian translation for the jQuery Timepicker Addon */
+/* Written by Olti Buzi */
+
+    $.timepicker.regional['sq'] = {
+        timeOnlyTitle: 'Zgjidh orarin',
+        timeText: 'Orari',
+        hourText: 'Ora',
+        minuteText: 'Minuta',
+        secondText: 'Sekonda',
+        millisecText: 'Minisekonda',
+        microsecText: 'Mikrosekonda',
+        timezoneText: 'Zona kohore',
+        currentText: 'Tani',
+        closeText: 'Mbyll',
+        timeFormat: 'HH:mm',
+        timeSuffix: '',
+        amNames: ['m.', 'AM', 'A'],
+        pmNames: ['p.', 'PM', 'P'],
         isRTL: false
     };
 

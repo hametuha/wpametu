@@ -8,9 +8,9 @@
     "tijsverkoyen/css-to-inline-styles": "^1.5"
   },
   "require-dev": {
-    "phpunit/phpunit": ">=4.6",
-    "phpdocumentor/phpdocumentor": "2.*",
-    "wp-coding-standards/wpcs": "dev-master"
+    "phpunit/phpunit": "~4.8",
+    "squizlabs/php_codesniffer": "~2.8",
+    "wp-coding-standards/wpcs": "~0.11"
   },
   "license": "MIT",
   "authors": [
