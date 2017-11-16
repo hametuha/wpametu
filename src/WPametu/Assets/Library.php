@@ -24,7 +24,7 @@ class Library extends Singleton {
 	 *
 	 * @const string
 	 */
-	const COMMON_VERSION = '1.0';
+	const COMMON_VERSION = '0.8.0';
 
 	/**
 	 * Scripts to register

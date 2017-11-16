@@ -1,7 +1,8 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WPametu 1.0\n"
-"POT-Creation-Date: 2015-03-08 20:26+0900\n"
+"POT-Creation-Date: 2017-11-16 20:29+0900\n"
 "PO-Revision-Date: 2015-03-08 20:26+0900\n"
 "Last-Translator: Takahashi Fumiki <info@takahashifumiki.com>\n"
 "Language-Team: Hametuha inc. <takahashi.fumiki@hametuha.co.jp>\n"
@@ -9,338 +10,361 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 2.0.4\n"
 "X-Poedit-KeywordsList: __;_e;_x;_ex\n"
-"X-Poedit-Basepath: .\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+"X-Poedit-SearchPathExcluded-1: bin\n"
+"X-Poedit-SearchPathExcluded-2: node_modules\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
 
-#: ../bootstrap.php:73
+#: src/WPametu.php:65
 #, php-format
-msgid "PHP version should not be less than %s. Your version is %s."
+msgid "PHP version should be %s and over. Your version is %s."
 msgstr ""
 
-#: ../src/API/Ajax/AjaxBase.php:111 ../src/API/Ajax/AjaxPostSearch.php:36
+#: src/WPametu/API/Ajax/AjaxBase.php:111
+#: src/WPametu/API/Ajax/AjaxPostSearch.php:36
 msgid "Sorry, but you have no permission."
 msgstr ""
 
-#: ../src/API/Ajax/AjaxBase.php:117
+#: src/WPametu/API/Ajax/AjaxBase.php:117
 msgid "Sorry, but request parameters are wrong."
 msgstr ""
 
-#: ../src/API/Ajax/AjaxPostSearch.php:33
+#: src/WPametu/API/Ajax/AjaxPostSearch.php:33
 #, php-format
 msgid "Post type %s does not exist."
 msgstr ""
 
-#: ../src/API/Rewrite.php:104
+#: src/WPametu/API/Rewrite.php:104
 #, php-format
 msgid "<code>%s</code> should have prefix property."
 msgstr ""
 
-#: ../src/API/Rewrite.php:135
+#: src/WPametu/API/Rewrite.php:135
 msgid "Specified URL is invalid."
 msgstr ""
 
-#: ../src/API/Rewrite.php:192
+#: src/WPametu/API/Rewrite.php:200
 #, php-format
 msgid "Rewrite rules updated. Last modified date is %s"
 msgstr ""
 
-#: ../src/API/RewriteParser.php:94
+#: src/WPametu/API/RewriteParser.php:94
 msgid "Sorry, but this request doesn't exist."
 msgstr ""
 
-#: ../src/API/RewriteParser.php:103
+#: src/WPametu/API/RewriteParser.php:103
 msgid "Authentication require."
 msgstr ""
 
-#: ../src/Assets/Library.php:179
+#: src/WPametu/Assets/Library.php:209
 msgid "Error"
 msgstr ""
 
-#: ../src/Assets/Library.php:180
+#: src/WPametu/Assets/Library.php:210
 msgid "Close"
 msgstr ""
 
-#: ../src/Exception/PropertyException.php:27
+#: src/WPametu/Exception/PropertyException.php:27
 #, php-format
 msgid "Property '%1$s' is required for %2$s."
 msgstr ""
 
-#: ../src/Http/Input.php:97
+#: src/WPametu/Http/Input.php:102
 msgid "File is not specified."
 msgstr ""
 
-#: ../src/Http/Input.php:102
+#: src/WPametu/Http/Input.php:107
 msgid "Uploaded file size exceeds allowed limit."
 msgstr ""
 
-#: ../src/Http/Input.php:105
+#: src/WPametu/Http/Input.php:110
 msgid "Failed to upload"
 msgstr ""
 
-#: ../src/Http/PostRedirectGet.php:73
+#: src/WPametu/Http/PostRedirectGet.php:73
 msgid "Cannot start session. WPametu\\Http\\PostRedirectGet requires session."
 msgstr ""
 
-#: ../src/Tool/Batch.php:64
+#: src/WPametu/Tool/Batch.php:64
 #, php-format
 msgid "%d has been done."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:50 ../src/Tool/BatchProcessor.php:71
+#: src/WPametu/Tool/BatchProcessor.php:50
+#: src/WPametu/Tool/BatchProcessor.php:71
 msgid "Do Batch Actions"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:50
+#: src/WPametu/Tool/BatchProcessor.php:50
 msgid "Batch Actions"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:98
+#: src/WPametu/Tool/BatchProcessor.php:98
 msgid "Never executed"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:106
+#: src/WPametu/Tool/BatchProcessor.php:106
 msgid "Execute"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:112
+#: src/WPametu/Tool/BatchProcessor.php:112
 msgid "Console"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:118
+#: src/WPametu/Tool/BatchProcessor.php:118
 msgid "There is no classes."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:133
+#: src/WPametu/Tool/BatchProcessor.php:133
 msgid "Are you sure to execute this?"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:134
+#: src/WPametu/Tool/BatchProcessor.php:134
 msgid "No Batch is selected."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:135
+#: src/WPametu/Tool/BatchProcessor.php:135
 msgid "[DONE] Batch process done."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:174
+#: src/WPametu/Tool/BatchProcessor.php:174
 msgid "You have no permission"
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:179
+#: src/WPametu/Tool/BatchProcessor.php:179
 #, php-format
 msgid "Batch %s doesn't exist."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:183
+#: src/WPametu/Tool/BatchProcessor.php:183
 msgid "Invalid arguments."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:190
+#: src/WPametu/Tool/BatchProcessor.php:190
 msgid "Sorry, but batch returns unexpected result."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:202
+#: src/WPametu/Tool/BatchProcessor.php:202
 #, php-format
 msgid "%s / %s have been processed."
 msgstr ""
 
-#: ../src/Tool/BatchProcessor.php:203
+#: src/WPametu/Tool/BatchProcessor.php:203
 #, php-format
 msgid "%s have been processed."
 msgstr ""
 
-#: ../src/UI/Admin/EditMetaBox.php:41
+#: src/WPametu/UI/Admin/EditMetaBox.php:41
 #, php-format
 msgid "<code>%s</code> has invalid name or label."
 msgstr ""
 
-#: ../src/UI/Field/Base.php:90
+#: src/WPametu/UI/Admin/EmptyMetaBox.php:162
+#, php-format
+msgid "You should override editFromX method in %s"
+msgstr ""
+
+#: src/WPametu/UI/Admin/EmptyMetaBox.php:172
+#, php-format
+msgid "You should override doMetaBox method in %s"
+msgstr ""
+
+#: src/WPametu/UI/Field/Base.php:90
 msgid "Required"
 msgstr ""
 
-#: ../src/UI/Field/GeoChecker.php:39
+#: src/WPametu/UI/Field/GeoChecker.php:39
 msgid "Can't find map point. Try another string"
 msgstr ""
 
-#: ../src/UI/Field/GeoPoint.php:104
+#: src/WPametu/UI/Field/GeoPoint.php:104
 msgid "Input address"
 msgstr ""
 
-#: ../src/UI/Field/GeoPoint.php:105
+#: src/WPametu/UI/Field/GeoPoint.php:105
 msgid "Move point"
 msgstr ""
 
-#: ../src/UI/Field/GeoPoint.php:106
+#: src/WPametu/UI/Field/GeoPoint.php:106
 msgid "Sorry, but nothing found with input address"
 msgstr ""
 
-#: ../src/UI/Field/Input.php:82
+#: src/WPametu/UI/Field/Input.php:82
 #, php-format
 msgid "Field %s is required."
 msgstr ""
 
-#: ../src/UI/Field/Multiple.php:46
+#: src/WPametu/UI/Field/Multiple.php:46
 #, php-format
 msgid "Field %s is invalid."
 msgstr ""
 
-#: ../src/UI/Field/Text.php:61
+#: src/WPametu/UI/Field/Text.php:61
 #, php-format
 msgid "%s chars or more"
 msgstr ""
 
-#: ../src/UI/Field/Text.php:67
+#: src/WPametu/UI/Field/Text.php:67
 #, php-format
 msgid "%s chars or less"
 msgstr ""
 
-#: ../src/UI/Field/Text.php:74
+#: src/WPametu/UI/Field/Text.php:74
 msgid "Letters"
 msgstr ""
 
-#: ../src/UI/Field/Text.php:110
+#: src/WPametu/UI/Field/Text.php:110
 #, php-format
 msgid "Fields %s must be %d digits and more."
 msgstr ""
 
-#: ../src/UI/Field/Text.php:113
+#: src/WPametu/UI/Field/Text.php:113
 #, php-format
 msgid "Fields %s must be %d digits and fewer."
 msgstr ""
 
-#: ../src/UI/Field/TokenInput.php:43
-#, fuzzy
+#: src/WPametu/UI/Field/TokenInput.php:43
 msgid "Type and search..."
-msgstr "Post Type"
+msgstr ""
 
-#: ../src/UI/Field/TokenInputPost.php:92 ../src/Utility/StringHelper.php:108
+#: src/WPametu/UI/Field/TokenInputPost.php:93
+#: src/WPametu/Utility/StringHelper.php:115
 #, php-format
 msgid "Add new %s"
 msgstr ""
 
-#: ../src/UI/MetaBox.php:226
+#: src/WPametu/UI/MetaBox.php:232
 #, php-format
 msgid "%s's argument setting is invalid."
 msgstr ""
 
-#: ../src/UI/Widget.php:128
-#, fuzzy
+#: src/WPametu/UI/Widget.php:128
 msgid "Post title"
-msgstr "Post Type"
+msgstr ""
 
-#: ../src/UI/Widget.php:129
+#: src/WPametu/UI/Widget.php:129
 msgid "Permalink"
 msgstr ""
 
-#: ../src/UI/Widget.php:130
+#: src/WPametu/UI/Widget.php:130
 msgid "Excerpt"
 msgstr ""
 
-#: ../src/UI/Widget.php:131
+#: src/WPametu/UI/Widget.php:131
 msgid "Published"
 msgstr ""
 
-#: ../src/UI/Widget.php:132
+#: src/WPametu/UI/Widget.php:132
 msgid "Last modified"
 msgstr ""
 
-#: ../src/UI/Widget.php:133
+#: src/WPametu/UI/Widget.php:133
 msgid "Author name"
 msgstr ""
 
-#: ../src/UI/Widget.php:134
+#: src/WPametu/UI/Widget.php:134
 msgid "Category"
 msgstr ""
 
-#: ../src/UI/Widget.php:135
-#, fuzzy
+#: src/WPametu/UI/Widget.php:135
 msgid "Post tag"
-msgstr "Post Type"
+msgstr ""
 
-#: ../src/Utility/StringHelper.php:107
+#: src/WPametu/Utility/StringHelper.php:114
 msgid "Add new"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:109 ../src/Utility/StringHelper.php:145
+#: src/WPametu/Utility/StringHelper.php:116
+#: src/WPametu/Utility/StringHelper.php:154
 #, php-format
 msgid "Edit %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:110
+#: src/WPametu/Utility/StringHelper.php:117
 #, php-format
 msgid "New %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:111
+#: src/WPametu/Utility/StringHelper.php:118
 #, php-format
 msgid "Vew %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:112 ../src/Utility/StringHelper.php:140
+#: src/WPametu/Utility/StringHelper.php:119
+#: src/WPametu/Utility/StringHelper.php:149
 #, php-format
 msgid "Search %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:113 ../src/Utility/StringHelper.php:152
+#: src/WPametu/Utility/StringHelper.php:120
+#: src/WPametu/Utility/StringHelper.php:161
 #, php-format
 msgid "No %s found."
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:114
+#: src/WPametu/Utility/StringHelper.php:121
 #, php-format
 msgid "No %s in trash."
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:115 ../src/Utility/StringHelper.php:144
+#: src/WPametu/Utility/StringHelper.php:122
+#: src/WPametu/Utility/StringHelper.php:153
 #, php-format
 msgid "Parent %s:"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:116 ../src/Utility/StringHelper.php:142
+#: src/WPametu/Utility/StringHelper.php:123
+#: src/WPametu/Utility/StringHelper.php:151
 #, php-format
 msgid "All %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:141
+#: src/WPametu/Utility/StringHelper.php:150
 #, php-format
 msgid "Popular %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:143
+#: src/WPametu/Utility/StringHelper.php:152
 #, php-format
 msgid "Parent %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:146
+#: src/WPametu/Utility/StringHelper.php:155
 #, php-format
 msgid "Update %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:147
+#: src/WPametu/Utility/StringHelper.php:156
 #, php-format
 msgid "Add New %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:148
+#: src/WPametu/Utility/StringHelper.php:157
 #, php-format
 msgid "New %s Name"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:149
+#: src/WPametu/Utility/StringHelper.php:158
 #, php-format
 msgid "Separate %s with commas"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:150
+#: src/WPametu/Utility/StringHelper.php:159
 #, php-format
 msgid "Add or remove %s"
 msgstr ""
 
-#: ../src/Utility/StringHelper.php:151
+#: src/WPametu/Utility/StringHelper.php:160
 #, php-format
 msgid "Choose from the most used %s"
+msgstr ""
+
+#: src/WPametu/Utility/WPametuCommand.php:45
+msgid "Only css and js are supported."
 msgstr ""

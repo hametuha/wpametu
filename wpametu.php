@@ -4,7 +4,7 @@ Plugin Name: WPametu
 Plugin URI: https://github.com/hametuha/wpametu
 Description: A WordPress Theme framework
 Author: Takahashi_Fumiki
-Version: 0.4
+Version: 0.8.0
 Author URI: https://hametuha.co.jp/
 */
 
