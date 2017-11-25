@@ -46,7 +46,7 @@ abstract class WpApi extends Controller {
 			}
 			$register[] = [
 				'methods' => $method,
-			    'callback' => [ $this, $method_name ],
+			    'callback' => [ $this, 'invoke' ],
 			    'args'     => $this->get_arguments( $method ),
 			    'permission_callback' => [ $this, 'permission_callback' ],
 			];
@@ -55,6 +55,21 @@ abstract class WpApi extends Controller {
 			throw new \Exception( sprintf( 'Class %s has no handler.', get_called_class() ), 500 );
 		} else {
 			register_rest_route( $this->namespace, $this->get_route(), $register );
+		}
+	}
+	
+	/**
+	 * Invoke callback
+	 * 
+	 * @param \WP_REST_Request $request
+	 * @return \WP_Error|\WP_REST_Response
+	 */
+	public function invoke( $request ) {
+		$method_name = 'handle_' . strtolower( $request->get_method() );
+		try {
+			return call_user_func_array( [ $this, $method_name ], func_get_args() );
+		} catch ( \Exception $e ) {
+			return new \WP_Error( $e->getCode(), $e->getMessage() );
 		}
 	}
 
