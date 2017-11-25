@@ -29,8 +29,23 @@ abstract class WpApi extends Controller {
 	 * @param array $setting
 	 */
 	public function __construct( array $setting = [] ) {
-		add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+		if ( $this->is_available() ) {
+			add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+		}
 	}
+	
+	/**
+	 * Check availability
+	 *
+	 * Override this function if some condition exists like 
+	 * plugin dependencies.
+	 *
+	 * @return bool
+	 */
+	protected function is_available() {
+		return true;
+	}
+
 
 	/**
 	 * Register rest endpoints
