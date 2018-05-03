@@ -43,13 +43,20 @@ class TokenInputPost extends TokenInput
                 break;
             default:
                 if( $post->post_parent ){
-                    return get_posts([
+                	$args = [
                         'p' => $post->post_parent,
                         'post_type' => $this->post_type,
-                        'author' => $post->post_author,
                         'suppress_filters' => false,
                         'post_status' => array('publish', 'future', 'pending', 'draft', 'private')
-                    ]);
+					];
+					/**
+					 * wpametu_token_input_post_args
+					 *
+					 * @param array   $args
+					 * @param \WP_Post $post
+					 */
+                	$args = apply_filters( 'wpametu_token_input_post_args', $args, $post );
+                    return get_posts( $args );
                 }else{
                     return [];
                 }
@@ -81,7 +88,7 @@ class TokenInputPost extends TokenInput
     }
 
     /**
-     * Add button before requried
+     * Add button before required
      *
      * @param \WP_Post $post
      * @return string
