@@ -5,7 +5,8 @@
     "php": ">=5.5",
     "masterminds/html5": "~2.1",
     "google/recaptcha": "~1.1",
-    "tijsverkoyen/css-to-inline-styles": "^1.5"
+    "tijsverkoyen/css-to-inline-styles": "^1.5",
+    "hametuha/pattern": "^0.8"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.8",
