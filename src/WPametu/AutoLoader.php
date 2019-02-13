@@ -148,6 +148,7 @@ class AutoLoader extends Singleton {
 			'Admin/Screens' => Screen::class,
 			'Admin/MetaBox' => EmptyMetaBox::class,
 			'Cron'          => CronBase::class,
+			'Hooks'         => Singleton::class,
 		];
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$autoloaded_classes['Commands'] = Command::class;
