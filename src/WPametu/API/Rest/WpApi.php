@@ -84,7 +84,13 @@ abstract class WpApi extends Controller {
 		try {
 			return call_user_func_array( [ $this, $method_name ], func_get_args() );
 		} catch ( \Exception $e ) {
-			return new \WP_Error( $e->getCode(), $e->getMessage() );
+			$status = 500;
+			if ( preg_match( '/^\d{3}$/u', $e->getCode() ) ) {
+				$status = $e->getCode();
+			}
+			return new \WP_Error( $e->getCode(), $e->getMessage(), [
+				'status' => $status,
+			] );
 		}
 	}
 
