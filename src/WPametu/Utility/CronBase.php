@@ -15,8 +15,8 @@ use WPametu\Traits\i18n;
  * @property-read Input $input
  * @property-read StringHelper $str
  */
-abstract class CronBase extends Singleton
-{
+abstract class CronBase extends Singleton {
+
 
 	use i18n, Path;
 
@@ -38,10 +38,10 @@ abstract class CronBase extends Singleton
 	 *
 	 * @param array $setting Unused.
 	 */
-	public function __construct( array $setting = [] ) {
+	public function __construct( array $setting = array() ) {
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
-			add_filter( 'cron_schedules', [ $this, 'cron_schedule' ] );
-			add_action( 'init', [ $this, 'register_cron' ] );
+			add_filter( 'cron_schedules', array( $this, 'cron_schedule' ) );
+			add_action( 'init', array( $this, 'register_cron' ) );
 		}
 	}
 
@@ -64,7 +64,7 @@ abstract class CronBase extends Singleton
 		if ( ! wp_next_scheduled( $this->event ) ) {
 			wp_schedule_event( $this->start_at(), $this->schedule, $this->event, $this->args() );
 		}
-		add_action( $this->event, [ $this, 'process' ] );
+		add_action( $this->event, array( $this, 'process' ) );
 	}
 
 	/**
@@ -80,7 +80,7 @@ abstract class CronBase extends Singleton
 	 * @return array
 	 */
 	public function args() {
-		return [ ];
+		return array();
 	}
 
 	/**
@@ -89,7 +89,7 @@ abstract class CronBase extends Singleton
 	 * @return int|string
 	 */
 	public function start_at() {
-		return current_time( 'timestamp', true );
+		return time();
 	}
 
 	/**

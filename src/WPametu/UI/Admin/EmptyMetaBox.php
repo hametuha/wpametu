@@ -18,8 +18,8 @@ use WPametu\Http\PostRedirectGet;
  * @property-read PostRedirectGet $prg
  * @property-read \WP_Screen $screen
  */
-abstract class EmptyMetaBox extends Singleton
-{
+abstract class EmptyMetaBox extends Singleton {
+
 
 	use i18n;
 
@@ -49,7 +49,7 @@ abstract class EmptyMetaBox extends Singleton
 	 *
 	 * @var array
 	 */
-	protected $post_types = [];
+	protected $post_types = array();
 
 	/**
 	 * @var string
@@ -76,25 +76,30 @@ abstract class EmptyMetaBox extends Singleton
 	 *
 	 * @param array $setting
 	 */
-	protected function __construct( array $setting = [ ] ) {
-		if( is_admin() ){
-			add_action('admin_init', [$this, 'adminInit']);
-			add_action('save_post', function($post_id, \WP_Post $post){
-				if( wp_is_post_revision($post) || wp_is_post_autosave($post) ){
-					return;
-				}
-				if( $this->nonce_key && $this->input->verify_nonce($this->nonce_action, $this->nonce_key) ){
-					$this->savePost($post);
-				}
-			}, 10, 2);
-			add_action('add_meta_boxes', [$this, 'adminMetaBoxes'], $this->hook_priority, 2);
+	protected function __construct( array $setting = array() ) {
+		if ( is_admin() ) {
+			add_action( 'admin_init', array( $this, 'adminInit' ) );
+			add_action(
+				'save_post',
+				function( $post_id, \WP_Post $post ) {
+					if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
+						return;
+					}
+					if ( $this->nonce_key && $this->input->verify_nonce( $this->nonce_action, $this->nonce_key ) ) {
+						$this->savePost( $post );
+					}
+				},
+				10,
+				2
+			);
+			add_action( 'add_meta_boxes', array( $this, 'adminMetaBoxes' ), $this->hook_priority, 2 );
 		}
 	}
 
 	/**
 	 * Executed on admin_init
 	 */
-	public function adminInit(){
+	public function adminInit() {
 
 	}
 
@@ -103,7 +108,7 @@ abstract class EmptyMetaBox extends Singleton
 	 *
 	 * @param \WP_Post $post
 	 */
-	public function savePost(\WP_Post $post){
+	public function savePost( \WP_Post $post ) {
 
 	}
 
@@ -113,17 +118,21 @@ abstract class EmptyMetaBox extends Singleton
 	 * @param string $post_type
 	 * @param \WP_Post $post
 	 */
-	public function adminMetaBoxes($post_type, $post){
-		if( false !== array_search($post_type, $this->post_types) ){
-			switch($this->hook){
+	public function adminMetaBoxes( $post_type, $post ) {
+		if ( false !== array_search( $post_type, $this->post_types ) ) {
+			switch ( $this->hook ) {
 				case 'post_submitbox_misc_actions':
 				case 'post_submitbox_start':
-					add_action($this->hook, function() use ($post){
-						if( $this->nonce_key ){
-							wp_nonce_field($this->nonce_action, $this->nonce_key);
-						}
-						$this->editFormX($post);
-					}, $this->hook_priority);
+					add_action(
+						$this->hook,
+						function() use ( $post ) {
+							if ( $this->nonce_key ) {
+								wp_nonce_field( $this->nonce_action, $this->nonce_key );
+							}
+							$this->editFormX( $post );
+						},
+						$this->hook_priority
+					);
 					break;
 				case 'post_edit_form_tag':
 				case 'edit_form_top':
@@ -131,22 +140,32 @@ abstract class EmptyMetaBox extends Singleton
 				case 'edit_form_after_title':
 				case 'edit_form_after_editor':
 				case 'dbx_post_sidebar':
-					add_action($this->hook, function(\WP_Post $post){
-						if( $this->nonce_key ){
-							wp_nonce_field($this->nonce_action, $this->nonce_key);
+					add_action(
+						$this->hook,
+						function( \WP_Post $post ) {
+							if ( $this->nonce_key ) {
+								wp_nonce_field( $this->nonce_action, $this->nonce_key );
+							}
+							$this->editFormX( $post );
 						}
-						$this->editFormX($post);
-					});
+					);
 					break;
 				default:
-					$s = explode('\\', get_called_class());
-					$name = $this->string->camel_to_hyphen($s[count($s) - 1]);
-					add_meta_box("metabox-$name", $this->title, function( \WP_Post $post, array $screen ){
-						if( $this->nonce_key ){
-							wp_nonce_field($this->nonce_action, $this->nonce_key);
-						}
-						$this->doMetaBox($post, $screen);
-					}, $post_type, $this->context, $this->priority);
+					$s    = explode( '\\', get_called_class() );
+					$name = $this->string->camel_to_hyphen( $s[ count( $s ) - 1 ] );
+					add_meta_box(
+						"metabox-$name",
+						$this->title,
+						function( \WP_Post $post, array $screen ) {
+							if ( $this->nonce_key ) {
+								wp_nonce_field( $this->nonce_action, $this->nonce_key );
+							}
+							$this->doMetaBox( $post, $screen );
+						},
+						$post_type,
+						$this->context,
+						$this->priority
+					);
 					break;
 			}
 		}
@@ -158,8 +177,8 @@ abstract class EmptyMetaBox extends Singleton
 	 *
 	 * @param \WP_Post $post
 	 */
-	public function editFormX(\WP_Post $post){
-		printf($this->__('You should override editFromX method in %s'), get_called_class());
+	public function editFormX( \WP_Post $post ) {
+		printf( $this->__( 'You should override editFromX method in %s' ), get_called_class() );
 	}
 
 	/**
@@ -168,8 +187,8 @@ abstract class EmptyMetaBox extends Singleton
 	 * @param \WP_Post $post
 	 * @param array $screen
 	 */
-	public function doMetaBox(\WP_Post $post, array $screen){
-		printf($this->__('You should override doMetaBox method in %s'), get_called_class());
+	public function doMetaBox( \WP_Post $post, array $screen ) {
+		printf( $this->__( 'You should override doMetaBox method in %s' ), get_called_class() );
 	}
 
 
@@ -178,8 +197,8 @@ abstract class EmptyMetaBox extends Singleton
 	 *
 	 * @return bool
 	 */
-	protected function isAjax(){
-		return is_admin() && defined('DOING_AJAX') && DOING_AJAX;
+	protected function isAjax() {
+		return is_admin() && defined( 'DOING_AJAX' ) && DOING_AJAX;
 	}
 
 	/**
@@ -190,7 +209,7 @@ abstract class EmptyMetaBox extends Singleton
 	 * @return mixed
 	 */
 	public function __get( $name ) {
-		switch( $name ){
+		switch ( $name ) {
 			case 'string':
 				return StringHelper::get_instance();
 				break;

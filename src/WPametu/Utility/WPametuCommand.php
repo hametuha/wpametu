@@ -40,25 +40,23 @@ class WPametuCommand extends Command {
 	 */
 	public function assets( $args, $assoc_args ) {
 		list( $type ) = $args;
-		$global = self::get_flag( 'global', $assoc_args );
-		if ( false === array_search( $type, [ 'css', 'js' ] ) ) {
+		$global       = self::get_flag( 'global', $assoc_args );
+		if ( false === array_search( $type, array( 'css', 'js' ) ) ) {
 			self::e( $this->__( 'Only css and js are supported.' ) );
 		}
-		$header = [
+		$header = array(
 			'Handle',
 			'Source',
 			'Dependency',
 			'Version',
 			'css' === $type ? 'Media' : 'Footer',
-		];
-		$rows   = [];
+		);
+		$rows   = array();
 		if ( $global ) {
 			switch ( $type ) {
 				case 'js':
-
 					break;
 				case 'css':
-
 					break;
 				default:
 					// Do nothing
@@ -67,17 +65,23 @@ class WPametuCommand extends Command {
 		} else {
 			$assets = Library::all_assets()[ $type ];
 			foreach ( $assets as $handle => $asset ) {
-				$rows[] = array_merge( [ $handle ], array_map( function ( $var ) {
-					if ( is_bool( $var ) ) {
-						return $var ? 'Yes' : 'No';
-					} elseif ( is_array( $var ) ) {
-						return empty( $var ) ? '-' : implode( ', ', $var );
-					} elseif ( is_null( $var ) ) {
-						return '-';
-					} else {
-						return $var;
-					}
-				}, $asset ) );
+				$rows[] = array_merge(
+					array( $handle ),
+					array_map(
+						function ( $var ) {
+							if ( is_bool( $var ) ) {
+								  return $var ? 'Yes' : 'No';
+							} elseif ( is_array( $var ) ) {
+								return empty( $var ) ? '-' : implode( ', ', $var );
+							} elseif ( is_null( $var ) ) {
+								return '-';
+							} else {
+								return $var;
+							}
+						},
+						$asset
+					)
+				);
 			}
 		}
 

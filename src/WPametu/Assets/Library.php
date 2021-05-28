@@ -31,73 +31,66 @@ class Library extends Singleton {
 	 *
 	 * @var array
 	 */
-	private $scripts = [
-		'wpametu-admin-helper' => [
-			'/assets/js/dist/admin-helper.js',
-			[ 'jquery-ui-dialog', 'jquery-ui-tooltip' ],
-			self::COMMON_VERSION,
-			true,
-		],
-		'wpametu-metabox'      => [
-			'/assets/js/dist/admin-metabox.js',
-			[ 'wpametu-admin-helper', 'gmap', 'jquery-ui-timepicker-i18n' ],
-			self::COMMON_VERSION,
-			true,
-		],
-		'wpametu-batch-helper' => [
-			'/assets/js/dist/batch-helper.js',
-			[ 'jquery-form', 'jquery-effects-highlight' ],
-			self::COMMON_VERSION,
-			true,
-		],
+	private $scripts = array(
 		// Bundled libraries
-		'chart-js'             => [ '/assets/js/lib/chart.js/dist/Chart.min.js', null, '2.7.1', true ],
-		'imagesloaded'         => [ '/assets/js/lib/imagesloaded/imagesloaded.pkgd.min.js', null, '4.1.3', true ],
-		'jsrender'             => [ '/assets/js/lib/jsrender/jsrender.min.js', [ 'jquery' ], '0.9.89', true ],
-		'jquery-ui-timepicker' => [
-			'/assets/js/lib/jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js',
-			[ 'jquery-ui-datepicker-i18n', 'jquery-ui-slider' ],
+		'chart-js'             => array(
+			'/assets/js/lib/chart.js/dist/Chart.min.js',
+			null,
+			'2.7.1',
+			true,
+		),
+		'jsrender'             => array(
+			'/assets/vendor/jsrender/jsrender.min.js',
+			array( 'jquery' ),
+			'0.9.89',
+			true,
+		),
+		'jquery-ui-timepicker' => array(
+			'/assets/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.js',
+			array( 'jquery-ui-datepicker-i18n', 'jquery-ui-slider' ),
 			'1.6.3',
 			true,
-		],
+		),
 		// External Libraries
-		'gmap'         => [ '//maps.googleapis.com/maps/api/js', null, null, true ],
-		'google-jsapi' => [ 'https://www.google.com/jsapi', null, null, true ],
-	];
+		'gmap'                 => array(
+			'//maps.googleapis.com/maps/api/js',
+			null,
+			null,
+			true,
+		),
+		'google-jsapi'         => array(
+			'https://www.google.com/jsapi',
+			null,
+			null,
+			true,
+		),
+	);
 
 	/**
 	 * CSS to register
 	 *
 	 * @var array
 	 */
-	private $css = [
-		'wpametu-metabox'      => [
-			'/assets/css/admin-metabox.css',
-			[ 'jquery-ui-timepicker' ],
-			self::COMMON_VERSION,
+	private $css = array(
+		'jquery-ui-mp6'        => array(
+			'/assets/vendor/jquery-ui-mp6/css/jquery-ui.css',
+			null,
+			'1.12.1',
 			'screen',
-		],
-		'wpametu-batch-screen' => [
-			'/assets/css/batch-screen.css',
-			[ 'jquery-ui-mp6' ],
-			self::COMMON_VERSION,
-			'screen',
-		],
-
-		'jquery-ui-mp6'        => [ '/assets/css/jquery-ui.css', null, '1.12.1', 'screen' ],
-		'jquery-ui-timepicker' => [
-			'/assets/css/jquery-ui-timepicker-addon.css',
-			[ 'jquery-ui-mp6' ],
+		),
+		'jquery-ui-timepicker' => array(
+			'/assets/vendor/jquery-ui-timepicker-addon.min.css',
+			array( 'jquery-ui-mp6' ),
 			'1.6.3',
 			'screen',
-		],
-		'font-awesome' => [
-			'/assets/js/lib/font-awesome/css/font-awesome.min.css',
-			[],
+		),
+		'font-awesome'         => array(
+			'/assets/vendor/font-awesome/css/font-awesome.min.css',
+			array(),
 			'4.7.0',
 			'all',
-		],
-	];
+		),
+	);
 
 	/**
 	 * Show all registered assets
@@ -126,9 +119,9 @@ class Library extends Singleton {
 	 *
 	 * @param array $setting
 	 */
-	protected function __construct( array $setting = [] ) {
-		add_action( 'init', [ $this, 'register_libraries' ], 9 );
-		add_action( 'admin_enqueue_scripts', [ $this, 'admin_assets' ] );
+	protected function __construct( array $setting = array() ) {
+		add_action( 'init', array( $this, 'register_libraries' ), 9 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_assets' ) );
 	}
 
 	/**
@@ -142,25 +135,25 @@ class Library extends Singleton {
 		} else {
 			$locale = strtolower( $locale[0] ) . '-' . strtoupper( $locale[1] );
 		}
-		$this->scripts['jquery-ui-datepicker-i18n'] = [
-			'/assets/js/lib/jquery-ui/ui/i18n/datepicker-' . $locale . '.js',
-			[ 'jquery-ui-datepicker' ],
+		$this->scripts['jquery-ui-datepicker-i18n'] = array(
+			'/assets/vendor/jquery-ui-i18n/datepicker-' . $locale . '.js',
+			array( 'jquery-ui-datepicker' ),
 			'1.12.1',
 			true,
-		];
-		$this->scripts['jquery-ui-timepicker-i18n'] = [
-			'/assets/js/lib/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-' . $locale . '.js',
-			[ 'jquery-ui-timepicker' ],
+		);
+		$this->scripts['jquery-ui-timepicker-i18n'] = array(
+			'/assets/js/vendor/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-' . $locale . '.js',
+			array( 'jquery-ui-timepicker' ),
 			'1.6.3',
 			true,
-		];
+		);
 
 		// Register all scripts
 		foreach ( $this->scripts as $handle => list( $src, $deps, $version, $footer ) ) {
 			$src = $this->build_src( $src );
 			// Google map
 			if ( 'gmap' == $handle ) {
-				$args = [ 'sensor' => 'true' ];
+				$args = array( 'sensor' => 'true' );
 				if ( defined( 'WPAMETU_GMAP_KEY' ) ) {
 					$args['key'] = \WPAMETU_GMAP_KEY;
 				}
@@ -176,6 +169,24 @@ class Library extends Singleton {
 		foreach ( $this->css as $handle => list( $src, $deps, $version, $media ) ) {
 			$src = $this->build_src( $src );
 			wp_register_style( $handle, $src, $deps, $version, $media );
+		}
+		// Parse dependencies.json.
+		$path = $this->get_root_dir() . '/wp-dependencies.json';
+		if ( file_exists( $path ) ) {
+			$json = json_decode( file_get_contents( $path ), true );
+			if ( $json ) {
+				foreach ( $json as $asset ) {
+					$url = trailingslashit( $this->get_root_uri() ) . $asset['path'];
+					switch ( $asset['ext'] ) {
+						case 'css':
+							wp_register_style( $asset['handle'], $url, $asset['deps'], $asset['hash'], $asset['media'] );
+							break;
+						case 'js':
+							wp_register_script( $asset['handle'], $url, $asset['deps'], $asset['hash'], $asset['footer'] );
+							break;
+					}
+				}
+			}
 		}
 	}
 
@@ -205,13 +216,13 @@ class Library extends Singleton {
 	private function localize( $handle ) {
 		switch ( $handle ) {
 			case 'wpametu-admin-helper':
-				return [
+				return array(
 					'error' => $this->__( 'Error' ),
 					'close' => $this->__( 'Close' ),
-				];
+				);
 				break;
 			default:
-				return [];
+				return array();
 				break;
 		}
 	}

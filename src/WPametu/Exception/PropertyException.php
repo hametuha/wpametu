@@ -12,18 +12,18 @@ use WPametu\Traits\i18n;
  *
  * @package WPametu
  */
-class PropertyException extends \RuntimeException
-{
+class PropertyException extends \RuntimeException {
 
-    use i18n;
 
-    protected $code = 500;
+	use i18n;
 
-    /**
-     * @param string $argument
-     * @param string $for
-     */
-    public function __construct($argument, $for){
-        parent::__construct(sprintf($this->__('Property \'%1$s\' is required for %2$s.'), $argument, $for), $this->code);
-    }
-} 
+	protected $code = 500;
+
+	/**
+	 * @param string $argument
+	 * @param string $for
+	 */
+	public function __construct( $argument, $for ) {
+		parent::__construct( sprintf( $this->__( 'Property \'%1$s\' is required for %2$s.' ), $argument, $for ), $this->code );
+	}
+}

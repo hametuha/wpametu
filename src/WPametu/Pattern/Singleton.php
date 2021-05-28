@@ -11,14 +11,14 @@ abstract class Singleton {
 	/**
 	 * @var array
 	 */
-	private static $instances = [];
+	private static $instances = array();
 
 	/**
 	 * Constructor
 	 *
 	 * @param array $setting
 	 */
-	protected function __construct( array $setting = [] ) {
+	protected function __construct( array $setting = array() ) {
 		// Implement constructor if required.
 	}
 
@@ -29,7 +29,7 @@ abstract class Singleton {
 	 *
 	 * @return static
 	 */
-	final public static function get_instance( array $setting = [] ) {
+	final public static function get_instance( array $setting = array() ) {
 		$class_name = get_called_class();
 		if ( ! isset( self::$instances[ $class_name ] ) ) {
 			self::$instances[ $class_name ] = new $class_name( $setting );

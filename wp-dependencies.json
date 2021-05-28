@@ -1,0 +1,66 @@
+[
+	{
+		"handle": "admin-helper",
+		"path": "assets/js/dist/admin-helper.js",
+		"ext": "js",
+		"hash": "d7314dec5763696bdfc1cceaa52f5006",
+		"version": "1.0.0",
+		"deps": [
+			"jquery-ui-dialog",
+			"jquery-ui-tooltip"
+		],
+		"footer": true,
+		"media": "all"
+	},
+	{
+		"handle": "admin-metabox",
+		"path": "assets/js/dist/admin-metabox.js",
+		"ext": "js",
+		"hash": "7e86346b294357a1956d3f5f5a8c39f9",
+		"version": "0.0.0",
+		"deps": [
+			"gmap",
+			"wpametu-admin-helper",
+			"jquery-ui-timepicker-i18n"
+		],
+		"footer": true,
+		"media": "all"
+	},
+	{
+		"handle": "batch-helper",
+		"path": "assets/js/dist/batch-helper.js",
+		"ext": "js",
+		"hash": "ee195ab37cc3ae8dafcf266c1212e0f1",
+		"version": "0.0.0",
+		"deps": [
+			"jquery-form",
+			"jquery-effects-highlight"
+		],
+		"footer": true,
+		"media": "all"
+	},
+	{
+		"handle": "admin-metabox",
+		"path": "assets/css/admin-metabox.css",
+		"ext": "css",
+		"hash": "9cc45aec32227b95e7ef28d0b8e47934",
+		"version": "0.0.0",
+		"deps": [
+			"jquery-ui-timepicker"
+		],
+		"footer": true,
+		"media": "all"
+	},
+	{
+		"handle": "batch-screen",
+		"path": "assets/css/batch-screen.css",
+		"ext": "css",
+		"hash": "dd9c9049faf58525ad44da348b244fa5",
+		"version": "0.0.0",
+		"deps": [
+			"jquery-ui-mp6"
+		],
+		"footer": true,
+		"media": "all"
+	}
+]

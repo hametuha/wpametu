@@ -7,8 +7,8 @@ namespace WPametu\Tool;
  *
  * @package WPametu
  */
-class BatchResult
-{
+class BatchResult {
+
 
 	public $processed = 0;
 
@@ -26,10 +26,10 @@ class BatchResult
 	 * @param bool $has_next
 	 * @param string $message
 	 */
-	public function __construct($processed, $total, $has_next, $message = ''){
-		$this->processed = (int)$processed;
-		$this->total = (int) $total;
-		$this->has_next = (bool) $has_next;
-		$this->message = (string) $message;
+	public function __construct( $processed, $total, $has_next, $message = '' ) {
+		$this->processed = (int) $processed;
+		$this->total     = (int) $total;
+		$this->has_next  = (bool) $has_next;
+		$this->message   = (string) $message;
 	}
 }

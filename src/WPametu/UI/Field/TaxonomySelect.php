@@ -3,10 +3,10 @@
 namespace WPametu\UI\Field;
 
 
-class TaxonomySelect extends Select
-{
+class TaxonomySelect extends Select {
 
-    use Taxonomy;
+
+	use Taxonomy;
 
 
 }

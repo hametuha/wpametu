@@ -2,9 +2,9 @@
 /*
 Plugin Name: WPametu
 Plugin URI: https://github.com/hametuha/wpametu
-Description: A WordPress Theme framework
-Author: Takahashi_Fumiki
-Version: 0.8.1
+Description: A WordPress Theme framework.
+Author: hametuha
+Version: nightly
 Author URI: https://hametuha.co.jp/
 */
 

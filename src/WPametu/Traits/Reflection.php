@@ -12,28 +12,28 @@ use WPametu\Pattern\Singleton;
  *
  * @package WPametu
  */
-trait Reflection
-{
+trait Reflection {
+
 
 	use \Hametuha\Pattern\Utility\Reflection;
 
-    /**
-     * Check if specified class is singleton
-     *
-     * @param string $class_name
-     * @return bool
-     */
-    protected function is_singleton($class_name){
-        return $this->is_sub_class_of($class_name, Singleton::class);
-    }
+	/**
+	 * Check if specified class is singleton
+	 *
+	 * @param string $class_name
+	 * @return bool
+	 */
+	protected function is_singleton( $class_name ) {
+		return $this->is_sub_class_of( $class_name, Singleton::class );
+	}
 
-    /**
-     * Check if specified class is controller
-     *
-     * @param string $class_name
-     * @return bool
-     */
-    protected function is_controller($class_name){
-        return $this->is_sub_class_of($class_name, Controller::class);
-    }
+	/**
+	 * Check if specified class is controller
+	 *
+	 * @param string $class_name
+	 * @return bool
+	 */
+	protected function is_controller( $class_name ) {
+		return $this->is_sub_class_of( $class_name, Controller::class );
+	}
 }

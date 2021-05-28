@@ -11,8 +11,8 @@ namespace WPametu\UI\Field;
  * @property-read string $prefix
  * @property-read string $suffix
  */
-class Number extends Text
-{
+class Number extends Text {
+
 
 	protected  $type = 'number';
 
@@ -24,12 +24,15 @@ class Number extends Text
 	 * @param array $setting
 	 * @return array
 	 */
-	protected function parse_args( array $setting ){
-		return wp_parse_args(parent::parse_args($setting), [
-			'step' => 1,
-			'prefix' => '',
-			'suffix' => '',
-		]);
+	protected function parse_args( array $setting ) {
+		return wp_parse_args(
+			parent::parse_args( $setting ),
+			array(
+				'step'   => 1,
+				'prefix' => '',
+				'suffix' => '',
+			)
+		);
 	}
 
 	/**
@@ -39,12 +42,12 @@ class Number extends Text
 	 *
 	 * @return array|string
 	 */
-	protected function get_field( \WP_Post $post ){
-		$field = parent::get_field($post);
-		if( $this->prefix ){
-			$field = $this->prefix.' '.$field;
+	protected function get_field( \WP_Post $post ) {
+		$field = parent::get_field( $post );
+		if ( $this->prefix ) {
+			$field = $this->prefix . ' ' . $field;
 		}
-		if( $this->suffix ){
+		if ( $this->suffix ) {
 			$field .= $this->suffix;
 		}
 		return $field;
@@ -55,21 +58,21 @@ class Number extends Text
 	 *
 	 * @return array
 	 */
-	protected function get_field_arguments(){
+	protected function get_field_arguments() {
 		$args = parent::get_field_arguments();
-		if( $this->min ){
+		if ( $this->min ) {
 			$args['min'] = $this->min;
 		}
-		if( $this->max ){
+		if ( $this->max ) {
 			$args['max'] = $this->max;
 		}
-		if( is_admin() ){
+		if ( is_admin() ) {
 			$args['class'] .= ' number-input';
 		}
-		unset($args['data-max-length']);
-		unset($args['data-min-length']);
+		unset( $args['data-max-length'] );
+		unset( $args['data-min-length'] );
 		$args['step'] = $this->step;
 		return $args;
 	}
 
-} 
+}

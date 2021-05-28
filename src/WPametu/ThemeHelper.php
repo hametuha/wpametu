@@ -26,19 +26,19 @@ use WPametu\Utility\StringHelper;
  * @property-read Input $input
  * @property-read Recaptcha $recaptcha
  */
-class ThemeHelper extends Singleton
-{
-    public function __get($key){
-        switch( $key ){
-            case 'str':
-                return StringHelper::get_instance();
-                break;
-            case 'input':
-                return Input::get_instance();
-                break;
-            case 'recaptcha':
-                return Recaptcha::get_instance();
-                break;
-        }
-    }
-} 
+class ThemeHelper extends Singleton {
+
+	public function __get( $key ) {
+		switch ( $key ) {
+			case 'str':
+				return StringHelper::get_instance();
+				break;
+			case 'input':
+				return Input::get_instance();
+				break;
+			case 'recaptcha':
+				return Recaptcha::get_instance();
+				break;
+		}
+	}
+}

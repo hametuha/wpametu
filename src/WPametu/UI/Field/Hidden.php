@@ -6,9 +6,9 @@ namespace WPametu\UI\Field;
  * Hidden field
  * @package WPametu
  */
-abstract class Hidden extends Input
-{
+abstract class Hidden extends Input {
 
-    protected $type = 'hidden';
+
+	protected $type = 'hidden';
 
 }

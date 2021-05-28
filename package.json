@@ -1,43 +1,62 @@
 {
-  "name": "wpametu",
-  "version": "1.0.0",
-  "description": "A WordPress Theme Framework",
-  "main": "gulpfile.js",
-  "scripts": {
-    "start": "gulp build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hametuha/wpametu.git"
-  },
-  "keywords": [
-    "WordPress"
-  ],
-  "author": "Hametuha INC. <info@hametuha.co.jp>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hametuha/wpametu/issues"
-  },
-  "homepage": "https://github.com/hametuha/wpametu",
-  "devDependencies": {
-    "chart.js": "^2.2",
-    "font-awesome": "^4.7",
-    "gulp": "^3.9",
-    "gulp-imagemin": "^2.2",
-    "gulp-jshint": "^1.10",
-    "gulp-load-plugins": "^0.10",
-    "gulp-plumber": "^1.0",
-    "gulp-sass": "^2.3",
-    "gulp-sourcemaps": "^1.5",
-    "gulp-uglify": "^1.2",
-    "gulp-util": "^3.0",
-    "imagemin-optipng": "^4.2",
-    "imagemin-pngquant": "^4.1",
-    "imagesloaded": "^4.1",
-    "jquery-ui": "^1.12",
-    "jquery-ui-mp6": "^1.0",
-    "jquery-ui-timepicker-addon": "^1.5",
-    "jshint-stylish": "^1.0",
-    "jsrender": "^0.9"
-  }
+	"name": "wpametu",
+	"version": "1.0.0",
+	"description": "A WordPress Theme Framework",
+	"main": "gulpfile.js",
+	"scripts": {
+		"start": "wp-env start",
+		"gulp": "gulp",
+		"build": "gulp build",
+		"watch": "gulp watch",
+		"lint": "gulp lint"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/hametuha/wpametu.git"
+	},
+	"keywords": [
+		"WordPress"
+	],
+	"author": "Hametuha INC. <info@hametuha.co.jp>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/hametuha/wpametu/issues"
+	},
+	"homepage": "https://github.com/hametuha/wpametu",
+	"devDependencies": {
+		"@babel/core": "^7.5.4",
+		"@babel/plugin-transform-react-jsx": "^7.0.0",
+		"@babel/preset-env": "^7.5.4",
+		"@kunoichi/grab-deps": "^1.2.0",
+		"@wordpress/env": "^4.0.4",
+		"@wordpress/eslint-plugin": "^9.0.5",
+		"babel-eslint": "^10.1.0",
+		"babel-loader": "^8.0.5",
+		"babel-preset-minify": "^0.5.1",
+		"chart.js": "^2.2",
+		"eslint": "^7.13.0",
+		"font-awesome": "^4.7",
+		"gulp": "^4.0",
+		"gulp-autoprefixer": "^7.0.1",
+		"gulp-eslint": "^6.0.0",
+		"gulp-imagemin": "^7.1",
+		"gulp-load-plugins": "^2.0",
+		"gulp-notify": "^4.0.0",
+		"gulp-plumber": "^1.0",
+		"gulp-rename": "^2.0.0",
+		"gulp-sass": "^4.0",
+		"gulp-sourcemaps": "^3.0",
+		"gulp-stylelint": "^13.0.0",
+		"imagemin-pngquant": "^9.0",
+		"jquery-ui": "^1.12",
+		"jquery-ui-mp6": "^1.0",
+		"jquery-ui-timepicker-addon": "^1.5",
+		"jsrender": "^0.9",
+		"merge-stream": "^2.0.0",
+		"stylelint": "^13.13.1",
+		"stylelint-config-wordpress": "^17.0.0",
+		"vinyl-named": "^1.1.0",
+		"webpack": "^5.3.0",
+		"webpack-stream": "^6.1.0"
+	}
 }
