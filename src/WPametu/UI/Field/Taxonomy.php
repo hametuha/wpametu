@@ -81,7 +81,7 @@ trait Taxonomy {
 	 * @return string
 	 */
 	protected function get_name( $index = 0 ) {
-		if ( 'category' == $this->name ) {
+		if ( 'category' === $this->name ) {
 			return 'post_category[]';
 		} else {
 			return 'tax_input[' . $this->name . '][]';

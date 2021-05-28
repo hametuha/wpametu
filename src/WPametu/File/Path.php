@@ -102,7 +102,7 @@ trait Path {
 	private function remove_dir( $path ) {
 		if ( is_dir( $path ) ) {
 			foreach ( scandir( $path ) as $file ) {
-				if ( $file != '.' && $file != '..' ) {
+				if ( ! in_array( $file, [ '.', '..' ], true ) ) {
 					if ( is_dir( "{$path}/{$file}" ) ) {
 						$this->remove_dir( "{$path}/{$file}" );
 					} else {

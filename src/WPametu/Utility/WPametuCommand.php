@@ -41,7 +41,7 @@ class WPametuCommand extends Command {
 	public function assets( $args, $assoc_args ) {
 		list( $type ) = $args;
 		$global       = self::get_flag( 'global', $assoc_args );
-		if ( false === array_search( $type, array( 'css', 'js' ) ) ) {
+		if ( false === array_search( $type, array( 'css', 'js' ), true ) ) {
 			self::e( $this->__( 'Only css and js are supported.' ) );
 		}
 		$header = array(
@@ -70,7 +70,7 @@ class WPametuCommand extends Command {
 					array_map(
 						function ( $var ) {
 							if ( is_bool( $var ) ) {
-								  return $var ? 'Yes' : 'No';
+								return $var ? 'Yes' : 'No';
 							} elseif ( is_array( $var ) ) {
 								return empty( $var ) ? '-' : implode( ', ', $var );
 							} elseif ( is_null( $var ) ) {
@@ -106,7 +106,8 @@ class WPametuCommand extends Command {
 			if ( ! class_exists( 'Akismet' ) ) {
 				throw new \Exception( 'Akismet is not installed.' );
 			}
-			if ( ! ( $key = \Akismet::get_api_key() ) ) {
+			$key = \Akismet::get_api_key();
+			if ( ! $key ) {
 				throw new \Exception( 'Akismet API key is not set.' );
 			}
 			if ( 'valid' !== \Akismet::verify_key( $key ) ) {

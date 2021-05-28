@@ -17,6 +17,9 @@
 		<exclude name="Squiz.Commenting.LongConditionClosingComment.Missing" />
 		<exclude name="WordPress.WP.I18n.SingleUnderscoreGetTextFunction" />
 		<exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
+		<exclude name="WordPress.DateTime.CurrentTimeTimestamp.RequestedUTC" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
 	</rule>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>

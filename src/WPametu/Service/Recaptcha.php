@@ -29,9 +29,7 @@ use WPametu\Pattern\Singleton;
  */
 class Recaptcha extends Singleton {
 
-
 	use Path;
-
 
 	/**
 	 * Name of public key
@@ -172,7 +170,11 @@ HTML;
 	 * @return bool
 	 */
 	public function validate() {
-		if ( $this->enabled && ( $response = $this->input->request( 'g-recaptcha-response' ) ) && $this->input->remote_ip() ) {
+		if ( ! $this->enabled ) {
+			return false;
+		}
+		$response = $this->input->request( 'g-recaptcha-response' );
+		if ( $response && $this->input->remote_ip() ) {
 			$endpoint = sprintf(
 				'https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s&remoteip=%s',
 				constant( self::PRIVATE_KEY ),

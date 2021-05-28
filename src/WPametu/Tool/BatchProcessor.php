@@ -127,7 +127,7 @@ class BatchProcessor extends Singleton {
 	 * @param string $page
 	 */
 	public function admin_enqueue_scripts( $page ) {
-		if ( 'tools_page_wpametu-batch' == $page ) {
+		if ( 'tools_page_wpametu-batch' === $page ) {
 			wp_enqueue_script( 'wpametu-batch-helper' );
 			wp_localize_script(
 				'wpametu-batch-helper',
@@ -179,7 +179,7 @@ class BatchProcessor extends Singleton {
 			}
 			$this->register_batches();
 			$class_name = stripslashes( $this->input->post( 'batch_class' ) );
-			if ( false === array_search( $class_name, $this->batches ) ) {
+			if ( false === array_search( $class_name, $this->batches, true ) ) {
 				throw new \Exception( sprintf( $this->__( 'Batch %s doesn\'t exist.' ), $class_name ), 404 );
 			}
 			$page = $this->input->post( 'page_num' );
@@ -209,7 +209,7 @@ class BatchProcessor extends Singleton {
 			// If this is last, update
 			if ( ! $result->has_next ) {
 				$option                = $this->option;
-				$option[ $class_name ] = current_time( 'timestamp' );
+				$option[ $class_name ] = current_time( 'timestamp', true );
 				update_option( $this->option_key, $option );
 			}
 		} catch ( \Exception $e ) {

@@ -86,7 +86,7 @@ abstract class MetaBox extends Singleton {
 			'admin_enqueue_scripts',
 			function( $page ) {
 				$screen = get_current_screen();
-				if ( 'post.php' == $page && $this->is_valid_post_type( $screen->post_type ) ) {
+				if ( 'post.php' === $page && $this->is_valid_post_type( $screen->post_type ) ) {
 					$this->load_additional_assets();
 				}
 			}
@@ -128,7 +128,7 @@ abstract class MetaBox extends Singleton {
 						remove_meta_box( 'formatdiv', $post_type, 'side' );
 						break;
 					default:
-						if ( false !== array_search( Taxonomy::class, class_uses( $vars['class'] ) ) ) {
+						if ( false !== array_search( Taxonomy::class, class_uses( $vars['class'] ), true ) ) {
 							if ( taxonomy_exists( $name ) ) {
 								if ( is_taxonomy_hierarchical( $name ) ) {
 									$box_id = $name . 'div';
@@ -231,7 +231,8 @@ abstract class MetaBox extends Singleton {
 					$return = new \WP_Error( $e->getCode(), $e->getMessage() );
 				}
 			} else {
-				$return = new \WP_Error( 500, sprintf( $this->__( '%s\'s argument setting is invalid.' ), $name ) );
+				// translators: %s is field name.
+				$return = new \WP_Error( 500, sprintf( __( '%s\'s argument setting is invalid.', 'wpametu' ), $name ) );
 			}
 			yield $return;
 		}
@@ -246,7 +247,6 @@ abstract class MetaBox extends Singleton {
 		return current_user_can( $this->capability );
 	}
 
-
 	/**
 	 * Detect if post type is valid
 	 *
@@ -254,7 +254,7 @@ abstract class MetaBox extends Singleton {
 	 * @return bool
 	 */
 	protected function is_valid_post_type( $post_type = '' ) {
-		return false !== array_search( $post_type, $this->post_types );
+		return false !== array_search( $post_type, $this->post_types, true );
 	}
 
 	/**
@@ -280,7 +280,7 @@ abstract class MetaBox extends Singleton {
 	 * @param string $page
 	 */
 	final public function assets( $page = '' ) {
-		if ( false !== array_search( $page, array( 'post.php', 'post-new.php' ) ) ) {
+		if ( false !== array_search( $page, [ 'post.php', 'post-new.php' ], true ) ) {
 			wp_enqueue_script( 'wpametu-metabox' );
 			wp_enqueue_style( 'wpametu-metabox' );
 		}

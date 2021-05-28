@@ -54,7 +54,7 @@ abstract class QueryHighJack extends Controller {
 	public function query_vars( array $vars ) {
 		if ( ! empty( $this->query_var ) ) {
 			foreach ( $this->query_var as $var ) {
-				if ( false === array_search( $var, $vars ) ) {
+				if ( false === array_search( $var, $vars, true ) ) {
 					$vars[] = $var;
 				}
 			}

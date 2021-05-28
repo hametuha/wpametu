@@ -170,50 +170,51 @@ final class TableBuilder extends Singleton {
 	 * @throws \Exception
 	 */
 	private function make_query( $config ) {
-		/** @var $name string */
-		/** @var $version string */
-		/** @var $engine string */
-		/** @var $columns array */
-		/** @var $primary_key array */
-		/** @var $indexes array */
-		/** @var $unique array */
-		/** @var $fulltext array */
-		/** @var $charset string */
-		extract( $config );
-		if ( empty( $columns ) ) {
-			throw new \Exception( sprintf( 'Columns of %s shouldn\'t be empty.', $name ), 500 );
+		$config = wp_parse_args(
+			$config,
+			[
+				'name'        => '',
+				'version'     => '',
+				'engine'      => '',
+				'columns'     => [],
+				'primary_key' => [],
+				'indexes'     => [],
+				'unique'      => [],
+				'fulltext'    => [],
+				'charset'     => 'utf8',
+			]
+		);
+		if ( empty( $config['columns'] ) ) {
+			throw new \Exception( sprintf( 'Columns of %s shouldn\'t be empty.', $config['name'] ), 500 );
 		}
-		$column_query = array();
-		foreach ( $columns as $name => $column ) {
+		$column_query = [];
+		foreach ( $config['columns'] as $name => $column ) {
 			$column_query[] = Column::build_query( $name, $column );
 		}
 		// Is primary key is specified.
-		if ( ! empty( $primary_key ) ) {
-			$column_query[] = sprintf( 'PRIMARY KEY (%s)', implode( ', ', $primary_key ) );
+		if ( ! empty( $config['primary_key'] ) ) {
+			$column_query[] = sprintf( 'PRIMARY KEY (%s)', implode( ', ', $config['primary_key'] ) );
 		}
 		// Is index exists?
-		if ( ! empty( $indexes ) ) {
-			foreach ( $indexes as $name => $index ) {
+		if ( ! empty( $config['indexes'] ) ) {
+			foreach ( $config['indexes'] as $name => $index ) {
 				$keys           = (array) $index;
 				$column_query[] = sprintf( 'KEY %s (%s)', $name, implode( ', ', $index ) );
 			}
 		}
 		// Is unique?
-		if ( ! empty( $unique ) ) {
-			foreach ( $unique as $name => $index ) {
+		if ( ! empty( $config['unique'] ) ) {
+			foreach ( $config['unique'] as $name => $index ) {
 				$keys           = (array) $index;
 				$column_query[] = sprintf( 'UNIQUE (%s)', implode( ', ', $index ) );
 			}
 		}
 		// has full text index?
-		if ( ! empty( $fulltext ) ) {
-			foreach ( $fulltext as $name => $index ) {
+		if ( ! empty( $config['fulltext'] ) ) {
+			foreach ( $config['fulltext'] as $name => $index ) {
 				$keys           = (array) $index;
 				$column_query[] = sprintf( 'FULLTEXT %s (%s)', $name, implode( ', ', $index ) );
 			}
-		}
-		if ( ! isset( $charset ) ) {
-			$charset = 'utf8';
 		}
 		// Normalize charset
 		$sql = <<<SQL
@@ -221,8 +222,7 @@ CREATE TABLE %s (
     %s
 ) ENGINE = %s CHARACTER SET %s
 SQL;
-		$sql = sprintf( $sql, $config['name'], implode( ',' . PHP_EOL . '    ', $column_query ), $engine, $charset );
-		return $sql;
+		return sprintf( $sql, $config['name'], implode( ',' . PHP_EOL . '    ', $column_query ), $config['engine'], $config['charset'] );
 	}
 
 	/**

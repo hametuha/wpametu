@@ -75,12 +75,12 @@ class Image extends Singleton {
 		$old_height = $size[1];
 		$new_width  = intval( $old_width * $ratio );
 		$new_height = intval( $old_height * $ratio );
-		// Resize
+		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
 		@ini_set( 'memory_limit', apply_filters( 'image_memory_limit', WP_MAX_MEMORY_LIMIT ) );
 		$image     = imagecreatefromstring( file_get_contents( $src ) );
 		$new_image = wp_imagecreatetruecolor( $new_width, $new_height );
 		imagecopyresampled( $new_image, $image, 0, 0, 0, 0, $new_width, $new_height, $old_width, $old_height );
-		if ( IMAGETYPE_PNG == $size[2] && function_exists( 'imageistruecolor' ) && ! imageistruecolor( $image ) ) {
+		if ( IMAGETYPE_PNG === $size[2] && function_exists( 'imageistruecolor' ) && ! imageistruecolor( $image ) ) {
 			imagetruecolortopalette( $new_image, false, imagecolorstotal( $image ) );
 		}
 		// Destroy old image
@@ -108,7 +108,11 @@ class Image extends Singleton {
 	 * @return array
 	 */
 	public function get_image_size( $path ) {
-		if ( ! file_exists( $path ) || ! ( $info = getimagesize( $path ) ) ) {
+		if ( ! file_exists( $path ) ) {
+			return array( 0, 0 );
+		}
+		$info = getimagesize( $path );
+		if ( ! $info ) {
 			return array( 0, 0 );
 		}
 		return array( $info[0], $info[1] );

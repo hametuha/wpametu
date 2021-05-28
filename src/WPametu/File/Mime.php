@@ -20,7 +20,11 @@ class Mime extends Singleton {
 	 * @return bool
 	 */
 	public function is_image( $path ) {
-		if ( ! file_exists( $path ) || ! ( $info = getimagesize( $path ) ) ) {
+		if ( ! file_exists( $path ) ) {
+			return false;
+		}
+		$info = getimagesize( $path );
+		if ( ! $info ) {
 			return false;
 		}
 		return (bool) preg_match( '/^image\/(jpeg|png|gif)$/', $info['mime'] );
@@ -71,7 +75,7 @@ class Mime extends Singleton {
 		$ext   = '';
 		if ( $type ) {
 			foreach ( wp_get_mime_types() as $extensions => $content_type ) {
-				if ( $content_type == $type ) {
+				if ( $content_type === $type ) {
 					$ext = explode( '|', $extensions )[0];
 					break;
 				}

@@ -59,7 +59,7 @@ abstract class AjaxBase extends Controller {
 	 */
 	protected function __construct( array $setting = array() ) {
 		// Check if action exists and is unique.
-		if ( empty( $this->action ) || false !== array_search( $this->action, self::$actions ) ) {
+		if ( empty( $this->action ) || false !== array_search( $this->action, self::$actions, true ) ) {
 			throw new OverrideException( get_called_class() );
 		}
 		// Save action
@@ -102,7 +102,7 @@ abstract class AjaxBase extends Controller {
 	 * Do Ajax
 	 */
 	public function ajax() {
-		if ( 'post' == $this->method || $this->always_nocache ) {
+		if ( 'post' === $this->method || $this->always_nocache ) {
 			nocache_headers();
 		}
 		try {

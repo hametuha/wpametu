@@ -119,7 +119,7 @@ abstract class EmptyMetaBox extends Singleton {
 	 * @param \WP_Post $post
 	 */
 	public function adminMetaBoxes( $post_type, $post ) {
-		if ( false !== array_search( $post_type, $this->post_types ) ) {
+		if ( false !== array_search( $post_type, $this->post_types, true ) ) {
 			switch ( $this->hook ) {
 				case 'post_submitbox_misc_actions':
 				case 'post_submitbox_start':

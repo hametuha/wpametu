@@ -195,7 +195,9 @@ abstract class Model extends QueryBuilder {
 	 */
 	protected function insert( array $values, array $place_holders = array(), $table = '' ) {
 		if ( empty( $table ) ) {
-			extract( $this->get_default_values( $values, $table, $place_holders ) );
+			$default       = $this->get_default_values( $values, $table, $place_holders );
+			$table         = $default['table'];
+			$place_holders = $default['place_holders'];
 		}
 		return $this->db->insert( $table, $values, $place_holders );
 	}
@@ -212,10 +214,12 @@ abstract class Model extends QueryBuilder {
 	 */
 	protected function update( array $values, array $wheres = array(), array $place_holders = array(), array $where_format = array(), $table = '' ) {
 		if ( empty( $table ) ) {
-			extract( $this->get_default_values( $values, $table, $place_holders ) );
+			$default       = $this->get_default_values( $values, $table, $place_holders );
+			$table         = $default['table'];
+			$place_holders = $default['place_holders'];
 		}
 		if ( empty( $where_format ) && ! empty( $this->default_placeholder ) ) {
-			foreach ( $wheres as $column => $valud ) {
+			foreach ( $wheres as $column => $value ) {
 				if ( isset( $this->default_placeholder[ $column ] ) ) {
 					$where_format[] = $this->default_placeholder[ $column ];
 				}
@@ -236,7 +240,7 @@ abstract class Model extends QueryBuilder {
 		if ( empty( $table ) ) {
 			$table = $this->table;
 		}
-		if ( $table == $this->table ) {
+		if ( $table === $this->table ) {
 			// Overwrite place holder
 			if ( $this->default_placeholder ) {
 				$default_place_holder = array();
@@ -273,7 +277,7 @@ abstract class Model extends QueryBuilder {
 		if ( ! empty( $wheres ) ) {
 			$where_clause = array();
 			foreach ( $wheres as $condition ) {
-				if ( count( $condition ) != 4 ) {
+				if ( count( $condition ) !== 4 ) {
 					throw new \Exception( 'Where section of delete query has 4 parameters(column, operand, value, placeholder)', 500 );
 				}
 				list($column, $operand, $value, $replace) = $condition;

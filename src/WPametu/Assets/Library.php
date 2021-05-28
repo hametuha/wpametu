@@ -152,7 +152,7 @@ class Library extends Singleton {
 		foreach ( $this->scripts as $handle => list( $src, $deps, $version, $footer ) ) {
 			$src = $this->build_src( $src );
 			// Google map
-			if ( 'gmap' == $handle ) {
+			if ( 'gmap' === $handle ) {
 				$args = array( 'sensor' => 'true' );
 				if ( defined( 'WPAMETU_GMAP_KEY' ) ) {
 					$args['key'] = \WPAMETU_GMAP_KEY;

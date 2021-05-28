@@ -566,7 +566,7 @@ SQL;
 				return $wpdb;
 				break;
 			default:
-				if ( false !== array_search( $name, $this->related ) ) {
+				if ( false !== array_search( $name, $this->related, true ) ) {
 					return $this->db->prefix . $name;
 				}
 				break;

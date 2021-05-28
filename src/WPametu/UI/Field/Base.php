@@ -141,7 +141,7 @@ HTML;
 				return $post->post_excerpt;
 				break;
 			default:
-				if ( false !== array_search( Taxonomy::class, class_uses( get_called_class() ) ) ) {
+				if ( false !== array_search( Taxonomy::class, class_uses( get_called_class() ), true ) ) {
 					// This is taxonomy
 					$terms   = get_the_terms( $post, $this->name );
 					$term_id = 0;

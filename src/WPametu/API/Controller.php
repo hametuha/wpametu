@@ -177,6 +177,7 @@ abstract class Controller extends Singleton {
 			// Path found. Let's locate template.
 			global $post, $posts, $wp_query;
 			if ( ! empty( $args ) ) {
+				// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 				extract( $args );
 			}
 			include $found_path;

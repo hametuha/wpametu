@@ -81,7 +81,7 @@ class Input extends Singleton {
 	 * @return array
 	 */
 	public function file_info( $key ) {
-		if ( isset( $_FILES[ $key ]['error'] ) && $_FILES[ $key ]['error'] == UPLOAD_ERR_OK ) {
+		if ( isset( $_FILES[ $key ]['error'] ) && UPLOAD_ERR_OK === $_FILES[ $key ]['error'] ) {
 			return $_FILES[ $key ];
 		} else {
 			return array();

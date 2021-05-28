@@ -86,7 +86,7 @@ class RestTemplate extends RestBase {
 		if ( ! empty( $this->title ) ) {
 			$array = array( $this->title );
 			$sep   = ' ' . trim( $sep ) . ' ';
-			if ( 'right' == $location ) {
+			if ( 'right' === $location ) {
 				$array[] = $sep;
 			} else {
 				array_unshift( $array, $sep );

@@ -4,6 +4,11 @@ namespace WPametu\UI\Admin;
 
 use WPametu\UI\MetaBox;
 
+/**
+ * Metabox base.
+ *
+ * @package WPametu\UI\Admin
+ */
 abstract class EditMetaBox extends MetaBox {
 
 

@@ -13,7 +13,7 @@ class WPametu {
 	/**
 	 * Required PHP Version
 	 */
-	const PHP_VERSION = '5.5.0';
+	const PHP_VERSION = '5.6.0';
 
 	/**
 	 * i18n domain
@@ -62,7 +62,8 @@ class WPametu {
 		load_theme_textdomain( self::DOMAIN, dirname( __DIR__ ) . '/i18n' );
 		// Check version
 		if ( version_compare( phpversion(), self::PHP_VERSION, '<' ) ) {
-			trigger_error( sprintf( __( 'PHP version should be %1$s and over. Your version is %2$s.', self::DOMAIN ), self::PHP_VERSION, phpversion() ), E_USER_WARNING );
+			// translators: %1$s is PHP version, %2$s is current version.
+			trigger_error( sprintf( __( 'PHP version should be %1$s and over. Your version is %2$s.', 'wpametu' ), self::PHP_VERSION, phpversion() ), E_USER_WARNING );
 
 			return;
 		}

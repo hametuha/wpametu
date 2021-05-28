@@ -55,7 +55,7 @@ class Radio extends Multiple {
 			$this->get_name(),
 			$counter,
 			esc_attr( $key ),
-			checked( ( ! $data && $key == $this->default ) || $key == $data, true, false ),
+			checked( ( ! $data && $key === $this->default ) || $key === $data, true, false ),
 			esc_html( $label ),
 			$this->inline ? ' class="inline"' : ''
 		);

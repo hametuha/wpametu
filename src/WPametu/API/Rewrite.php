@@ -128,39 +128,44 @@ final class Rewrite extends Singleton {
 	 * @param \WP_Query $wp_query
 	 */
 	public function pre_get_posts( \WP_Query &$wp_query ) {
-		if ( ! is_admin() && $wp_query->is_main_query() && ( $api_class = $wp_query->get( $this->api_class ) ) ) {
-			// Detect class is valid
-			try {
-				// Fix escaped namespace delimiter
-				$api_class = str_replace( '\\\\', '\\', $api_class );
-				// Check class existence
-				if ( ! $this->is_valid_class( $api_class ) ) {
-					throw new \Exception( $this->__( 'Specified URL is invalid.' ), 404 );
-				}
-				/** @var RestBase $instance */
-				$instance = $api_class::get_instance();
-				$instance->parse_request( $wp_query->get( $this->api_vars ), $wp_query );
-			} catch ( \Exception $e ) {
-				switch ( $e->getCode() ) {
-					case 404:
-						$wp_query->set_404();
-						break;
-					case 200:
-					case 201:
-						// If status is O.K.
-						// Do nothing.
-						break;
-					default:
-						wp_die(
-							$e->getMessage(),
-							get_status_header_desc( $e->getCode() ),
-							array(
-								'response'  => $e->getCode(),
-								'back_link' => true,
-							)
-						);
-						break;
-				}
+		if ( is_admin() || ! $wp_query->is_main_query() ) {
+			return;
+		}
+		// Detect class is valid
+		$api_class = $wp_query->get( $this->api_class );
+		if ( ! $api_class ) {
+			return;
+		}
+		try {
+			// Fix escaped namespace delimiter
+			$api_class = str_replace( '\\\\', '\\', $api_class );
+			// Check class existence
+			if ( ! $this->is_valid_class( $api_class ) ) {
+				throw new \Exception( __( 'Specified URL is invalid.', 'wpametu' ), 404 );
+			}
+			/** @var RestBase $instance */
+			$instance = $api_class::get_instance();
+			$instance->parse_request( $wp_query->get( $this->api_vars ), $wp_query );
+		} catch ( \Exception $e ) {
+			switch ( $e->getCode() ) {
+				case 404:
+					$wp_query->set_404();
+					break;
+				case 200:
+				case 201:
+					// If status is O.K.
+					// Do nothing.
+					break;
+				default:
+					wp_die(
+						$e->getMessage(),
+						get_status_header_desc( $e->getCode() ),
+						array(
+							'response'  => $e->getCode(),
+							'back_link' => true,
+						)
+					);
+					break;
 			}
 		}
 	}
@@ -183,9 +188,7 @@ final class Rewrite extends Singleton {
 	 * @return bool
 	 */
 	private function is_valid_class( $class_name ) {
-		return class_exists( $class_name )
-			   &&
-			   $this->is_sub_class_of( $class_name, RestBase::class );
+		return class_exists( $class_name ) && $this->is_sub_class_of( $class_name, RestBase::class );
 	}
 
 	/**
@@ -199,9 +202,9 @@ final class Rewrite extends Singleton {
 					$rewrites .= $this->get_prefix( $class_name );
 				}
 				$rewrites = md5( $rewrites );
-				if ( get_option( 'rewrite_rules' ) && $this->rewrite_md5 != $rewrites ) {
+				if ( get_option( 'rewrite_rules' ) && $this->rewrite_md5 !== $rewrites ) {
 					flush_rewrite_rules();
-					$last_updated = current_time( 'timestamp' );
+					$last_updated = current_time( 'timestamp', true );
 					update_option( $this->option_name, $last_updated );
 					update_option( $this->rewrite_md5_name, $rewrites );
 					$message = sprintf( $this->__( 'Rewrite rules updated. Last modified date is %s' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $last_updated ) );
