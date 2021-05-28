@@ -47,6 +47,9 @@ jobs:
       - name: Install WordPress
         run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
 
+      - name: Change Auth Method
+        run:  mysql -u root -proot -D wordpress -e "ALTER USER root mysql_native_password IDENTIFIED BY 'root'"
+
       - name: Run PHP Lint
         run: composer phpcs
 
