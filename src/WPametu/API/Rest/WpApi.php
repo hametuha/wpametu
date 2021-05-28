@@ -28,9 +28,24 @@ abstract class WpApi extends Controller {
 	 *
 	 * @param array $setting
 	 */
-	public function __construct( array $setting = [] ) {
-		add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+	public function __construct( array $setting = array() ) {
+		if ( $this->is_available() ) {
+			add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
+		}
 	}
+
+	/**
+	 * Check availability
+	 *
+	 * Override this function if some condition exists like
+	 * plugin dependencies.
+	 *
+	 * @return bool
+	 */
+	protected function is_available() {
+		return true;
+	}
+
 
 	/**
 	 * Register rest endpoints
@@ -38,18 +53,18 @@ abstract class WpApi extends Controller {
 	 * @throws \Exception If no handler is set, throws error.
 	 */
 	public function rest_api_init() {
-		$register = [];
-		foreach ( [ 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTION' ] as $method ) {
+		$register = array();
+		foreach ( array( 'GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTION' ) as $method ) {
 			$method_name = strtolower( "handle_{$method}" );
 			if ( ! method_exists( $this, $method_name ) ) {
 				continue;
 			}
-			$register[] = [
-				'methods' => $method,
-			    'callback' => [ $this, 'invoke' ],
-			    'args'     => $this->get_arguments( $method ),
-			    'permission_callback' => [ $this, 'permission_callback' ],
-			];
+			$register[] = array(
+				'methods'             => $method,
+				'callback'            => array( $this, 'invoke' ),
+				'args'                => $this->get_arguments( $method ),
+				'permission_callback' => array( $this, 'permission_callback' ),
+			);
 		}
 		if ( ! $register ) {
 			throw new \Exception( sprintf( 'Class %s has no handler.', get_called_class() ), 500 );
@@ -57,19 +72,29 @@ abstract class WpApi extends Controller {
 			register_rest_route( $this->namespace, $this->get_route(), $register );
 		}
 	}
-	
+
 	/**
 	 * Invoke callback
-	 * 
+	 *
 	 * @param \WP_REST_Request $request
 	 * @return \WP_Error|\WP_REST_Response
 	 */
 	public function invoke( $request ) {
 		$method_name = 'handle_' . strtolower( $request->get_method() );
 		try {
-			return call_user_func_array( [ $this, $method_name ], func_get_args() );
+			return call_user_func_array( array( $this, $method_name ), func_get_args() );
 		} catch ( \Exception $e ) {
-			return new \WP_Error( $e->getCode(), $e->getMessage() );
+			$status = 500;
+			if ( preg_match( '/^\d{3}$/u', $e->getCode() ) ) {
+				$status = $e->getCode();
+			}
+			return new \WP_Error(
+				$e->getCode(),
+				$e->getMessage(),
+				array(
+					'status' => $status,
+				)
+			);
 		}
 	}
 
@@ -91,6 +116,6 @@ abstract class WpApi extends Controller {
 	 * @return array
 	 */
 	protected function get_arguments( $method ) {
-		return [];
+		return array();
 	}
 }

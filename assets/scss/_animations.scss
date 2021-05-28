@@ -1,41 +1,47 @@
-
 $vendor-prefixes: ("-webkit-", "-o-", "-moz-", "");
 
-@mixin animation($animation){
-  @each $vendor in $vendor-prefixes{
-    #{$vendor}animation: $animation;
-  }
+@mixin animation($animation) {
+	@each $vendor in $vendor-prefixes {
+		#{$vendor}animation: $animation;
+	}
 }
 
 @mixin keyframes($name) {
-  @-webkit-keyframes #{$name} { @content; }
-  @-o-keyframes #{$name} { @content; }
-  @keyframes #{$name} { @content; }
+	@-webkit-keyframes #{$name} {
+		@content;
+	}
+	@-o-keyframes #{$name} {
+		@content;
+	}
+	@keyframes #{$name} {
+		@content;
+	}
 }
 
 
-@mixin transform($value){
-  -webkit-transform: $value;
-  transform: $value;
+@mixin transform($value) {
+	-webkit-transform: $value;
+	transform: $value;
 }
 
-@mixin bg-blink($name, $from, $to){
-  @include keyframes($name){
-    0%, 100%{
-      background-color: $from;
-    }
-    50%{
-      background-color: $to;
-    }
-  }
+@mixin bg-blink($name, $from, $to) {
+	@include keyframes($name) {
+		0%,
+		100% {
+			background-color: $from;
+		}
+		50% {
+			background-color: $to;
+		}
+	}
 }
 
 // Rotation animation
-@include keyframes( rotation ){
-  0% {
-    @include transform(rotate(0deg));
-  }
-  100% {
-    @include transform(rotate(360deg));
-  }
+@include keyframes(rotation) {
+	0% {
+		@include transform(rotate(0deg));
+	}
+	100% {
+		@include transform(rotate(360deg));
+	}
 }

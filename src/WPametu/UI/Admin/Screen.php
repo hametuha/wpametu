@@ -14,8 +14,8 @@ use WPametu\Pattern\Singleton;
  * @property-read PostRedirectGet $prg
  * @property-read string $base_url
  */
-abstract class Screen extends Singleton
-{
+abstract class Screen extends Singleton {
+
 
 	/**
 	 * Page title
@@ -80,29 +80,29 @@ abstract class Screen extends Singleton
 	 *
 	 * @param array $setting
 	 */
-	protected function __construct( array $setting = [ ] ) {
-		if( is_admin() ){
-			if( empty($this->menu_title) ){
+	protected function __construct( array $setting = array() ) {
+		if ( is_admin() ) {
+			if ( empty( $this->menu_title ) ) {
 				$this->menu_title = $this->title;
 			}
-			if( empty($this->template) ){
-				$class_name = explode('\\', get_called_class());
-				$this->template = $class_name[count($class_name) - 1];
+			if ( empty( $this->template ) ) {
+				$class_name     = explode( '\\', get_called_class() );
+				$this->template = $class_name[ count( $class_name ) - 1 ];
 			}
-			add_action("admin_menu", array($this, 'adminMenu'));
-			add_action('admin_init', array($this, 'adminInit'));
-			add_action('admin_enqueue_scripts', array($this, 'adminEnqueueScripts'));
+			add_action( 'admin_menu', array( $this, 'adminMenu' ) );
+			add_action( 'admin_init', array( $this, 'adminInit' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'adminEnqueueScripts' ) );
 		}
 	}
 
 	/**
 	 * Add menu
 	 */
-	public function adminMenu(){
-		if( $this->parent ){
-			add_submenu_page($this->parent, $this->title, $this->menu_title, $this->caps, $this->slug, array($this, 'render'));
-		}else{
-			add_menu_page($this->title, $this->menu_title, $this->caps, $this->slug, array($this, 'render'), $this->icon, $this->position);
+	public function adminMenu() {
+		if ( $this->parent ) {
+			add_submenu_page( $this->parent, $this->title, $this->menu_title, $this->caps, $this->slug, array( $this, 'render' ) );
+		} else {
+			add_menu_page( $this->title, $this->menu_title, $this->caps, $this->slug, array( $this, 'render' ), $this->icon, $this->position );
 		}
 	}
 
@@ -116,8 +116,8 @@ abstract class Screen extends Singleton
 	 *
 	 * @param string $admin_page
 	 */
-	public function adminEnqueueScripts($admin_page){
-		if( false !== strpos($admin_page, $this->slug) ){
+	public function adminEnqueueScripts( $admin_page ) {
+		if ( false !== strpos( $admin_page, $this->slug ) ) {
 			$this->enqueueScript();
 		}
 	}
@@ -125,14 +125,14 @@ abstract class Screen extends Singleton
 	/**
 	 * Enqueue script
 	 */
-	protected function enqueueScript(){
+	protected function enqueueScript() {
 		// Override this
 	}
 
 	/**
 	 * Render admin screen
 	 */
-	public function render(){
+	public function render() {
 		ob_start();
 		$this->content();
 		$template = ob_get_contents();
@@ -148,8 +148,8 @@ HTML;
 	/**
 	 * Render content
 	 */
-	protected function content(){
-		$this->load($this->template);
+	protected function content() {
+		$this->load( $this->template );
 	}
 
 	/**
@@ -157,8 +157,8 @@ HTML;
 	 *
 	 * @param string $template
 	 */
-	protected function load($template){
-		$template = get_stylesheet_directory()."/templates/admin/{$template}.php";
+	protected function load( $template ) {
+		$template = get_stylesheet_directory() . "/templates/admin/{$template}.php";
 		/**
 		 * wpametu_admin_screen_template
 		 *
@@ -166,8 +166,8 @@ HTML;
 		 * @param string $class_name
 		 * @return string
 		 */
-		$template = apply_filters('wpametu_admin_screen_template', $template, get_called_class());
-		if( file_exists($template) ){
+		$template = apply_filters( 'wpametu_admin_screen_template', $template, get_called_class() );
+		if ( file_exists( $template ) ) {
 			include $template;
 		}
 	}
@@ -180,7 +180,7 @@ HTML;
 	 * @return mixed
 	 */
 	public function __get( $name ) {
-		switch( $name ){
+		switch ( $name ) {
 			case 'input':
 				return Input::get_instance();
 				break;
@@ -188,10 +188,10 @@ HTML;
 				return PostRedirectGet::get_instance();
 				break;
 			case 'base_url':
-				if( $this->parent && preg_match('/(.*\.php)/', $this->parent, $match) ){
-					return admin_url($match[1].'?page='.$this->slug);
-				}else{
-					return admin_url('admin.php?page='.$this->slug);
+				if ( $this->parent && preg_match( '/(.*\.php)/', $this->parent, $match ) ) {
+					return admin_url( $match[1] . '?page=' . $this->slug );
+				} else {
+					return admin_url( 'admin.php?page=' . $this->slug );
 				}
 				break;
 			default:

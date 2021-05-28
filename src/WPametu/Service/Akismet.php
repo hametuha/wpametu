@@ -9,9 +9,9 @@ use WPametu\Pattern\NoConstructor;
  *
  * @package WPametu
  */
-class Akismet extends NoConstructor
-{
-	
+class Akismet extends NoConstructor {
+
+
 	const VERSION = '1.0';
 
 	/**
@@ -21,18 +21,18 @@ class Akismet extends NoConstructor
 	 *
 	 * @return bool|\WP_Error
 	 */
-	public static function is_spam( array $values = [] ){
+	public static function is_spam( array $values = array() ) {
 		$query_string = self::make_request( $values );
 		// If Akismet is not active, always return error
-		if( !class_exists('Akismet') || ! \Akismet::get_api_key() ){
-			return new \WP_Error(500, 'Akismet is not active.');
+		if ( ! class_exists( 'Akismet' ) || ! \Akismet::get_api_key() ) {
+			return new \WP_Error( 500, 'Akismet is not active.' );
 		}
 		// Make request
-		add_filter('akismet_ua', [static::class, 'get_ua'], 9);
-		$response = \Akismet::http_post($query_string, 'comment-check');
-		remove_filter('akismet_ua', [static::class, 'get_ua'], 9);
+		add_filter( 'akismet_ua', array( static::class, 'get_ua' ), 9 );
+		$response = \Akismet::http_post( $query_string, 'comment-check' );
+		remove_filter( 'akismet_ua', array( static::class, 'get_ua' ), 9 );
 		// Parse result
-		switch( $response[1] ){
+		switch ( $response[1] ) {
 			case 'true':
 				return true; // This is spam.
 				break;
@@ -41,12 +41,12 @@ class Akismet extends NoConstructor
 				break;
 			default:
 				// Something is wrong
-				if( isset( $response[0]['x-akismet-debug-help'] ) && !empty($response[0]['x-akismet-debug-help']) ){
+				if ( isset( $response[0]['x-akismet-debug-help'] ) && ! empty( $response[0]['x-akismet-debug-help'] ) ) {
 					$message = $response[0]['x-akismet-debug-help'];
-				}else{
+				} else {
 					$message = 'Akismet return the invalid result. Something is wrong.';
 				}
-				return new \WP_Error(500, $message);
+				return new \WP_Error( 500, $message );
 				break;
 		}
 	}
@@ -58,18 +58,21 @@ class Akismet extends NoConstructor
 	 *
 	 * @return string
 	 */
-	public static function make_request( array $args = [] ){
-		$args = wp_parse_args([
-			'blog' => get_option( 'home' ),
-			'blog_lang' => get_locale(),
-			'blog_charset' => get_option( 'blog_charset' ),
-			'user_ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '',
-			'user_agent' => isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '',
-			'referrer' => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '',
-		], $args);
+	public static function make_request( array $args = array() ) {
+		$args = wp_parse_args(
+			array(
+				'blog'         => get_option( 'home' ),
+				'blog_lang'    => get_locale(),
+				'blog_charset' => get_option( 'blog_charset' ),
+				'user_ip'      => isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '',
+				'user_agent'   => isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '',
+				'referrer'     => isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '',
+			),
+			$args
+		);
 		// Add server variables
 		foreach ( $_SERVER as $key => $value ) {
-			switch( $key ){
+			switch ( $key ) {
 				case 'REMOTE_ADDR':
 				case 'HTTP_USER_AGENT':
 				case 'HTTP_REFERER':
@@ -79,21 +82,21 @@ class Akismet extends NoConstructor
 					// Ignore
 					break;
 				default:
-					$args[$key] = $value;
+					$args[ $key ] = $value;
 					break;
 			}
 		}
-		return http_build_query($args);
+		return http_build_query( $args );
 	}
 
 	/**
 	 * Change User Agent name
-	 * 
+	 *
 	 * @param string $akismet_ua
 	 *
 	 * @return string
 	 */
-	public static function get_ua( $akismet_ua ){
+	public static function get_ua( $akismet_ua ) {
 		global $wp_version;
 		return sprintf( 'WordPress/%s | WPametu/%s', $wp_version, static::VERSION );
 	}

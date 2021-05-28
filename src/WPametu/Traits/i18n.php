@@ -16,8 +16,8 @@ namespace WPametu\Traits;
  *
  * @package WPametu
  */
-trait i18n
-{
+trait i18n {
+
 
 	/**
 	 * Domain name
@@ -32,8 +32,8 @@ trait i18n
 	 * @param string $string
 	 * @return string|void
 	 */
-	public function __($string){
-		return __($string, $this->i18n_domain);
+	public function __( $string ) {
+		return __( $string, $this->i18n_domain );
 	}
 
 
@@ -44,8 +44,8 @@ trait i18n
 	 * @param string $string
 	 * @return void
 	 */
-	public function _e($string){
-		_e($string, $this->i18n_domain);
+	public function _e( $string ) {
+		_e( $string, $this->i18n_domain );
 	}
 
 
@@ -57,8 +57,8 @@ trait i18n
 	 * @param $context
 	 * @return string|void
 	 */
-	public function _x($string, $context){
-		return _x($string, $context, $this->i18n_domain);
+	public function _x( $string, $context ) {
+		return _x( $string, $context, $this->i18n_domain );
 	}
 
 
@@ -70,7 +70,7 @@ trait i18n
 	 * @param $context
 	 * @return void
 	 */
-	public function _ex($string, $context){
-		_ex($string, $context, $this->i18n_domain);
+	public function _ex( $string, $context ) {
+		_ex( $string, $context, $this->i18n_domain );
 	}
-} 
+}

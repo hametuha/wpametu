@@ -44,7 +44,7 @@ class RestBase extends RewriteParser {
 		parent::__construct( $setting );
 		// If REST API is supported, call it.
 		if ( defined( 'REST_API_VERSION' ) ) {
-			add_action( 'rest_api_init', [ $this, 'rest_api_init' ] );
+			add_action( 'rest_api_init', array( $this, 'rest_api_init' ) );
 		}
 	}
 
@@ -61,7 +61,7 @@ class RestBase extends RewriteParser {
 	 * @param string $request_method GET, POST, PUT, DELETE.
 	 * @param array  $arguments Arguments as array.
 	 */
-	protected function handle_request( $method, $request_method, array $arguments = [] ) {
+	protected function handle_request( $method, $request_method, array $arguments = array() ) {
 		if ( empty( $method ) || 'page' === $method ) {
 			$page = max( ( isset( $arguments[0] ) ? intval( $arguments[0] ) : 1 ), 1 );
 			$this->pager( $page );

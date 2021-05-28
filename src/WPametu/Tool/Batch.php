@@ -15,8 +15,8 @@ use WPametu\Traits\i18n;
  * @property-read string $description
  * @property-read int|false $last_executed
  */
-abstract class Batch extends Singleton
-{
+abstract class Batch extends Singleton {
+
 
 	use i18n;
 
@@ -51,7 +51,7 @@ abstract class Batch extends Singleton
 	 *
 	 * @return BatchResult|null
 	 */
-	abstract public function process($page);
+	abstract public function process( $page);
 
 	/**
 	 * Return success message
@@ -60,8 +60,8 @@ abstract class Batch extends Singleton
 	 *
 	 * @return string
 	 */
-	public function success_message($page){
-		return sprintf($this->__('%d has been done.'), $page * $this->per_process);
+	public function success_message( $page ) {
+		return sprintf( $this->__( '%d has been done.' ), $page * $this->per_process );
 	}
 
 	/**
@@ -71,8 +71,8 @@ abstract class Batch extends Singleton
 	 * @param int $code
 	 * @throws \RuntimeException
 	 */
-	protected function abort($message, $code = 500){
-		throw new \RuntimeException($message, $code);
+	protected function abort( $message, $code = 500 ) {
+		throw new \RuntimeException( $message, $code );
 	}
 
 	/**
@@ -83,7 +83,7 @@ abstract class Batch extends Singleton
 	 *
 	 * @return int
 	 */
-	protected function get_total(){
+	protected function get_total() {
 		return 0;
 	}
 
@@ -94,17 +94,17 @@ abstract class Batch extends Singleton
 	 *
 	 * @return null|string
 	 */
-	public function __get($name){
-		switch( $name ){
+	public function __get( $name ) {
+		switch ( $name ) {
 			case 'title':
 			case 'version':
 			case 'description':
-				$method = 'get_'.$name;
+				$method = 'get_' . $name;
 				return (string) $this->{$method}();
 				break;
 			case 'last_executed':
-				$option = get_option('wpametu_batch_record', []);
-				return isset($option[get_called_class()]) ? $option[get_called_class()] : false;
+				$option = get_option( 'wpametu_batch_record', array() );
+				return isset( $option[ get_called_class() ] ) ? $option[ get_called_class() ] : false;
 				break;
 			default:
 				return null;

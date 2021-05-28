@@ -7,10 +7,10 @@ namespace WPametu\Pattern;
  *
  * @package WPametu
  */
-abstract class NoConstructor
-{
+abstract class NoConstructor {
 
-	final private function __construct(){
+
+	final private function __construct() {
 		// You can't override this!
 	}
 }

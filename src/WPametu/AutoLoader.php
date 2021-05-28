@@ -40,68 +40,68 @@ class AutoLoader extends Singleton {
 	 *
 	 * @var array
 	 */
-	protected $namespaces = [];
+	protected $namespaces = array();
 
 	/**
 	 * Auto loaded class names
 	 *
 	 * @var array
 	 */
-	private $default_classes = [
+	private $default_classes = array(
 		Library::class,
 		TableBuilder::class,
 		Rewrite::class,
 		BatchProcessor::class,
-	];
+	);
 
 	/**
 	 * Ajax Controller classes
 	 *
 	 * @var array
 	 */
-	private $ajax_controllers = [
+	private $ajax_controllers = array(
 		AjaxPostSearch::class,
-	];
+	);
 
 	/**
 	 * Widgets
 	 *
 	 * @var array
 	 */
-	private $widgets = [];
+	private $widgets = array();
 
 	/**
 	 * Commands
 	 *
 	 * @var array
 	 */
-	private $commands = [
+	private $commands = array(
 		WPametuCommand::class,
-	];
+	);
 
 	/**
 	 * Post type to override
 	 *
 	 * @var array
 	 */
-	private $post_type_to_override = [];
+	private $post_type_to_override = array();
 
 	/**
 	 * Constructor
 	 *
 	 * @param array $setting
 	 */
-	protected function __construct( array $setting = [] ) {
+	protected function __construct( array $setting = array() ) {
 		// Wait until theme is setup
-		add_action( 'after_setup_theme', [ $this, 'setup' ], 1 );
+		add_action( 'after_setup_theme', array( $this, 'setup' ), 1 );
 		// Register Meta boxes if exists
-		add_action( 'admin_menu', [ $this, 'register_meta_box' ] );
+		add_action( 'admin_menu', array( $this, 'register_meta_box' ) );
 		// Register Post helper
-		add_action( 'init', [ $this, 'scan_post_type' ] );
+		add_action( 'init', array( $this, 'scan_post_type' ) );
 		// Ajax actions
-		add_action( 'admin_init', [ $this, 'ajax_register' ] );
+		add_action( 'admin_init', array( $this, 'ajax_register' ) );
 		// Widgets register
-		add_action( 'widgets_init', [ $this, 'register_widgets' ] );
+		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
 	}
 
 	/**
@@ -138,7 +138,7 @@ class AutoLoader extends Singleton {
 		}
 		// Register auto loader for each namespace
 		$errors             = new \WP_Error();
-		$autoloaded_classes = [
+		$autoloaded_classes = array(
 			'Ajax'          => AjaxBase::class,
 			'QueryHighJack' => QueryHighJack::class,
 			'Rest'          => RestBase::class,
@@ -148,7 +148,8 @@ class AutoLoader extends Singleton {
 			'Admin/Screens' => Screen::class,
 			'Admin/MetaBox' => EmptyMetaBox::class,
 			'Cron'          => CronBase::class,
-		];
+			'Hooks'         => Singleton::class,
+		);
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$autoloaded_classes['Commands'] = Command::class;
 		}
@@ -208,9 +209,12 @@ class AutoLoader extends Singleton {
 		}
 		// Show error messages
 		if ( $errors->get_error_messages() ) {
-			add_action( 'admin_notices', function () use ( $errors ) {
-				printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $errors->get_error_messages() ) );
-			} );
+			add_action(
+				'admin_notices',
+				function () use ( $errors ) {
+					printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $errors->get_error_messages() ) );
+				}
+			);
 		}
 		// Register WP_CLI commands
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
@@ -240,7 +244,7 @@ class AutoLoader extends Singleton {
 			}
 		}
 		if ( $flg ) {
-			add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		}
 	}
 
@@ -289,14 +293,14 @@ class AutoLoader extends Singleton {
 						$class_name = $ns . '\\ThePost\\' . $base_class;
 						if ( class_exists( $class_name ) && $this->is_sub_class_of( $class_name, PostHelper::class ) ) {
 							$this->post_type_to_override[ $this->str->camel_to_hyphen( $base_class ) ] = $class_name;
-							$flg                                                                       = true;
+							$flg = true;
 						}
 					}
 				}
 			}
 		}
 		if ( $flg ) {
-			add_action( 'the_post', [ $this, 'the_post' ] );
+			add_action( 'the_post', array( $this, 'the_post' ) );
 		}
 	}
 

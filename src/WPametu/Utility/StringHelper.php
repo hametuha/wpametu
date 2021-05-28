@@ -34,9 +34,13 @@ class StringHelper extends Singleton {
 	 * @return string
 	 */
 	public function hyphen_to_camel( $string, $upper_first = false ) {
-		$str = preg_replace_callback( '/-(.)/u', function ( $match ) {
-			return strtoupper( $match[1] );
-		}, strtolower( $string ) );
+		$str = preg_replace_callback(
+			'/-(.)/u',
+			function ( $match ) {
+				return strtoupper( $match[1] );
+			},
+			strtolower( $string )
+		);
 		if ( $upper_first ) {
 			$str = ucfirst( $str );
 		}
@@ -52,9 +56,15 @@ class StringHelper extends Singleton {
 	 * @return string
 	 */
 	public function camel_to_hyphen( $string ) {
-		return strtolower( preg_replace_callback( '/(?<!^)([A-Z]+)/u', function ( $match ) {
-			return '-' . strtolower( $match[1] );
-		}, (string) $string ) );
+		return strtolower(
+			preg_replace_callback(
+				'/(?<!^)([A-Z]+)/u',
+				function ( $match ) {
+					return '-' . strtolower( $match[1] );
+				},
+				(string) $string
+			)
+		);
 	}
 
 	/**
@@ -77,7 +87,7 @@ class StringHelper extends Singleton {
 	 * @return mixed
 	 */
 	public function fetch_link( $string, callable $callback ) {
-		return preg_replace_callback( "/(https?)(:\/\/[[:alnum:]\+\$\;\?\.%,!#~*\/:@&=_-]+)/iu", $callback, $string );
+		return preg_replace_callback( '/(https?)(:\/\/[[:alnum:]\+$\;\?\.%,!#~*\/:@&=_-]+)/iu', $callback, $string );
 	}
 
 	/**
@@ -89,10 +99,16 @@ class StringHelper extends Singleton {
 	 * @return mixed
 	 */
 	public function auto_link( $string, $nofollow = true ) {
-		return $this->fetch_link( $string, function ( $match ) use ( $nofollow ) {
-			return sprintf( '<a href="%2$s"%1$s>%2$s</a>',
-				( $nofollow ? ' target="_blank" rel="nofollow,external"' : '' ), $match[0] );
-		} );
+		return $this->fetch_link(
+			$string,
+			function ( $match ) use ( $nofollow ) {
+				return sprintf(
+					'<a href="%2$s"%1$s>%2$s</a>',
+					( $nofollow ? ' target="_blank" rel="nofollow,external"' : '' ),
+					$match[0]
+				);
+			}
+		);
 	}
 
 	/**
@@ -108,7 +124,7 @@ class StringHelper extends Singleton {
 		if ( ! $multiple_name ) {
 			$multiple_name = $singular_name;
 		}
-		$labels = [
+		$labels = array(
 			'name'               => $multiple_name,
 			'singular_name'      => $singular_name,
 			'add_new'            => $this->__( 'Add new' ),
@@ -123,7 +139,7 @@ class StringHelper extends Singleton {
 			'all_items'          => sprintf( $this->__( 'All %s' ), $multiple_name ),
 			'menu_name'          => $singular_name,
 			'name_admin_bar'     => $singular_name,
-		];
+		);
 
 		return $as_object ? (object) $labels : $labels;
 	}
@@ -143,7 +159,7 @@ class StringHelper extends Singleton {
 		if ( ! $multiple_name ) {
 			$multiple_name = $singular_name;
 		}
-		$labels = [
+		$labels = array(
 			'name'                       => $multiple_name,
 			'singular_name'              => $singular_name,
 			'search_items'               => sprintf( $this->__( 'Search %s' ), $singular_name ),
@@ -160,7 +176,7 @@ class StringHelper extends Singleton {
 			'choose_from_most_used'      => sprintf( $this->__( 'Choose from the most used %s' ), $multiple_name ),
 			'not_found'                  => sprintf( $this->__( 'No %s found.' ), $multiple_name ),
 			'menu_name'                  => $multiple_name,
-		];
+		);
 
 		return $as_object ? (object) $labels : $labels;
 	}

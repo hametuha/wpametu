@@ -1,10 +1,10 @@
 # wpametu
 
-Contributors: Takahashi_Fumiki  
+Contributors: hametuha  
 Tags: theme  
-Requires at least: 4.4
-Tested up to: 4.5.3
-Stable tag: 0.8
+Requires at least: 5.0  
+Tested up to: 5.7  
+Stable tag: 1.0.0  
 License: MIT
 
 破滅派で利用しているWordPress開発用フレームワークです。「うぱめつ」と読みます。
@@ -49,8 +49,8 @@ if ( $autoloader = file_exists( __DIR__.'/vendor/autoload.php' ) ) {
 
 ## Requirements
 
-- PHP 5.5以上
-- WordPress 4.4以上
+- PHP 5.6以上
+- WordPress 5.0以上
 
 ## LICENSE
 

@@ -7,8 +7,8 @@ namespace WPametu\Utility;
  *
  * @package WPametu
  */
-abstract class Command extends \WP_CLI_Command
-{
+abstract class Command extends \WP_CLI_Command {
+
 
 	/**
 	 * Override this constant
@@ -20,8 +20,8 @@ abstract class Command extends \WP_CLI_Command
 	 *
 	 * @param string $string
 	 */
-	protected static function s($string){
-		\WP_CLI::success($string);
+	protected static function s( $string ) {
+		\WP_CLI::success( $string );
 	}
 
 	/**
@@ -29,8 +29,8 @@ abstract class Command extends \WP_CLI_Command
 	 *
 	 * @param string $string
 	 */
-	protected static function l($string){
-		\WP_CLI::line($string);
+	protected static function l( $string ) {
+		\WP_CLI::line( $string );
 	}
 
 	/**
@@ -38,8 +38,8 @@ abstract class Command extends \WP_CLI_Command
 	 *
 	 * @param string $string
 	 */
-	protected static function o($string){
-		\WP_CLI::out($string);
+	protected static function o( $string ) {
+		\WP_CLI::out( $string );
 	}
 
 	/**
@@ -47,7 +47,7 @@ abstract class Command extends \WP_CLI_Command
 	 *
 	 * @param string $string
 	 */
-	protected static function e($string){
+	protected static function e( $string ) {
 		\WP_CLI::error( $string );
 	}
 
@@ -56,7 +56,7 @@ abstract class Command extends \WP_CLI_Command
 	 *
 	 * @param string $string
 	 */
-	protected static function w($string){
+	protected static function w( $string ) {
 		\WP_CLI::warning( $string );
 	}
 
@@ -66,7 +66,7 @@ abstract class Command extends \WP_CLI_Command
 	 * @param array $header
 	 * @param array $body
 	 */
-	protected static function table($header, $body){
+	protected static function table( $header, $body ) {
 		$table = new \cli\Table();
 		$table->setHeaders( $header );
 		$table->setRows( $body );
@@ -81,7 +81,7 @@ abstract class Command extends \WP_CLI_Command
 	 *
 	 * @return string|null
 	 */
-	protected static function get_flag($key, $assoc_args){
-		return isset($assoc_args[$key]) ? $assoc_args[$key] : null;
+	protected static function get_flag( $key, $assoc_args ) {
+		return isset( $assoc_args[ $key ] ) ? $assoc_args[ $key ] : null;
 	}
 }

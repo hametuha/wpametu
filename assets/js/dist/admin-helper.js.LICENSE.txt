@@ -1,0 +1,7 @@
+/*!
+ * General admin screen helper
+ *
+ * @package WPametu
+ * @version 1.0.0
+ * @deps jquery-ui-dialog, jquery-ui-tooltip
+ */

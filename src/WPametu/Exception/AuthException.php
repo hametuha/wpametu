@@ -7,23 +7,23 @@ namespace WPametu\Exception;
  *
  * @package WPametu
  */
-class AuthException extends \Exception
-{
+class AuthException extends \Exception {
 
-    /**
-     * Error Code
-     *
-     * @var int
-     */
-    protected $code = 403;
 
-    /**
-     * Constructor
-     *
-     * @param string $message
-     */
-    public function __construct($message){
-        parent::__construct($message, $this->code);
-    }
+	/**
+	 * Error Code
+	 *
+	 * @var int
+	 */
+	protected $code = 403;
 
-} 
+	/**
+	 * Constructor
+	 *
+	 * @param string $message
+	 */
+	public function __construct( $message ) {
+		parent::__construct( $message, $this->code );
+	}
+
+}

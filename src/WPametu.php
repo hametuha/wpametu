@@ -62,7 +62,7 @@ class WPametu {
 		load_theme_textdomain( self::DOMAIN, dirname( __DIR__ ) . '/i18n' );
 		// Check version
 		if ( version_compare( phpversion(), self::PHP_VERSION, '<' ) ) {
-			trigger_error( sprintf( __( 'PHP version should be %s and over. Your version is %s.', self::DOMAIN ), self::PHP_VERSION, phpversion() ), E_USER_WARNING );
+			trigger_error( sprintf( __( 'PHP version should be %1$s and over. Your version is %2$s.', self::DOMAIN ), self::PHP_VERSION, phpversion() ), E_USER_WARNING );
 
 			return;
 		}

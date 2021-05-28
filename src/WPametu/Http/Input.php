@@ -12,9 +12,9 @@ use WPametu\Traits\i18n;
  * @package WPametu
  */
 class Input extends Singleton {
-	
+
 	use i18n;
-	
+
 	/**
 	 * Return GET Request
 	 *
@@ -29,7 +29,7 @@ class Input extends Singleton {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return POST Request
 	 *
@@ -44,7 +44,7 @@ class Input extends Singleton {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return REQUEST
 	 *
@@ -59,7 +59,7 @@ class Input extends Singleton {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return current request method
 	 *
@@ -72,7 +72,7 @@ class Input extends Singleton {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Get file input
 	 *
@@ -84,10 +84,10 @@ class Input extends Singleton {
 		if ( isset( $_FILES[ $key ]['error'] ) && $_FILES[ $key ]['error'] == UPLOAD_ERR_OK ) {
 			return $_FILES[ $key ];
 		} else {
-			return [];
+			return array();
 		}
 	}
-	
+
 	/**
 	 * Get file upload error message
 	 *
@@ -112,7 +112,7 @@ class Input extends Singleton {
 			}
 		}
 	}
-	
+
 	/**
 	 * Returns post body
 	 *
@@ -123,7 +123,7 @@ class Input extends Singleton {
 	public function post_body() {
 		return file_get_contents( 'php://input' );
 	}
-	
+
 	/**
 	 * Get remote address
 	 *
@@ -132,7 +132,7 @@ class Input extends Singleton {
 	public function remote_ip() {
 		return isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : false;
 	}
-	
+
 	/**
 	 * Verify nonce
 	 *
@@ -145,7 +145,7 @@ class Input extends Singleton {
 		$nonce = $this->request( $key );
 		return $nonce && wp_verify_nonce( $this->request( $key ), $action );
 	}
-	
+
 	/**
 	 * Sanitize super globals
 	 *

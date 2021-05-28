@@ -1,161 +1,173 @@
-@charset "utf-8";
+/*!
+ * Meta box.
+ *
+ * @deps jquery-ui-timepicker
+ */
 
 @import "variables";
 @import "animations";
 
 
 @mixin animation($animation) {
-  -webkit-animation: $animation;
-  -o-animation: $animation;
-  animation: $animation;
+	-webkit-animation: $animation;
+	-o-animation: $animation;
+	animation: $animation;
 }
 
 // error string
-.inline-error{
-  color: $notification-color;
+.inline-error {
+	color: $notification-color;
 }
 
 // spinner
-.wpametu-spinner{
-  @include animation(rotation 1.5s linear infinite);
+.wpametu-spinner {
+	@include animation(rotation 1.5s linear infinite);
 }
 
-.wpametu-meta-table{
+.wpametu-meta-table {
 
-  // Token input
-  ul.token-input-list-admin{
-    margin-top: 3px;
-  }
+	// Token input
+	ul.token-input-list-admin {
+		margin-top: 3px;
+	}
 
-  // Textarea
-  textarea{
-    box-sizing: border-box;
-    height: auto;
-    width: 100% !important;
-    resize: vertical;
-  }
+	// Textarea
+	textarea {
+		box-sizing: border-box;
+		height: auto;
+		width: 100% !important;
+		resize: vertical;
+	}
 
-  select{
-    overflow: hidden;
-    width: 80%;
-  }
+	select {
+		overflow: hidden;
+		width: 80%;
+	}
 
-  .number-input{
-    text-align: right;
-    width: 12em;
-  }
+	.number-input {
+		text-align: right;
+		width: 12em;
+	}
 
-  // Dashicons
-  .dashicons{
-    height: 1em;
-    width: 1em;
-    font-size: 1.4em;
-    vertical-align: text-top;
-  }
+	// Dashicons
+	.dashicons {
+		height: 1em;
+		width: 1em;
+		font-size: 1.4em;
+		vertical-align: text-top;
+	}
 }
 
 // Char Counter
-.char-counter{
-  text-align: right;
-  small{
-    margin-left: 1em;
-  }
-  &.ok{
-    color: $success-color;
-    i:before{
-      content: "\f147";
-    }
-  }
-  &.ng{
-    color: $notification-color;
-    i:before{
-      content: "\f158";
-    }
-  }
-}
+.char-counter {
+	text-align: right;
 
-#side-sortables{
-  input.regular-text{
-    width: 15em;
-  }
-}
+	small {
+		margin-left: 1em;
+	}
 
-// Google map
-.form-table .geo-row{
-  padding-left: 0;
-}
-input + .wpametu-spinner{
-  color: $shade-color;
-  margin-left: 0.5em;
-  vertical-align: bottom;
-}
+	&.ok {
+		color: $success-color;
 
-small.required{
-  color: $notification-color;
-}
+		i::before {
+			content: "\f147";
+		}
+	}
 
-.wpametu-map{
-  height: 200px;
-  background-color: #f9f9f9;
-  margin: 10px 0;
-  &.ok + p.inline-error{
-    display: none;
-  }
-}
+	&.ng {
+		color: $notification-color;
 
-a .dashicons{
-  text-decoration: none;
-}
-
-// After title
-.wpametu-after-title{
-
-  margin: 20px 0;
-  border-top: 3px double #ddd;
-  border-bottom: 3px double #ddd;
-
-  .form-table{
-    th, td{
-      display: block;
-      padding: 15px 0;
-    }
-    th{
-      width: auto;
-      padding-bottom: 0;
-    }
-    th{
-      border-top: 1px solid #ddd;
-    }
-    tr:first-child{
-      th{
-        border-top: none;
-      }
-    }
-  }
+		i::before {
+			content: "\f158";
+		}
+	}
 }
 
 // Side
-#side-sortables{
-  .form-table{
-    th, td{
-      padding: 3px 0;
-      display: block;
-      width: auto;
-    }
-  }
+#side-sortables {
+	input.regular-text {
+		width: 15em;
+	}
+	.form-table {
+		th,
+		td {
+			padding: 3px 0;
+			display: block;
+			width: auto;
+		}
+	}
+}
+
+// Google map
+.form-table .geo-row {
+	padding-left: 0;
+}
+
+input + .wpametu-spinner {
+	color: $shade-color;
+	margin-left: 0.5em;
+	vertical-align: bottom;
+}
+
+small.required {
+	color: $notification-color;
+}
+
+.wpametu-map {
+	height: 200px;
+	background-color: #f9f9f9;
+	margin: 10px 0;
+
+	&.ok + p.inline-error {
+		display: none;
+	}
+}
+
+a .dashicons {
+	text-decoration: none;
+}
+
+// After title
+.wpametu-after-title {
+
+	margin: 20px 0;
+	border-top: 3px double #ddd;
+	border-bottom: 3px double #ddd;
+
+	.form-table {
+		th,
+		td {
+			display: block;
+			padding: 15px 0;
+		}
+
+		th {
+			width: auto;
+			padding-bottom: 0;
+			border-top: 1px solid #ddd;
+		}
+
+		tr:first-child {
+			th {
+				border-top: none;
+			}
+		}
+	}
 }
 
 // Radio box
-.radio-container{
-  label{
-    display: block;
-    margin: 0.5em 0;
-    &:hover{
-      background-color: $hover-bg;
-    }
-    &.inline{
-      display: inline-block;
-      margin: 0 1em 0 0;
-    }
-  }
+.radio-container {
+	label {
+		display: block;
+		margin: 0.5em 0;
+
+		&:hover {
+			background-color: $hover-bg;
+		}
+
+		&.inline {
+			display: inline-block;
+			margin: 0 1em 0 0;
+		}
+	}
 }
