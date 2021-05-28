@@ -14,7 +14,11 @@ rm -rf .node-version
 rm -rf .stylelintrc.json
 rm -rf .wp-env.json
 rm -rf bin
-rm -rf phpcs.ruleset.xml
-rm -rf phpunit.xml
 rm -rf node_modules
 rm -rf tests
+rm -rf vendor
+rm -rf wordpress
+rm -rf phpcs.ruleset.xml
+rm -rf phpunit.xml
+rm -rf webpack.config.js
+rm -rf gulpfile.js
