@@ -5,6 +5,9 @@
 	"main": "gulpfile.js",
 	"scripts": {
 		"start": "wp-env start",
+		"update": "wp-env start --update",
+		"stop": "wp-env stop",
+		"cli": "wp-env run cli wp",
 		"gulp": "gulp",
 		"build": "gulp build",
 		"watch": "gulp watch",

@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
+        operating-system: [ ubuntu-18.04 ]  # OS. ubuntu-18.04 is also available.
         php: [ '5.6', '7.2', '7.4' ] # PHP versions to check.
         wp: [ 'latest', '5.0' ]      # WordPress version to check.
     services:
@@ -46,9 +46,6 @@ jobs:
 
       - name: Install WordPress
         run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
-
-      - name: Change Auth Method
-        run:  mysql -u root -proot -D wordpress -e "ALTER USER root mysql_native_password IDENTIFIED BY 'root'"
 
       - name: Run PHP Lint
         run: composer phpcs
