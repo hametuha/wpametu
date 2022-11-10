@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-18.04 ]  # OS. ubuntu-18.04 is also available.
-        php: [ '7.2', '7.4', '8.0', '8.1' ] # PHP versions to check.
+        php: [ '7.2', '7.4' ] # PHP versions to check.
         wp: [ 'latest', '5.8' ]      # WordPress version to check.
     services:
       mysql:
