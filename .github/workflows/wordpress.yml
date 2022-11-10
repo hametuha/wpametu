@@ -57,6 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Assets Test
     steps:
+      - uses: actions/checkout@master
 
       - name: Install NPM
         uses: actions/setup-node@v1
