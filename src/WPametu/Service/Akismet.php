@@ -41,7 +41,7 @@ class Akismet extends NoConstructor {
 				break;
 			default:
 				// Something is wrong
-				if ( isset( $response[0]['x-akismet-debug-help'] ) && ! empty( $response[0]['x-akismet-debug-help'] ) ) {
+				if ( ! empty( $response[0]['x-akismet-debug-help'] ) ) {
 					$message = $response[0]['x-akismet-debug-help'];
 				} else {
 					$message = 'Akismet return the invalid result. Something is wrong.';
@@ -64,9 +64,9 @@ class Akismet extends NoConstructor {
 				'blog'         => get_option( 'home' ),
 				'blog_lang'    => get_locale(),
 				'blog_charset' => get_option( 'blog_charset' ),
-				'user_ip'      => isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '',
-				'user_agent'   => isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '',
-				'referrer'     => isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '',
+				'user_ip'      => $_SERVER['REMOTE_ADDR'] ?? '',
+				'user_agent'   => $_SERVER['HTTP_USER_AGENT'] ?? '',
+				'referrer'     => $_SERVER['HTTP_REFERER'] ?? '',
 			),
 			$args
 		);
