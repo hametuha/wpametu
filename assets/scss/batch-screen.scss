@@ -1,9 +1,11 @@
 /*!
  * Batch screen.
  *
+ * @handle wpametu-batch-helper
  * @deps jquery-ui-mp6
  */
 
+@import "variables";
 @import "animations";
 
 #batch-result {

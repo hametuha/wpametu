@@ -13,7 +13,7 @@ class WPametu {
 	/**
 	 * Required PHP Version
 	 */
-	const PHP_VERSION = '5.6.0';
+	const PHP_VERSION = '7.2.0';
 
 	/**
 	 * i18n domain

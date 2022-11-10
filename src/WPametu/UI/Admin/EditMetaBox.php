@@ -31,7 +31,7 @@ abstract class EditMetaBox extends MetaBox {
 	 * Register UI hook
 	 */
 	protected function register_ui() {
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 10, 2 );
+		add_action( 'add_meta_boxes', [ $this, 'add_meta_boxes' ], 10, 2 );
 	}
 
 	/**

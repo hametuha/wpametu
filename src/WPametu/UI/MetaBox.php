@@ -77,20 +77,17 @@ abstract class MetaBox extends Singleton {
 	protected function __construct( array $setting = array() ) {
 		$this->register_save_action();
 		$this->register_ui();
-		add_action( 'add_meta_boxes', array( $this, 'override' ), 10, 2 );
+		add_action( 'add_meta_boxes', [ $this, 'override' ], 10, 2 );
 		if ( ! self::$initialized ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'assets' ) );
+			add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 			self::$initialized = true;
 		}
-		add_action(
-			'admin_enqueue_scripts',
-			function( $page ) {
-				$screen = get_current_screen();
-				if ( 'post.php' === $page && $this->is_valid_post_type( $screen->post_type ) ) {
-					$this->load_additional_assets();
-				}
+		add_action( 'admin_enqueue_scripts', function( $page ) {
+			$screen = get_current_screen();
+			if ( in_array( $page, [ 'post.php', 'post-new.php' ], true ) && $this->is_valid_post_type( $screen->post_type ) ) {
+				$this->load_additional_assets();
 			}
-		);
+		} );
 	}
 
 	/**
@@ -254,7 +251,7 @@ abstract class MetaBox extends Singleton {
 	 * @return bool
 	 */
 	protected function is_valid_post_type( $post_type = '' ) {
-		return false !== array_search( $post_type, $this->post_types, true );
+		return in_array( $post_type, $this->post_types, true );
 	}
 
 	/**
@@ -280,7 +277,7 @@ abstract class MetaBox extends Singleton {
 	 * @param string $page
 	 */
 	final public function assets( $page = '' ) {
-		if ( false !== array_search( $page, [ 'post.php', 'post-new.php' ], true ) ) {
+		if ( in_array( $page, [ 'post.php', 'post-new.php' ], true ) ) {
 			wp_enqueue_script( 'wpametu-metabox' );
 			wp_enqueue_style( 'wpametu-metabox' );
 		}
@@ -292,15 +289,16 @@ abstract class MetaBox extends Singleton {
 	 * If you need additional assets, override this.
 	 */
 	protected function load_additional_assets() {
-
+		// Do something here.
+		// wp_enqueue_script(), wp_enqueue_style().
 	}
 
 
 	/**
-	 * Getter
+	 * Getter.
 	 *
 	 * @param string $name
-	 * @return string
+	 * @return mixed
 	 */
 	public function __get( $name ) {
 		switch ( $name ) {

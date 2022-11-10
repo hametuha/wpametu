@@ -226,25 +226,20 @@ class AutoLoader extends Singleton {
 	 * Register meta boxes
 	 */
 	public function register_meta_box() {
-		$flg = false;
 		foreach ( $this->namespaces as $ns => $dir ) {
 			$sub_base = $dir . '/' . $ns . '/MetaBoxes';
 			if ( is_dir( $sub_base ) ) {
 				// Enqueue script flag
 				// Load all meta boxes
 				foreach ( scandir( $sub_base ) as $file ) {
-					if ( ! preg_match( '/\.php$/u', $file ) ) {
+					if ( preg_match( '/\.php$/u', $file ) ) {
 						$class_name = $ns . '\\MetaBoxes\\' . str_replace( '.php', '', $file );
 						if ( class_exists( $class_name ) && $this->is_sub_class_of( $class_name, EditMetaBox::class ) ) {
 							$class_name::get_instance();
-							$flg = true;
 						}
 					}
 				}
 			}
-		}
-		if ( $flg ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		}
 	}
 

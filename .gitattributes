@@ -3,7 +3,11 @@ tests/ export-ignore
 bin/ export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
+.editorconfig export-ignore
+.eslintrc export-ignore
+.wp-env.json export-ignore
 composer.lock export-ignore
 phpcs.ruleset.xml export-ignore
 phpunit.xml export-ignore
 hamepub export-ignore
+wpametu.php export-ignore

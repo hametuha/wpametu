@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-18.04 ]  # OS. ubuntu-18.04 is also available.
-        php: [ '5.6', '7.2', '7.4' ] # PHP versions to check.
+        php: [ '7.2', '7.4', '8.0', '8.1' ] # PHP versions to check.
         wp: [ 'latest', '5.0' ]      # WordPress version to check.
     services:
       mysql:
@@ -53,10 +53,15 @@ jobs:
       - name: Run PHP Unit Test
         run: composer test
 
+  assets:
+    runs-on: ubuntu-latest
+    name: Assets Test
+    steps:
+
       - name: Install NPM
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '14'
 
       - name: Install Packages
         run: npm install
@@ -66,19 +71,11 @@ jobs:
 
   release:
     name: Upload Release
-    needs: test
+    needs: [test, assets]
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-
-      - name: Confirm
-        run: echo ${{ needs.pre_release.outputs.upload_url }}
-
-      - name: Setup PHP
-        uses: nanasess/setup-php@master
-        with:
-          php-version: '5.6'
 
       - name: Build package.
         run: bash bin/build.sh
@@ -93,9 +90,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release Hamail ${{ github.ref }}
+          release_name: Release WPametu ${{ github.ref }}
           body: |
-            Release Hamail version ${{ github.ref }}.
+            Release WPametu version ${{ github.ref }}.
           draft: false
           prerelease: false
 

@@ -1,6 +1,7 @@
 /*!
  * Batch helper
  *
+ * @handle wpametu-batch-helper
  * @deps jquery-form, jquery-effects-highlight
  */
 

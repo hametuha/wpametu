@@ -1,6 +1,7 @@
 /*!
  * Admin meta box helper.
  *
+ * @handle wpametu-metabox
  * @deps gmap, wpametu-admin-helper, jquery-ui-timepicker-i18n
  */
 

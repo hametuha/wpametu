@@ -24,20 +24,7 @@ trait Path {
 	 * @return string
 	 */
 	protected function get_root_dir() {
-		$theme_root = get_theme_root();
-		$base_dir   = dirname( dirname( dirname( __DIR__ ) ) );
-
-		if ( false !== strpos( $base_dir, $theme_root ) ) {
-			// This is inside theme.
-			$base_url = str_replace( $theme_root, get_theme_root_uri(), $base_dir );
-		} elseif ( false !== strpos( $base_dir, WP_CONTENT_DIR ) ) {
-			// This is inside plugins.
-			$base_url = str_replace( WP_CONTENT_DIR, WP_CONTENT_URL, $base_dir );
-		} else {
-			// Replace ABS Path.
-			$base_url = str_replace( ABSPATH, home_url( '/' ), $base_dir );
-		}
-		return $base_url;
+		return dirname( dirname( dirname( __DIR__ ) ) );
 	}
 
 	/**

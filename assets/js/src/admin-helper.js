@@ -3,6 +3,7 @@
  *
  * @package WPametu
  * @version 1.0.0
+ * @handle wpametu-admin-helper
  * @deps jquery-ui-dialog, jquery-ui-tooltip
  */
 

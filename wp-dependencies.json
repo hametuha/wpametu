@@ -1,9 +1,9 @@
 [
 	{
-		"handle": "admin-helper",
+		"handle": "wpametu-admin-helper",
 		"path": "assets/js/dist/admin-helper.js",
 		"ext": "js",
-		"hash": "d7314dec5763696bdfc1cceaa52f5006",
+		"hash": "f8dd80ba8456520041138f8a01b0338c",
 		"version": "1.0.0",
 		"deps": [
 			"jquery-ui-dialog",
@@ -13,10 +13,10 @@
 		"media": "all"
 	},
 	{
-		"handle": "admin-metabox",
+		"handle": "wpametu-metabox",
 		"path": "assets/js/dist/admin-metabox.js",
 		"ext": "js",
-		"hash": "7e86346b294357a1956d3f5f5a8c39f9",
+		"hash": "408586e566bdfd93f6e37af7b43a6f59",
 		"version": "0.0.0",
 		"deps": [
 			"gmap",
@@ -27,10 +27,10 @@
 		"media": "all"
 	},
 	{
-		"handle": "batch-helper",
+		"handle": "wpametu-batch-helper",
 		"path": "assets/js/dist/batch-helper.js",
 		"ext": "js",
-		"hash": "ee195ab37cc3ae8dafcf266c1212e0f1",
+		"hash": "ae045dfa7ec9f62f81cfcb9d719df2e7",
 		"version": "0.0.0",
 		"deps": [
 			"jquery-form",
@@ -40,10 +40,10 @@
 		"media": "all"
 	},
 	{
-		"handle": "admin-metabox",
+		"handle": "wpametu-metabox",
 		"path": "assets/css/admin-metabox.css",
 		"ext": "css",
-		"hash": "9cc45aec32227b95e7ef28d0b8e47934",
+		"hash": "1190d393be81ad7ec84b110bccecb5cc",
 		"version": "0.0.0",
 		"deps": [
 			"jquery-ui-timepicker"
@@ -52,10 +52,10 @@
 		"media": "all"
 	},
 	{
-		"handle": "batch-screen",
+		"handle": "wpametu-batch-helper",
 		"path": "assets/css/batch-screen.css",
 		"ext": "css",
-		"hash": "dd9c9049faf58525ad44da348b244fa5",
+		"hash": "d181c9cf36b38e71f3f0d663aa874025",
 		"version": "0.0.0",
 		"deps": [
 			"jquery-ui-mp6"
