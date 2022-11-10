@@ -82,12 +82,15 @@ abstract class MetaBox extends Singleton {
 			add_action( 'admin_enqueue_scripts', [ $this, 'assets' ] );
 			self::$initialized = true;
 		}
-		add_action( 'admin_enqueue_scripts', function( $page ) {
-			$screen = get_current_screen();
-			if ( in_array( $page, [ 'post.php', 'post-new.php' ], true ) && $this->is_valid_post_type( $screen->post_type ) ) {
-				$this->load_additional_assets();
+		add_action(
+			'admin_enqueue_scripts',
+			function( $page ) {
+				$screen = get_current_screen();
+				if ( in_array( $page, [ 'post.php', 'post-new.php' ], true ) && $this->is_valid_post_type( $screen->post_type ) ) {
+					$this->load_additional_assets();
+				}
 			}
-		} );
+		);
 	}
 
 	/**
