@@ -24,7 +24,7 @@ class Library extends Singleton {
 	 *
 	 * @const string
 	 */
-	const COMMON_VERSION = '0.8.1';
+	const COMMON_VERSION = '1.0.2';
 
 	/**
 	 * Scripts to register
@@ -34,7 +34,7 @@ class Library extends Singleton {
 	private $scripts = array(
 		// Bundled libraries
 		'chart-js'             => array(
-			'/assets/js/lib/chart.js/dist/Chart.min.js',
+			'/assets/vendor/chart-js/Chart.min.js',
 			null,
 			'2.7.1',
 			true,
@@ -46,7 +46,7 @@ class Library extends Singleton {
 			true,
 		),
 		'jquery-ui-timepicker' => array(
-			'/assets/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.js',
+			'/assets/vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.js',
 			array( 'jquery-ui-datepicker-i18n', 'jquery-ui-slider' ),
 			'1.6.3',
 			true,
@@ -79,7 +79,7 @@ class Library extends Singleton {
 			'screen',
 		),
 		'jquery-ui-timepicker' => array(
-			'/assets/vendor/jquery-ui-timepicker-addon.min.css',
+			'/assets/vendor/jquery-ui-timepicker-addon/jquery-ui-timepicker-addon.min.css',
 			array( 'jquery-ui-mp6' ),
 			'1.6.3',
 			'screen',
@@ -142,7 +142,7 @@ class Library extends Singleton {
 			true,
 		);
 		$this->scripts['jquery-ui-timepicker-i18n'] = array(
-			'/assets/js/vendor/jquery-ui-timepicker-addon/dist/i18n/jquery-ui-timepicker-' . $locale . '.js',
+			'/assets/vendor/jquery-ui-timepicker-addon/i18n/jquery-ui-timepicker-' . $locale . '.js',
 			array( 'jquery-ui-timepicker' ),
 			'1.6.3',
 			true,
