@@ -34,15 +34,19 @@ abstract class CronBase extends Singleton {
 	protected $event = '';
 
 	/**
+	 * @var bool This cron is disabled.
+	 */
+	protected $disabled = false;
+
+	/**
 	 * CronBase constructor.
 	 *
 	 * @param array $setting Unused.
 	 */
 	public function __construct( array $setting = array() ) {
-		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
-			add_filter( 'cron_schedules', array( $this, 'cron_schedule' ) );
-			add_action( 'init', array( $this, 'register_cron' ) );
-		}
+		add_filter( 'cron_schedules', array( $this, 'cron_schedule' ) );
+		add_action( 'init', array( $this, 'register_cron' ) );
+		add_action( $this->event, array( $this, 'process' ) );
 	}
 
 	/**
@@ -61,10 +65,17 @@ abstract class CronBase extends Singleton {
 	 * Register cron event
 	 */
 	public function register_cron() {
-		if ( ! wp_next_scheduled( $this->event ) ) {
-			wp_schedule_event( $this->start_at(), $this->schedule, $this->event, $this->args() );
+		if ( $this->disabled ) {
+			if ( wp_next_scheduled( $this->event ) ) {
+				// This cron is disabled, remove event.
+				wp_unschedule_event( wp_get_scheduled_event( $this->event )->timestamp, $this->event );
+			}
+		} else {
+			if ( ! wp_next_scheduled( $this->event ) ) {
+				// This cron is activated, register event.
+				wp_schedule_event( $this->start_at(), $this->schedule, $this->event, $this->args() );
+			}
 		}
-		add_action( $this->event, array( $this, 'process' ) );
 	}
 
 	/**

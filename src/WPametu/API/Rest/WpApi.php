@@ -82,6 +82,7 @@ abstract class WpApi extends Controller {
 	public function invoke( $request ) {
 		$method_name = 'handle_' . strtolower( $request->get_method() );
 		try {
+			// phpcs:ignore PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection
 			return call_user_func_array( array( $this, $method_name ), func_get_args() );
 		} catch ( \Exception $e ) {
 			$status = 500;
