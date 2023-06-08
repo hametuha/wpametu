@@ -60,6 +60,6 @@
 		"stylelint-config-wordpress": "^17.0.0",
 		"vinyl-named": "^1.1.0",
 		"webpack": "^5.3.0",
-		"webpack-stream": "^6.1.0"
+		"webpack-stream": "^7.0.0"
 	}
 }
