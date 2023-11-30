@@ -97,9 +97,17 @@ jobs:
       - name: Check Build succeed
         run: npm run build
 
+  status-check:
+    runs-on: ubuntu-latest
+    name: Check Status
+    needs: [test, assets, lint]
+    steps:
+      - name: Display Status
+        run: echo "All Green!"
+
   release:
     name: Upload Release
-    needs: [test, assets]
+    needs: [status-check]
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:
