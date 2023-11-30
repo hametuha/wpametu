@@ -2,6 +2,7 @@ const gulp = require( 'gulp' );
 const $ = require( 'gulp-load-plugins' )();
 const pngquant = require( 'imagemin-pngquant' );
 const mergeStream = require( 'merge-stream' );
+const sass = require('gulp-sass')(require('sass'));
 const { scanDir } = require( '@kunoichi/grab-deps' );
 const fs = require( 'fs' );
 const named = require( 'vinyl-named' );
@@ -20,8 +21,9 @@ gulp.task( 'noplumber', ( done ) => {
 gulp.task( 'scss:compile', function () {
 	return gulp.src( [ 'assets/scss/**/*.scss' ] )
 		.pipe( $.plumber() )
-		.pipe( $.sass( {
-			sourcemap: true
+		.pipe( sass( {
+			sourcemap: true,
+			outputStyle: 'compressed',
 		} ) )
 		.pipe( gulp.dest( 'assets/css' ) );
 } );

@@ -5,12 +5,12 @@
  * @package wpametu
  */
 
-use Yoast\WPTestUtils\BrainMonkey\TestCase;
+
 
 /**
  * Sample test case.
  */
-class SampleTest extends TestCase {
+class SampleTest extends WP_UnitTestCase {
 
 	/**
 	 * A single example test.

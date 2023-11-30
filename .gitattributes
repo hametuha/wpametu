@@ -1,13 +1,18 @@
 .github/ export-ignore
 tests/ export-ignore
 bin/ export-ignore
+.browserslistrc export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 .editorconfig export-ignore
 .eslintrc export-ignore
+.stylelintrc.json export-ignore
 .wp-env.json export-ignore
+.node-version export-ignore
 composer.lock export-ignore
+gulpfile.js export-ignore
+hamepub export-ignore
 phpcs.ruleset.xml export-ignore
 phpunit.xml export-ignore
-hamepub export-ignore
+webpack-config.js
 wpametu.php export-ignore

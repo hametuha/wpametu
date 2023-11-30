@@ -12,12 +12,11 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ matrix.operating-system }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        operating-system: [ ubuntu-latest ]  # OS. ubuntu-18.04 is also available.
-        php: [ '7.2', '7.4' ] # PHP versions to check.
-        wp: [ 'latest', '5.9' ]      # WordPress version to check.
+        php: [ '7.2', '7.4', '8.0' ] # PHP versions to check.
+        wp: [ 'latest', '6.1' ]      # WordPress version to check.
     services:
       mysql:
         image: mysql:8
@@ -52,11 +51,31 @@ jobs:
       - name: Install WordPress
         run: bash bin/install-wp-tests.sh wordpress root root 127.0.0.1:3306 ${{ matrix.wp }}
 
-      - name: Run PHP Lint
-        run: composer phpcs
-
       - name: Run PHP Unit Test
         run: composer test
+
+  lint:
+    runs-on: ubuntu-latest
+    name: PHP Syntax Check
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          tools: composer
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Run PHP Lint
+        run: composer phpcs
 
   assets:
     runs-on: ubuntu-latest
@@ -67,7 +86,7 @@ jobs:
       - name: Install NPM
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Install Packages
         run: npm install
@@ -75,9 +94,20 @@ jobs:
       - name: Stylelint and ESlint
         run: npm run lint
 
+      - name: Check Build succeed
+        run: npm run build
+
+  status-check:
+    runs-on: ubuntu-latest
+    name: Check Status
+    needs: [test, assets, lint]
+    steps:
+      - name: Display Status
+        run: echo "All Green!"
+
   release:
     name: Upload Release
-    needs: [test, assets]
+    needs: [status-check]
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:
