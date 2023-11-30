@@ -40,7 +40,7 @@
 		"eslint": "^8.48.0",
 		"font-awesome": "^4.7",
 		"gulp": "^4.0",
-		"gulp-autoprefixer": "^7.0.1",
+		"gulp-autoprefixer": "^8.0.0",
 		"gulp-eslint": "^6.0.0",
 		"gulp-imagemin": "^7.1",
 		"gulp-load-plugins": "^2.0",
