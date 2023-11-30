@@ -4,6 +4,7 @@ namespace WPametuTest\MetaBoxes;
 
 
 use WPametu\UI\Admin\EditMetaBox;
+use WPametu\UI\Field\GeoChecker;
 use WPametu\UI\Field\Radio;
 use WPametu\UI\Field\Select;
 use WPametu\UI\Field\Text;
@@ -54,6 +55,17 @@ class NewsMetaBox extends EditMetaBox {
 				0 => 'No publish',
 			],
 			'default'     => 0,
+		],
+		'_event_address' => [
+			'class'       => Text::class,
+			'label'       => 'Address',
+			'placeholder' => 'e.g. 東京都千代田区永田町2-4-11',
+		],
+		'_event_point'   => [
+			'class'       => GeoChecker::class,
+			'label'       => 'Address Checker',
+			'target'      => '_event_address',
+			'description' => 'Address field displayed like this.',
 		],
 	];
 }
