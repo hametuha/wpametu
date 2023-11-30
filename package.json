@@ -11,7 +11,10 @@
 		"gulp": "gulp",
 		"build": "gulp build",
 		"watch": "gulp watch",
-		"lint": "gulp lint"
+		"lint": "gulp lint",
+		"fix:js": "eslint --fix -c .eslintrc.json assets/js/src",
+		"fix:css": "stylelint --fix assets/scss",
+		"test": "wp-env run tests-cli ./wp-content/plugins/wpametu/vendor/bin/phpunit -c ./wp-content/plugins/wpametu/phpunit.xml"
 	},
 	"repository": {
 		"type": "git",
@@ -25,15 +28,18 @@
 	"bugs": {
 		"url": "https://github.com/hametuha/wpametu/issues"
 	},
+	"engines": {
+		"node": ">=16"
+	},
 	"homepage": "https://github.com/hametuha/wpametu",
 	"devDependencies": {
 		"@babel/core": "^7.5.4",
+		"@babel/eslint-parser": "^7.23.3",
 		"@babel/plugin-transform-react-jsx": "^7.0.0",
 		"@babel/preset-env": "^7.5.4",
 		"@kunoichi/grab-deps": "^1.2.0",
 		"@wordpress/env": "^8.7.0",
-		"@wordpress/eslint-plugin": "^9.0.5",
-		"babel-eslint": "^10.1.0",
+		"@wordpress/eslint-plugin": "^17.4.0",
 		"babel-loader": "^8.0.5",
 		"babel-preset-minify": "^0.5.1",
 		"chart.js": "^2.2",
@@ -42,12 +48,12 @@
 		"gulp": "^4.0",
 		"gulp-autoprefixer": "^8.0.0",
 		"gulp-eslint": "^6.0.0",
-		"gulp-imagemin": "^8.0",
+		"gulp-imagemin": "7.0",
 		"gulp-load-plugins": "^2.0",
 		"gulp-notify": "^4.0.0",
 		"gulp-plumber": "^1.0",
 		"gulp-rename": "^2.0.0",
-		"gulp-sass": "^4.0",
+		"gulp-sass": "^5.0",
 		"gulp-sourcemaps": "^3.0",
 		"gulp-stylelint": "^13.0.0",
 		"imagemin-pngquant": "^9.0",
@@ -56,10 +62,11 @@
 		"jquery-ui-timepicker-addon": "^1.5",
 		"jsrender": "^0.9",
 		"merge-stream": "^2.0.0",
-		"stylelint": "^13.13.1",
+		"sass": "^1.69.5",
+		"stylelint": "^13.0.0",
 		"stylelint-config-wordpress": "^17.0.0",
 		"vinyl-named": "^1.1.0",
-		"webpack": "^5.3.0",
+		"webpack": "^5.89.0",
 		"webpack-stream": "^7.0.0"
 	}
 }
