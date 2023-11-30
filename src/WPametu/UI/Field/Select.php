@@ -33,7 +33,7 @@ class Select extends Multiple {
 		return sprintf(
 			'<option value="%s"%s>%s</option>',
 			esc_attr( $key ),
-			selected( ( ! $data && $key === $this->default ) || $key === $data, true, false ),
+			selected( $key, $data, false ),
 			esc_html( $label )
 		);
 	}

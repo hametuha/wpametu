@@ -64,6 +64,9 @@ abstract class Multiple extends Input {
 	protected function build_input( $data, array $fields = array() ) {
 		$input   = $this->get_open_tag( $data, $fields );
 		$counter = 1;
+		if ( '' === $data ) {
+			$data = $this->default;
+		}
 		foreach ( $this->get_options() as $key => $label ) {
 			$input .= $this->get_option( $key, $label, $counter, $data, $fields );
 			$counter++;
