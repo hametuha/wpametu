@@ -14,7 +14,7 @@
 		"php": "^7.2|^8",
 		"masterminds/html5": "~2.1",
 		"google/recaptcha": "~1.1",
-		"tijsverkoyen/css-to-inline-styles": "^1.5",
+		"tijsverkoyen/css-to-inline-styles": "^2.2",
 		"hametuha/pattern": "^1.0"
 	},
 	"require-dev": {
