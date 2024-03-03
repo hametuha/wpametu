@@ -46,14 +46,20 @@ abstract class Input extends Base {
 		return sprintf(
 			'<input id="%1$s" name="%1$s" type="%2$s" %3$s value="%4$s" />',
 			$this->name,
-			$this->type,
+			esc_attr( $this->get_input_type() ),
 			$fields,
 			esc_attr( $data )
 		);
-
 	}
 
-
+	/**
+	 * Get input type.
+	 *
+	 * @return string
+	 */
+	protected function get_input_type() {
+		return $this->type;
+	}
 
 	/**
 	 * @param array $setting
@@ -87,7 +93,8 @@ abstract class Input extends Base {
 	protected function validate( $value ) {
 		if ( parent::validate( $value ) ) {
 			if ( $this->required && empty( $value ) ) {
-				throw new ValidateException( sprintf( $this->__( 'Field %s is required.' ), $this->label ) );
+				// translators: %s is field label.
+				throw new ValidateException( sprintf( __( 'Field %s is required.', 'wpametu' ), $this->label ) );
 			}
 			return true;
 		} else {

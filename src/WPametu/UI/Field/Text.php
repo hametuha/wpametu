@@ -10,6 +10,7 @@ use WPametu\Exception\ValidateException;
  * @package WPametu
  * @property-read int $min
  * @property-read int $max
+ * @property-read int $input_type
  */
 class Text extends Input {
 
@@ -33,11 +34,30 @@ class Text extends Input {
 		return wp_parse_args(
 			parent::parse_args( $setting ),
 			array(
-				'min' => 0,
-				'max' => 0,
+				'min'        => 0,
+				'max'        => 0,
+				'input_type' => '',
 			)
 		);
 	}
+
+	/**
+	 * Override input type.
+	 *
+	 * @return string
+	 */
+	protected function get_input_type() {
+		switch ( $this->input_type ) {
+			case 'email':
+			case 'url':
+			case 'tel':
+			case 'password':
+				return $this->input_type;
+			default:
+				return $this->type;
+		}
+	}
+
 
 	/**
 	 * Return input field
