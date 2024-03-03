@@ -93,6 +93,7 @@ abstract class Input extends Base {
 	protected function validate( $value ) {
 		if ( parent::validate( $value ) ) {
 			if ( $this->required && empty( $value ) ) {
+				// translators: %s is field label.
 				throw new ValidateException( sprintf( __( 'Field %s is required.', 'wpametu' ), $this->label ) );
 			}
 			return true;
