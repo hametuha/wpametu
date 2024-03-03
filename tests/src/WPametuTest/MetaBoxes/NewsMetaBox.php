@@ -4,6 +4,7 @@ namespace WPametuTest\MetaBoxes;
 
 
 use WPametu\UI\Admin\EditMetaBox;
+use WPametu\UI\Field\Date;
 use WPametu\UI\Field\GeoChecker;
 use WPametu\UI\Field\Radio;
 use WPametu\UI\Field\Select;
@@ -56,6 +57,12 @@ class NewsMetaBox extends EditMetaBox {
 			],
 			'default'     => 0,
 		],
+		'_event_date'   => [
+			'class'       => Date::class,
+			'type'        => 'date',
+			'label'       => 'Event Date',
+			'description' => 'Event data to be held.',
+		],
 		'_event_address' => [
 			'class'       => Text::class,
 			'label'       => 'Address',
@@ -66,6 +73,18 @@ class NewsMetaBox extends EditMetaBox {
 			'label'       => 'Address Checker',
 			'target'      => '_event_address',
 			'description' => 'Address field displayed like this.',
+		],
+		'_event_url'   => [
+			'class'       => Text::class,
+			'input_type'  => 'url',
+			'label'       => 'Event URL',
+			'description' => 'Original Event Page',
+		],
+		'_event_pass'   => [
+			'class'       => Text::class,
+			'input_type'  => 'password',
+			'label'       => 'Event Password',
+			'description' => 'Used for event registration.',
 		],
 	];
 }

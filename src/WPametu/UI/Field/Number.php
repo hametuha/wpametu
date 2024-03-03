@@ -19,6 +19,11 @@ class Number extends Text {
 	protected $length_helper = false;
 
 	/**
+	 * @var string Additional class for admin screen.
+	 */
+	protected $admin_class = 'number-input';
+
+	/**
 	 * Parse arguments
 	 *
 	 * @param array $setting
@@ -66,8 +71,8 @@ class Number extends Text {
 		if ( $this->max ) {
 			$args['max'] = $this->max;
 		}
-		if ( is_admin() ) {
-			$args['class'] .= ' number-input';
+		if ( is_admin() && $this->admin_class ) {
+			$args['class'] .= ' ' . $this->admin_class;
 		}
 		unset( $args['data-max-length'] );
 		unset( $args['data-min-length'] );
