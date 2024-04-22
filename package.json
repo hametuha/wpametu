@@ -38,7 +38,7 @@
 		"@babel/plugin-transform-react-jsx": "^7.0.0",
 		"@babel/preset-env": "^7.5.4",
 		"@kunoichi/grab-deps": "^1.2.0",
-		"@wordpress/env": "^8.7.0",
+		"@wordpress/env": "^9.8.0",
 		"@wordpress/eslint-plugin": "^17.4.0",
 		"babel-loader": "^8.0.5",
 		"babel-preset-minify": "^0.5.1",
