@@ -373,13 +373,13 @@ SQL;
 	/**
 	 * Add order by
 	 *
+	 * @see https://dev.mysql.com/doc/refman/8.0/ja/upgrading-from-previous-series.html#upgrade-sql-changes
 	 * @param string $column
-	 * @param string $order
+	 * @param string $deprecated Since MySQL 8.0.13, ORDER(DESC/ASC) modifier in GROUP BY is deprecated.
 	 * @return $this
 	 */
-	final protected function order_by( $column, $order = 'ASC' ) {
-		$order             = 'DESC' === strtoupper( $order ) ? 'DESC' : 'ASC';
-		$this->_order_by[] = sprintf( '%s %s', $this->escape_column_name( $column ), $order );
+	final protected function order_by( $column, $deprecated = '' ) {
+		$this->_order_by[] = $this->escape_column_name( $column );
 		return $this;
 	}
 
