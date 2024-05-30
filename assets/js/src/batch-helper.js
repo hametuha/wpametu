@@ -20,7 +20,7 @@ const Batch = {
 	/**
 	 * Reset form
 	 */
-	reset: function () {
+	reset: function() {
 		this.$btn.attr( 'disabled', false );
 		this.$form.removeClass( 'loading' );
 		$( '#page_num' ).val( '1' );
@@ -29,7 +29,7 @@ const Batch = {
 	/**
 	 * Execute batch
 	 */
-	execute: function () {
+	execute: function() {
 		Batch.$form.addClass( 'loading' );
 		Batch.$btn.attr( 'disabled', true );
 		Batch.$pre.empty();
@@ -40,9 +40,9 @@ const Batch = {
 	/**
 	 * Send request
 	 */
-	ajax: function () {
+	ajax: function() {
 		this.$form.ajaxSubmit( {
-			success: function ( result ) {
+			success: function( result ) {
 				if ( result.success ) {
 					Batch.console( result.message );
 					if ( result.next ) {
@@ -58,10 +58,10 @@ const Batch = {
 					Batch.reset();
 				}
 			},
-			error: function ( xhr, status, error ) {
+			error: function( xhr, status, error ) {
 				Batch.addError( error );
 				Batch.reset();
-			}
+			},
 		} );
 	},
 
@@ -71,7 +71,7 @@ const Batch = {
 	 * @param {string} msg
 	 * @param {string} className
 	 */
-	console: function ( msg, className ) {
+	console: function( msg, className ) {
 		const $p = $( '<p></p>' );
 		$p.text( msg );
 		if ( className ) {
@@ -85,7 +85,7 @@ const Batch = {
 	 *
 	 * @param {string} msg
 	 */
-	addError: function ( msg ) {
+	addError: function( msg ) {
 		this.console( '[Error] ' + msg, 'error' );
 	},
 
@@ -94,14 +94,14 @@ const Batch = {
 	 *
 	 * @param {number} pageNum
 	 */
-	setPage: function ( pageNum ) {
+	setPage: function( pageNum ) {
 		$( '#page_num' ).val( pageNum );
-	}
+	},
 };
 
-Batch.$form.submit( function ( e ) {
+Batch.$form.submit( function( e ) {
 	e.preventDefault();
-	if ( !$( this ).find( 'input[name=batch_class]:checked' ).length ) {
+	if ( ! $( this ).find( 'input[name=batch_class]:checked' ).length ) {
 		Batch.addError( WpametuBatch.alert );
 	} else if ( confirm( WpametuBatch.confirm ) ) {
 		Batch.execute();

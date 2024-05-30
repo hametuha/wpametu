@@ -12,12 +12,11 @@
 
 const $ = jQuery;
 
-$( document ).ready( function () {
-
+$( document ).ready( function() {
 	// Char counter
-	$( '.char-counter' ).each( function ( index, p ) {
+	$( '.char-counter' ).each( function( index, p ) {
 		const input = $( p ).prev( 'input, textarea' );
-		input.keyup( function () {
+		input.keyup( function() {
 			const len = $( this ).val().length;
 			const max = parseInt( $( this ).attr( 'data-max-length' ) );
 			const min = parseInt( $( this ).attr( 'data-min-length' ) );
@@ -40,12 +39,12 @@ $( document ).ready( function () {
 	// DateTime Picker
 	$( '.wpametu-datetime-picker' ).datetimepicker( {
 		dateFormat: 'yy-mm-dd',
-		timeFormat: 'HH:mm:00'
+		timeFormat: 'HH:mm:00',
 	} );
 
 	// Token Input
 	if ( window.IRT ) {
-		$( '.token-input' ).each( function ( index, input ) {
+		$( '.token-input' ).each( function( index, input ) {
 			$( input ).tokenInput( $( input ).attr( 'data-endpoint' ), {
 				method: 'GET',
 				queryParam: 's',
@@ -56,13 +55,13 @@ $( document ).ready( function () {
 				hintText: IRT.hintText,
 				noResultsText: IRT.noResultsText,
 				searchingText: IRT.searchingText,
-				prePopulate: WPametuTokenInput[ $( input ).attr( 'id' ) ]
+				prePopulate: WPametuTokenInput[ $( input ).attr( 'id' ) ],
 			} );
 		} );
 	}
 
 	// Google map
-	$( '.geo-row' ).each( function ( index, row ) {
+	$( '.geo-row' ).each( function( index, row ) {
 		const input = $( row ).find( 'input[type=hidden]' );
 		const mapCanvas = $( row ).find( '.wpametu-map' );
 		let map, center, zoom, point, marker, geocoder, target, sync;
@@ -78,20 +77,20 @@ $( document ).ready( function () {
 			map = new google.maps.Map( mapCanvas.get( 0 ), {
 				center: center,
 				zoom: zoom,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
 			} );
 			// Show map marker
 			marker = new google.maps.Marker( {
-				draggable: !input.attr( 'data-no-drag' ),
+				draggable: ! input.attr( 'data-no-drag' ),
 				map: map,
-				position: center
+				position: center,
 			} );
 			// Check GeoCoder
 			geocoder = new google.maps.Geocoder();
-			if ( !target.length ) {
+			if ( ! target.length ) {
 				// This is normal map
-				google.maps.event.addListener( marker, 'position_changed', function () {
-					if ( !mapCanvas.hasClass( 'original' ) ) {
+				google.maps.event.addListener( marker, 'position_changed', function() {
+					if ( ! mapCanvas.hasClass( 'original' ) ) {
 						// Sync input value
 						input.val( this.position.lat() + ',' + this.position.lng() );
 					} else {
@@ -99,14 +98,14 @@ $( document ).ready( function () {
 						mapCanvas.trigger( 'move.gmap', [ marker, map, input ] );
 					}
 				} );
-				$( row ).on( 'click', '.gmap-geocoder-btn', function ( e ) {
+				$( row ).on( 'click', '.gmap-geocoder-btn', function( e ) {
 					e.preventDefault();
 					const address = $( this ).prev( 'input' ).val();
 					const msg = $( this ).attr( 'data-failure' );
 					if ( address.length ) {
 						geocoder.geocode( {
-							'address': address
-						}, function ( results, status ) {
+							address: address,
+						}, function( results, status ) {
 							if ( status === google.maps.GeocoderStatus.OK ) {
 								map.setCenter( results[ 0 ].geometry.location );
 								marker.setPosition( results[ 0 ].geometry.location );
@@ -118,14 +117,14 @@ $( document ).ready( function () {
 				} );
 			} else {
 				// This is watcher
-				sync = function () {
+				sync = function() {
 					const address = target.val(),
 						icon = $( '<i class="dashicons dashicons-update wpametu-spinner"></i>' );
 					target.after( icon );
 					if ( address.length ) {
 						geocoder.geocode( {
-							'address': address
-						}, function ( results, status ) {
+							address: address,
+						}, function( results, status ) {
 							if ( status === google.maps.GeocoderStatus.OK ) {
 								map.setCenter( results[ 0 ].geometry.location );
 								marker.setPosition( results[ 0 ].geometry.location );
@@ -140,12 +139,12 @@ $( document ).ready( function () {
 				sync();
 				// setTimeout
 				let timer = [];
-				target.focus( function () {
+				target.focus( function() {
 					timer.push( setInterval( sync, 3000 ) );
 				} );
-				target.blur( function () {
+				target.blur( function() {
 					sync();
-					$.each( timer, function ( i, id ) {
+					$.each( timer, function( i, id ) {
 						clearInterval( id );
 					} );
 					timer = [];
@@ -153,5 +152,4 @@ $( document ).ready( function () {
 			}
 		}
 	} );
-
 } );
