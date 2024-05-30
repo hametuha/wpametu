@@ -366,8 +366,7 @@ SQL;
 	 * @return $this
 	 */
 	final protected function group_by( $column, $deprecated = '' ) {
-		$this->_group_by[] =
-		$this->escape_column_name( $column );
+		$this->_group_by[] = $this->escape_column_name( $column );
 		return $this;
 	}
 
