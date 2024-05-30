@@ -19,5 +19,11 @@ class SampleTest extends WP_UnitTestCase {
 		// Replace this with some actual testing code.
 		$this->assertTrue( true );
 	}
+
+	function test_orderby() {
+		$instance = \WPametuTest\Models\QueryTestModel::get_instance();
+		$total    = $instance->get_total();
+		$this->assertTrue( is_int( $total ) );
+	}
 }
 

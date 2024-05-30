@@ -12,7 +12,7 @@
 		"build": "gulp build",
 		"watch": "gulp watch",
 		"lint": "gulp lint",
-		"fix:js": "eslint --fix -c .eslintrc.json assets/js/src",
+		"fix:js": "eslint --fix -c .eslintrc assets/js/src",
 		"fix:css": "stylelint --fix assets/scss",
 		"test": "wp-env run tests-cli ./wp-content/plugins/wpametu/vendor/bin/phpunit -c ./wp-content/plugins/wpametu/phpunit.xml"
 	},
@@ -68,5 +68,8 @@
 		"vinyl-named": "^1.1.0",
 		"webpack": "^5.89.0",
 		"webpack-stream": "^7.0.0"
+	},
+	"volta": {
+		"node": "16.20.2"
 	}
 }
