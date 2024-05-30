@@ -21,7 +21,9 @@ class QueryTestModel extends Model {
 			->group_by( 'post_author' )
 			->order_by( 'post_author', 'DESC' )
 			->get_var();
-		error_log( $this->db->last_query );
+		if ( $this->db->last_error ) {
+			trigger_error( $this->db->last_error, E_USER_ERROR );
+		}
 		return $int;
 	}
 
