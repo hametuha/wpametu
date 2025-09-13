@@ -76,6 +76,9 @@ jobs:
   release:
     name: Upload Release
     needs: [status-check]
+    environment:
+      name: production
+      url: https://packagist.org/packages/hametuha/wpametu
     if: contains(github.ref, 'tags/')
     runs-on: ubuntu-latest
     steps:
