@@ -33,7 +33,8 @@ use WPametu\Utility\Command;
  * @property-read StringHelper $str
  */
 class AutoLoader extends Singleton {
-	use Reflection, Path;
+	use Reflection;
+	use Path;
 
 	/**
 	 * Namespace to scan

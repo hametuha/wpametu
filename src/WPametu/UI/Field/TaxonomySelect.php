@@ -7,6 +7,4 @@ class TaxonomySelect extends Select {
 
 
 	use Taxonomy;
-
-
 }

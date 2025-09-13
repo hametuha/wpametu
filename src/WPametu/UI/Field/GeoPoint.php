@@ -57,7 +57,6 @@ class GeoPoint extends Hidden {
             <div id="{$this->name}-map" class="wpametu-map{$automatic}"></div>
             {$geocder}
 HTML;
-
 	}
 
 	/**
@@ -70,7 +69,7 @@ HTML;
 	 * @param \WP_Post $post
 	 * @return string
 	 */
-	protected  function render_row( $label, $required, $input, $desc, \WP_Post $post ) {
+	protected function render_row( $label, $required, $input, $desc, \WP_Post $post ) {
 		return <<<HTML
             <tr>
                 <td colspan="2" class="geo-row">
@@ -110,6 +109,5 @@ HTML;
             <a class="button gmap-geocoder-btn" href="#" data-failure="{$fail}">{$btn}</a>
         </p>
 HTML;
-
 	}
 }

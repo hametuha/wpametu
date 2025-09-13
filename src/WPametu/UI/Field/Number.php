@@ -14,7 +14,7 @@ namespace WPametu\UI\Field;
 class Number extends Text {
 
 
-	protected  $type = 'number';
+	protected $type = 'number';
 
 	protected $length_helper = false;
 
@@ -79,5 +79,4 @@ class Number extends Text {
 		$args['step'] = $this->step;
 		return $args;
 	}
-
 }

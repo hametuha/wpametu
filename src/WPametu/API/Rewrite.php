@@ -25,7 +25,9 @@ use WPametu\Utility\StringHelper;
 final class Rewrite extends Singleton {
 
 
-	use Path, i18n, Reflection;
+	use Path;
+	use i18n;
+	use Reflection;
 
 	/**
 	 * Option name of WPametu's rewrite rules
@@ -113,7 +115,7 @@ final class Rewrite extends Singleton {
 			if ( ! empty( $error_message ) ) {
 				add_action(
 					'admin_notices',
-					function() use ( $error_message ) {
+					function () use ( $error_message ) {
 						printf( '<div class="error"><p>%s</p></div>', implode( '<br />', $error_message ) );
 					}
 				);
@@ -210,7 +212,7 @@ final class Rewrite extends Singleton {
 					$message = sprintf( $this->__( 'Rewrite rules updated. Last modified date is %s' ), date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $last_updated ) );
 					add_action(
 						'admin_notices',
-						function() use ( $message ) {
+						function () use ( $message ) {
 							printf( '<div class="updated"><p>%s</p></div>', $message );
 						}
 					);

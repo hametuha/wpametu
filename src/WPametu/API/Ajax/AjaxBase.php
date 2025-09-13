@@ -154,5 +154,4 @@ abstract class AjaxBase extends Controller {
 	 * @return array
 	 */
 	abstract protected function get_data();
-
 }

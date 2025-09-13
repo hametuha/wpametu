@@ -1,7 +1,7 @@
 <?php
 
 use WPametu\AutoLoader;
-use  WPametu\Service\Recaptcha;
+use WPametu\Service\Recaptcha;
 
 /**
  * Class WPametu

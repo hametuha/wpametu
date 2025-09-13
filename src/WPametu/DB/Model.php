@@ -285,7 +285,7 @@ abstract class Model extends QueryBuilder {
 					$where_clause[] = "{$column} {$operand} (" . implode(
 						', ',
 						array_map(
-							function( $val ) use ( $replace ) {
+							function ( $val ) use ( $replace ) {
 								return $this->db->prepare( $replace, $val );
 							},
 							$value

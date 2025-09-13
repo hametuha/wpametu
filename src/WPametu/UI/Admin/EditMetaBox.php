@@ -46,7 +46,7 @@ abstract class EditMetaBox extends MetaBox {
 				$message = sprintf( $this->__( '<code>%s</code> has invalid name or label.' ), get_called_class() );
 				add_action(
 					'admin_notices',
-					function() use ( $message ) {
+					function () use ( $message ) {
 						printf( '<div class="error"><p>%s</p></div>', $message );
 					}
 				);

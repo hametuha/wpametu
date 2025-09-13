@@ -51,7 +51,7 @@ abstract class Batch extends Singleton {
 	 *
 	 * @return BatchResult|null
 	 */
-	abstract public function process( $page);
+	abstract public function process( $page );
 
 	/**
 	 * Return success message
@@ -111,5 +111,4 @@ abstract class Batch extends Singleton {
 				break;
 		}
 	}
-
 }

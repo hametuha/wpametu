@@ -81,7 +81,7 @@ abstract class EmptyMetaBox extends Singleton {
 			add_action( 'admin_init', array( $this, 'adminInit' ) );
 			add_action(
 				'save_post',
-				function( $post_id, \WP_Post $post ) {
+				function ( $post_id, \WP_Post $post ) {
 					if ( wp_is_post_revision( $post ) || wp_is_post_autosave( $post ) ) {
 						return;
 					}
@@ -100,7 +100,6 @@ abstract class EmptyMetaBox extends Singleton {
 	 * Executed on admin_init
 	 */
 	public function adminInit() {
-
 	}
 
 	/**
@@ -109,7 +108,6 @@ abstract class EmptyMetaBox extends Singleton {
 	 * @param \WP_Post $post
 	 */
 	public function savePost( \WP_Post $post ) {
-
 	}
 
 	/**
@@ -125,7 +123,7 @@ abstract class EmptyMetaBox extends Singleton {
 				case 'post_submitbox_start':
 					add_action(
 						$this->hook,
-						function() use ( $post ) {
+						function () use ( $post ) {
 							if ( $this->nonce_key ) {
 								wp_nonce_field( $this->nonce_action, $this->nonce_key );
 							}
@@ -142,7 +140,7 @@ abstract class EmptyMetaBox extends Singleton {
 				case 'dbx_post_sidebar':
 					add_action(
 						$this->hook,
-						function( \WP_Post $post ) {
+						function ( \WP_Post $post ) {
 							if ( $this->nonce_key ) {
 								wp_nonce_field( $this->nonce_action, $this->nonce_key );
 							}
@@ -156,7 +154,7 @@ abstract class EmptyMetaBox extends Singleton {
 					add_meta_box(
 						"metabox-$name",
 						$this->title,
-						function( \WP_Post $post, array $screen ) {
+						function ( \WP_Post $post, array $screen ) {
 							if ( $this->nonce_key ) {
 								wp_nonce_field( $this->nonce_action, $this->nonce_key );
 							}
@@ -169,7 +167,6 @@ abstract class EmptyMetaBox extends Singleton {
 					break;
 			}
 		}
-
 	}
 
 	/**
@@ -228,5 +225,4 @@ abstract class EmptyMetaBox extends Singleton {
 				break;
 		}
 	}
-
 }

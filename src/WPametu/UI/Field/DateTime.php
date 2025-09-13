@@ -47,5 +47,4 @@ class DateTime extends Input {
 		unset( $args['data-min-length'] );
 		return $args;
 	}
-
 }

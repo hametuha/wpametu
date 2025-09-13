@@ -19,7 +19,7 @@ abstract class AjaxForm extends AjaxBase {
 	 * @param bool $echo
 	 * @return string
 	 */
-	protected  function form_open( array $attributes = array(), $echo = true ) {
+	protected function form_open( array $attributes = array(), $echo = true ) {
 		$attributes = array_merge(
 			array(
 				'method' => $this->method,
@@ -47,7 +47,7 @@ abstract class AjaxForm extends AjaxBase {
 	 * @param bool $echo
 	 * @return string
 	 */
-	protected  function form_close( $echo = true ) {
+	protected function form_close( $echo = true ) {
 		$form = '</form>';
 		if ( $echo ) {
 			echo $form;

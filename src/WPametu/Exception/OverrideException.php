@@ -27,5 +27,4 @@ class OverrideException extends \Exception {
 	public function __construct( $class_name ) {
 		parent::__construct( sprintf( '%s is not properly override parent class. See Parent class\'s documentation.', $class_name ) );
 	}
-
 }

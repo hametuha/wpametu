@@ -213,5 +213,4 @@ class StringHelper extends Singleton {
 
 		return $string;
 	}
-
 }

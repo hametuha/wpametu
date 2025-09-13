@@ -17,7 +17,8 @@ use WPametu\Utility\StringHelper;
  */
 class Library extends Singleton {
 
-	use Path, i18n;
+	use Path;
+	use i18n;
 
 	/**
 	 * Library common version

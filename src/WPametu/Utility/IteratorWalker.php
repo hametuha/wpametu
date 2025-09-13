@@ -35,7 +35,7 @@ class IteratorWalker extends Singleton {
 	 */
 	public function key_search( array $array, $key, $value ) {
 		foreach ( $array as $key => $a ) {
-			// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+			// phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 			if ( isset( $a[ $key ] ) && $a[ $key ] == $value ) {
 				return $key;
 			}
@@ -68,7 +68,7 @@ class IteratorWalker extends Singleton {
 	 */
 	public function prop_search( array $array, $property, $value ) {
 		foreach ( $array as $key => $a ) {
-			// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+			// phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
 			if ( property_exists( $a, $property ) && $a->{$property} == $value ) {
 				return $key;
 			}

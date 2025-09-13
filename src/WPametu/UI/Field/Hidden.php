@@ -10,5 +10,4 @@ abstract class Hidden extends Input {
 
 
 	protected $type = 'hidden';
-
 }

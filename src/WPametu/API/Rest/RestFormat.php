@@ -30,5 +30,4 @@ abstract class RestFormat extends RestBase {
 	 * @return string
 	 */
 	abstract protected function convert_result( $result );
-
 }
