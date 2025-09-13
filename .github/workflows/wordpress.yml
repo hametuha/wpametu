@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [ '7.2', '7.4', '8.0' ] # PHP versions to check.
+        php: [ '7.4', '8.0' ] # PHP versions to check.
         wp: [ 'latest', '6.1' ]      # WordPress version to check.
     services:
       mysql:
@@ -63,7 +63,7 @@ jobs:
       - name: Setup PHP with composer v2
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 7.4
           tools: composer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -75,7 +75,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run PHP Lint
-        run: composer phpcs
+        run: composer lint
 
   assets:
     runs-on: ubuntu-latest

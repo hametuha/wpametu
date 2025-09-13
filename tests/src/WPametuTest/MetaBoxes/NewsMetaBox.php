@@ -87,4 +87,8 @@ class NewsMetaBox extends EditMetaBox {
 			'description' => 'Used for event registration.',
 		],
 	];
+
+	protected function desc() {
+		return 'This is a meta box for news post type.';
+	}
 }

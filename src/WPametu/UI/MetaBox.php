@@ -25,7 +25,8 @@ use WPametu\UI\Field\Taxonomy;
 abstract class MetaBox extends Singleton {
 
 
-	use Reflection, i18n;
+	use Reflection;
+	use i18n;
 
 	/**
 	 * If this is initialized
@@ -84,7 +85,7 @@ abstract class MetaBox extends Singleton {
 		}
 		add_action(
 			'admin_enqueue_scripts',
-			function( $page ) {
+			function ( $page ) {
 				$screen = get_current_screen();
 				if ( in_array( $page, [ 'post.php', 'post-new.php' ], true ) && $this->is_valid_post_type( $screen->post_type ) ) {
 					$this->load_additional_assets();
@@ -128,7 +129,8 @@ abstract class MetaBox extends Singleton {
 						remove_meta_box( 'formatdiv', $post_type, 'side' );
 						break;
 					default:
-						if ( false !== array_search( Taxonomy::class, class_uses( $vars['class'] ), true ) ) {
+						$class_uses = class_uses( $vars['class'] );
+						if ( $class_uses && array_search( Taxonomy::class, $class_uses, true ) ) {
 							if ( taxonomy_exists( $name ) ) {
 								if ( is_taxonomy_hierarchical( $name ) ) {
 									$box_id = $name . 'div';
@@ -137,8 +139,6 @@ abstract class MetaBox extends Singleton {
 								}
 								remove_meta_box( $box_id, $post_type, 'side' );
 							}
-						} else {
-							// Do nothing
 						}
 						break;
 				}
@@ -199,7 +199,10 @@ abstract class MetaBox extends Singleton {
 	 */
 	public function render( \WP_Post $post ) {
 		$this->nonce_field();
-		$this->desc();
+		$desc = $this->desc();
+		if ( ! empty( $desc ) ) {
+			printf( '<p class="description">%s</p>', wp_kses_post( $desc ) );
+		}
 		echo '<table class="table form-table wpametu-meta-table">';
 		foreach ( $this->loop_fields() as $field ) {
 			if ( ! is_wp_error( $field ) ) {
