@@ -58,13 +58,13 @@ final class TableBuilder extends Singleton {
 					if ( ! empty( $messages ) ) {
 						add_action(
 							'admin_notices',
-							function() use ( $messages ) {
+							function () use ( $messages ) {
 								printf(
 									'<div class="updated">%s</div>',
 									implode(
 										'',
 										array_map(
-											function( $message ) {
+											function ( $message ) {
 												return sprintf( '<p>%s</p>', $message );
 											},
 											$messages
@@ -280,5 +280,4 @@ SQL;
 				break;
 		}
 	}
-
 }

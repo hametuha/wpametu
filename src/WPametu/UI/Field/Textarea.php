@@ -60,5 +60,4 @@ class TextArea extends Text {
 			)
 		);
 	}
-
 }

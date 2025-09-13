@@ -110,7 +110,6 @@ HTML;
 		} else {
 			return parent::get_required( $post );
 		}
-
 	}
 
 	/**

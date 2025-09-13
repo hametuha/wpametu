@@ -24,7 +24,7 @@ trait Path {
 	 * @return string
 	 */
 	protected function get_root_dir() {
-		return dirname( dirname( dirname( __DIR__ ) ) );
+		return dirname( __DIR__, 3 );
 	}
 
 	/**
@@ -122,5 +122,4 @@ trait Path {
 
 		return $this->get_theme_dir() . '/' . $basename;
 	}
-
 }

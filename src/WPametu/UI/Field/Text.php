@@ -143,5 +143,4 @@ class Text extends Input {
 		}
 		return true;
 	}
-
 }

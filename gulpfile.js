@@ -76,7 +76,10 @@ gulp.task( 'js:lint', function () {
 	if ( plumber ) {
 		task = task.pipe( $.plumber() );
 	}
-	return task.pipe( $.eslint( { useEslintrc: true } ) )
+	return task.pipe( $.eslint( {
+		useEslintrc: true,
+
+	} ) )
 		.pipe( $.eslint.format() );
 } );
 

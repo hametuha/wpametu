@@ -152,10 +152,10 @@ abstract class Widget extends \WP_Widget {
 				return get_permalink();
 				break;
 			case 'excerpt':
-				return  get_the_excerpt();
+				return get_the_excerpt();
 				break;
 			case 'date':
-				return  get_the_date();
+				return get_the_date();
 				break;
 			case 'modified':
 				return get_the_modified_date();

@@ -20,10 +20,9 @@
 		<exclude name="WordPress.PHP.DisallowShortTernary.Found" />
 		<exclude name="WordPress.DateTime.CurrentTimeTimestamp.RequestedUTC" />
 		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
-	</rule>
-
-	<rule ref="PHPCompatibility">
-		<config name="testVersion" value="7.2-"/>
+		<exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames" />
+		<exclude name="Universal.Operators.DisallowShortTernary" />
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax" />
 	</rule>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>

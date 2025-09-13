@@ -69,7 +69,7 @@ abstract class Multiple extends Input {
 		}
 		foreach ( $this->get_options() as $key => $label ) {
 			$input .= $this->get_option( $key, $label, $counter, $data, $fields );
-			$counter++;
+			++$counter;
 		}
 		$input .= $this->close_tag;
 		return $input;
@@ -92,7 +92,7 @@ abstract class Multiple extends Input {
 	 * @param array $fields
 	 * @return string
 	 */
-	abstract protected function get_open_tag( $data, array $fields = array());
+	abstract protected function get_open_tag( $data, array $fields = array() );
 
 	/**
 	 * Get fields input
@@ -104,7 +104,7 @@ abstract class Multiple extends Input {
 	 * @param array $fields
 	 * @return string
 	 */
-	abstract protected function get_option( $key, $label, $counter, $data, array $fields = array());
+	abstract protected function get_option( $key, $label, $counter, $data, array $fields = array() );
 
 	/**
 	 * Detect if this value is allowed

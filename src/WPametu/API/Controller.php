@@ -21,7 +21,8 @@ use WPametu\Utility\StringHelper;
 abstract class Controller extends Singleton {
 
 
-	use i18n, Path;
+	use i18n;
+	use Path;
 
 	/**
 	 * Action names
@@ -205,7 +206,7 @@ abstract class Controller extends Singleton {
 	 * You can load some scripts on view template loading.
 	 *
 	 */
-	protected  function lazy_scripts() {
+	protected function lazy_scripts() {
 		// Do something
 	}
 
@@ -235,7 +236,6 @@ abstract class Controller extends Singleton {
 	 * @param string $page Available only on admin screen
 	 */
 	public function enqueue_assets( $page = '' ) {
-
 	}
 
 

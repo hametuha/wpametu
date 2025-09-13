@@ -48,5 +48,4 @@ HTML;
 
 		return $match[1];
 	}
-
 }

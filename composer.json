@@ -3,26 +3,25 @@
 	"description": "A WordPress Theme FrameWork.",
 	"scripts": {
 		"test": "phpunit",
-		"phpcs": [
+		"lint": [
 			"phpcs --standard=phpcs.ruleset.xml $(find ./src -name '*.php')"
 		],
-		"phpcs-fix": [
+		"format": [
 			"phpcbf --standard=phpcs.ruleset.xml $(find ./src -name '*.php')"
 		]
 	},
 	"require": {
-		"php": "^7.2|^8",
+		"php": ">=7.4",
 		"masterminds/html5": "~2.1",
 		"google/recaptcha": "~1.1",
 		"tijsverkoyen/css-to-inline-styles": "^2.2",
 		"hametuha/pattern": "^1.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": ">=7",
+		"phpunit/phpunit": "^9.6",
 		"squizlabs/php_codesniffer": "^3.0",
-		"wp-coding-standards/wpcs": "^2.0",
+		"wp-coding-standards/wpcs": "^3.0",
 		"yoast/phpunit-polyfills": "^2.0",
-		"phpcompatibility/php-compatibility": "^9.3",
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0"
 
 	},

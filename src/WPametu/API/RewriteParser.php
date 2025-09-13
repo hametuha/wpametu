@@ -46,7 +46,7 @@ abstract class RewriteParser extends Controller {
 	 * @param string $request_method
 	 * @param array $arguments
 	 */
-	abstract protected function handle_request( $method, $request_method, array $arguments = array());
+	abstract protected function handle_request( $method, $request_method, array $arguments = array() );
 
 
 
@@ -58,7 +58,7 @@ abstract class RewriteParser extends Controller {
 	 * @param array $arguments
 	 * @return bool
 	 */
-	protected  function invoke( $method_name, $request_method, array $arguments = array() ) {
+	protected function invoke( $method_name, $request_method, array $arguments = array() ) {
 		$method_name = strtolower( $request_method ) . '_' . $this->str->to_snake_case( $method_name );
 		// Check if method exists
 		if ( ! is_callable( array( $this, $method_name ) ) ) {

@@ -77,12 +77,10 @@ HTML;
 	 * @param array $data
 	 * @return array
 	 */
-	abstract protected function get_prepopulates( $data);
+	abstract protected function get_prepopulates( $data );
 
 	/**
 	 * @return mixed
 	 */
 	abstract protected function get_endpoint();
-
-
 }

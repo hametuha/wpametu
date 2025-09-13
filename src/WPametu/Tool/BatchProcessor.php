@@ -20,7 +20,9 @@ use WPametu\Traits\Reflection;
 class BatchProcessor extends Singleton {
 
 
-	use Path, i18n, Reflection;
+	use Path;
+	use i18n;
+	use Reflection;
 
 	/**
 	 * @var array
@@ -78,7 +80,7 @@ class BatchProcessor extends Singleton {
 				<?php
 					$counter = 0;
 				foreach ( $this->batches as $batch_class ) :
-					$counter++;
+					++$counter;
 					/** @var Batch $batch */
 					$batch  = $batch_class::get_instance();
 					$option = $this->option;

@@ -27,6 +27,4 @@ class FileLoadException extends \Exception {
 	public function __construct( $path = '' ) {
 		parent::__construct( sprintf( 'Failed to load file %s. Have you uploaded fall files, ah?', $path ) );
 	}
-
-
 }

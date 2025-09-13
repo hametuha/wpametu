@@ -191,7 +191,7 @@ SQL;
 			} else {
 				$where_clause[] = sprintf( '(%s)', $where );
 			}
-			$counter++;
+			++$counter;
 		}
 		return sprintf( '(%s)', implode( ' ', $where_clause ) );
 	}

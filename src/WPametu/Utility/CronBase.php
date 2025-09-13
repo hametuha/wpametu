@@ -18,7 +18,8 @@ use WPametu\Traits\i18n;
 abstract class CronBase extends Singleton {
 
 
-	use i18n, Path;
+	use i18n;
+	use Path;
 
 	/**
 	 * Schedule name

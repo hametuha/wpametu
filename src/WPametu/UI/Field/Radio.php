@@ -60,6 +60,4 @@ class Radio extends Multiple {
 			$this->inline ? ' class="inline"' : ''
 		);
 	}
-
-
 }

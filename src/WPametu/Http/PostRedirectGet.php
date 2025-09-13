@@ -2,7 +2,7 @@
 
 namespace WPametu\Http;
 
-use WPametu\Pattern, \WPametu\Traits\i18n;
+use WPametu\Pattern, WPametu\Traits\i18n;
 
 /**
  * Class which provides session-based PRG(Post Redirect Get)
