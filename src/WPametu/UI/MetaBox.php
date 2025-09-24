@@ -129,8 +129,8 @@ abstract class MetaBox extends Singleton {
 						remove_meta_box( 'formatdiv', $post_type, 'side' );
 						break;
 					default:
-						$class_uses = class_uses( $vars['class'] );
-						if ( $class_uses && array_search( Taxonomy::class, $class_uses, true ) ) {
+						$class_uses = class_uses( $vars['class'] ) ?? [];
+						if ( is_array( $class_uses ) && in_array( Taxonomy::class, $class_uses, true ) ) {
 							if ( taxonomy_exists( $name ) ) {
 								if ( is_taxonomy_hierarchical( $name ) ) {
 									$box_id = $name . 'div';
