@@ -9,7 +9,7 @@ use WPametu\UI\Field\GeoChecker;
 use WPametu\UI\Field\Radio;
 use WPametu\UI\Field\Select;
 use WPametu\UI\Field\Text;
-use WPametu\UI\Field\Textarea;
+use WPametu\UI\Field\TextArea;
 
 class NewsMetaBox extends EditMetaBox {
 
@@ -23,7 +23,7 @@ class NewsMetaBox extends EditMetaBox {
 
 	protected $fields = [
 		'excerpt' => [
-			'class'       => Textarea::class,
+			'class'       => TextArea::class,
 			'label'       => 'Lead Text',
 			'required'    => true,
 			'description' => 'This is a lead text for news article.',
