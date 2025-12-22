@@ -48,6 +48,6 @@ jobs:
         run: zip -r wpametu.zip ./
 
       - name: Upload Release Asset
-        run: gh release upload "${{ github.event.release.tag_name }}" wpametu.zip --clobber
+        run: gh release upload "${{ github.event.release.tag_name }}" wpametu.zip --clobber -R ${{ github.repository }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
