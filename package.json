@@ -42,7 +42,7 @@
 		"@wordpress/eslint-plugin": "^17.4.0",
 		"babel-loader": "^8.0.5",
 		"babel-preset-minify": "^0.5.1",
-		"chart.js": "^2.2",
+		"chart.js": "^4.4",
 		"eslint": "^8.48.0",
 		"font-awesome": "^4.7",
 		"gulp": "^4.0",
