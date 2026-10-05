@@ -34,12 +34,6 @@ class Library extends Singleton {
 	 */
 	private $scripts = array(
 		// Bundled libraries
-		'chart-js'             => array(
-			'/assets/vendor/chart-js/Chart.min.js',
-			null,
-			'2.7.1',
-			true,
-		),
 		'jsrender'             => array(
 			'/assets/vendor/jsrender/jsrender.min.js',
 			array( 'jquery' ),

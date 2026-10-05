@@ -102,12 +102,6 @@ gulp.task( 'copy', () => {
 	return mergeStream(
 		gulp.src(
 			[
-				'node_modules/chart.js/dist/Chart.min.js',
-			]
-		)
-			.pipe( gulp.dest( './assets/vendor/chart-js' ) ),
-		gulp.src(
-			[
 				'node_modules/jsrender/jsrender.min.js',
 				'node_modules/jsrender/jsrender.min.js.map',
 			]
