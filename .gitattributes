@@ -10,6 +10,7 @@ bin/ export-ignore
 .wp-env.json export-ignore
 .node-version export-ignore
 composer.lock export-ignore
+package-lock.json export-ignore
 gulpfile.js export-ignore
 hamepub export-ignore
 phpcs.ruleset.xml export-ignore

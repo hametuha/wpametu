@@ -50,9 +50,10 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: 'npm'
 
       - name: Install Packages
-        run: npm install
+        run: npm ci
 
       - name: Stylelint and ESlint
         run: npm run lint
