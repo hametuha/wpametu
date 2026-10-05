@@ -64,6 +64,7 @@
 		"sass": "^1.69.5",
 		"stylelint": "^13.0.0",
 		"stylelint-config-wordpress": "^17.0.0",
+		"terser-webpack-plugin": "^5.6.1",
 		"vinyl-named": "^1.1.0",
 		"webpack": "^5.89.0",
 		"webpack-stream": "^7.0.0"
