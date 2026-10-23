@@ -29,7 +29,7 @@
 		"url": "https://github.com/hametuha/wpametu/issues"
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=24.22.1"
 	},
 	"homepage": "https://github.com/hametuha/wpametu",
 	"devDependencies": {
@@ -68,8 +68,5 @@
 		"vinyl-named": "^1.1.0",
 		"webpack": "^5.89.0",
 		"webpack-stream": "^7.0.0"
-	},
-	"volta": {
-		"node": "16.20.2"
 	}
 }
