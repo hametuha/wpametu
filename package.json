@@ -61,12 +61,12 @@
 		"jquery-ui-timepicker-addon": "^1.5",
 		"jsrender": "^0.9",
 		"merge-stream": "^2.0.0",
-		"sass": "^1.69.5",
+		"sass": "^1.105.2",
 		"stylelint": "^13.0.0",
 		"stylelint-config-wordpress": "^17.0.0",
 		"terser-webpack-plugin": "^5.6.1",
 		"vinyl-named": "^1.1.0",
-		"webpack": "^5.89.0",
+		"webpack": "^5.112.0",
 		"webpack-stream": "^7.0.0"
 	}
 }
