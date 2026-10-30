@@ -13,7 +13,7 @@
 	"require": {
 		"php": ">=7.4",
 		"masterminds/html5": "~2.1",
-		"google/recaptcha": "~1.1",
+		"google/recaptcha": "~2.1",
 		"tijsverkoyen/css-to-inline-styles": "^2.2",
 		"hametuha/pattern": "^1.0"
 	},
