@@ -78,7 +78,7 @@ abstract class Base {
 	 *
 	 * @param \WP_Post $post
 	 */
-	public function render( \WP_Post $post = null ) {
+	public function render( ?\WP_Post $post = null ) {
 		$required = $this->get_required( $post );
 		$label    = esc_html( $this->label );
 		$desc_str = $this->description;
@@ -93,7 +93,7 @@ abstract class Base {
 	 * @param \WP_Post $post
 	 * @return string
 	 */
-	protected function get_required( \WP_Post $post = null ) {
+	protected function get_required( ?\WP_Post $post = null ) {
 		return $this->required ? sprintf( ' <small class="required"><i class="dashicons dashicons-yes"></i> %s</small>', $this->__( 'Required' ) ) : '';
 	}
 
@@ -166,7 +166,7 @@ HTML;
 	 * @param mixed $value
 	 * @param \WP_Post $post
 	 */
-	public function update( $value, \WP_Post $post = null ) {
+	public function update( $value, ?\WP_Post $post = null ) {
 		if ( $this->validate( $value ) ) {
 			$this->save( $value, $post );
 		}
@@ -178,7 +178,7 @@ HTML;
 	 * @param mixed $value
 	 * @param \WP_Post $post
 	 */
-	protected function save( $value, \WP_Post $post = null ) {
+	protected function save( $value, ?\WP_Post $post = null ) {
 		update_post_meta( $post->ID, $this->name, $value );
 	}
 

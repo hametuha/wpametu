@@ -31,7 +31,7 @@ trait Taxonomy {
 	 * @param mixed $value
 	 * @param \WP_Post $post
 	 */
-	protected function save( $value, \WP_Post $post = null ) {
+	protected function save( $value, ?\WP_Post $post = null ) {
 		// Do nothing, because taxonomy will be automatically save.
 	}
 
