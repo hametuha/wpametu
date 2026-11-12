@@ -9,8 +9,12 @@ jobs:
   test:
     strategy:
       matrix:
-        php: [ '7.4', '8.0' ] # PHP versions to check.
+        php: [ '7.4', '8.0', '8.4' ] # PHP versions to check.
         wp: [ 'latest', '6.1' ]      # WordPress version to check.
+        exclude:
+          # WordPress 6.1 predates PHP 8.4 support.
+          - php: '8.4'
+            wp: '6.1'
     uses: tarosky/workflows/.github/workflows/wp-unit-test.yml@main
     name: PHP Unit Test with PHP ${{ matrix.php }} and WP ${{ matrix.wp }}
     with:

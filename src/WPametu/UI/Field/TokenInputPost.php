@@ -76,7 +76,7 @@ class TokenInputPost extends TokenInput {
 	 * @param mixed $value
 	 * @param \WP_Post $post
 	 */
-	protected function save( $value, \WP_Post $post = null ) {
+	protected function save( $value, ?\WP_Post $post = null ) {
 		switch ( $this->field ) {
 			case 'post_meta':
 				update_post_meta( $post->ID, $this->name, $value );
@@ -98,7 +98,7 @@ class TokenInputPost extends TokenInput {
 	 * @param \WP_Post $post
 	 * @return string
 	 */
-	protected function get_required( \WP_Post $post = null ) {
+	protected function get_required( ?\WP_Post $post = null ) {
 		if ( current_user_can( 'edit_posts' ) ) {
 			$url           = admin_url( 'post-new.php?post_type=' . $this->post_type );
 			$post_type_obj = get_post_type_object( $this->post_type );

@@ -26,7 +26,7 @@ abstract class RewriteParser extends Controller {
 	 * @param string $uri
 	 * @param \WP_Query $wp_query
 	 */
-	public function parse_request( $uri, \WP_Query &$wp_query = null ) {
+	public function parse_request( $uri, ?\WP_Query &$wp_query = null ) {
 		// Set wp_query if exists
 		if ( ! is_null( $wp_query ) ) {
 			$this->wp_query = $wp_query;
